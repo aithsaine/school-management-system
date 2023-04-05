@@ -1,20 +1,22 @@
-import React, { useState } from "react";
+import React, {useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Login_Action } from "../../redux/actions/actionCreators";
-import { api } from "../../tools/api";
+import  api  from "../../tools/api";
 export default function Login() {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null)
   const [errors,setErrors] = useState();
   const dispatch = useDispatch();
-  const islogged = useSelector(state=>state.islogged);
  const LoginHandel  = (e)=>{
   e.preventDefault()
-  api.post('/login',{email:email,password:password}).then(responce=>dispatch(Login_Action(responce.data))).catch(er=> setErrors(er.response.data))
+  api.post('/login',{email:email,password:password})
+  .then((responce)=>{
+    dispatch(Login_Action(responce.data))
+window.location.reload()  })
+  .catch(er=> setErrors(er.response.data))
   }
   return (
     <>
- 
       <div className="container  h-full absolute ">
         <div className="flex content-center items-center justify-center h-full">
           <div className="w-full lg:w-4/12 px-4">
@@ -24,8 +26,6 @@ export default function Login() {
                   <h1 className="text-sky-800 ">Login</h1>
                 </div>
                 <form>
-
-                {}
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
