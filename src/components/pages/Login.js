@@ -1,20 +1,13 @@
-import React, {useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Login_Action } from "../../redux/actions/actionCreators";
-import  api  from "../../tools/api";
+import React, { useState } from "react";
+import useAuthContext from "../../contexts/authContext";
 export default function Login() {
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null)
-  const [errors,setErrors] = useState();
-  const dispatch = useDispatch();
- const LoginHandel  = (e)=>{
-  e.preventDefault()
-  api.post('/login',{email:email,password:password})
-  .then((responce)=>{
-    dispatch(Login_Action(responce.data))
-window.location.reload()  })
-  .catch(er=> setErrors(er.response.data))
-  }
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { login, errors } = useAuthContext();
+  const LoginHandel = async (e) => {
+    e.preventDefault();
+    login({ email, password });
+  };
   return (
     <>
       <div className="container  h-full absolute ">
@@ -35,10 +28,14 @@ window.location.reload()  })
                     </label>
                     <input
                       type="email"
-                      onChange={e=>setEmail(e.target.value)}
+                      onChange={(e) => setEmail(e.target.value)}
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Email"
+                      value={email}
                     />
+                    <span className="text-red-500 mx-0 my-2">
+                      {errors.email && errors.email[0]}
+                    </span>
                   </div>
 
                   <div className="relative w-full mb-3">
@@ -50,9 +47,10 @@ window.location.reload()  })
                     </label>
                     <input
                       type="password"
-                      onChange={e=>setPassword(e.target.value)}
+                      onChange={(e) => setPassword(e.target.value)}
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Password"
+                      value={password}
                     />
                   </div>
                   <div>

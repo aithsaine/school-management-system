@@ -1,35 +1,18 @@
 import React, { useState } from "react";
-import { HiMenuAlt3,HiOutlineLogout } from "react-icons/hi";
+import { HiMenuAlt3, HiOutlineLogout } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
 import { RiSettings4Line } from "react-icons/ri";
 import { TbReportAnalytics } from "react-icons/tb";
 import { AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
 import { FiMessageSquare, FiFolder, FiShoppingCart } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import api from "../../../tools/api";
-import {  Logout_Action } from "../../../redux/actions/actionCreators";
 
+const Admin = ({ children }) => {
+  const LogoutHandel = async () => {};
 
-const Dashboard = () => {
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const user = useSelector(state=>state.user)
-    const token = useSelector(state=>state.token)
-    const LogoutHandel =async ()=>{
-       await api.post("/logout", {
-        headers:
-         { Authorization: `Bearer ${token.trim()}` }
-    })
-        .then(e=>{
-            dispatch(Logout_Action)
-            navigate("/login")
-    })
-        .catch(er=>console.log(er))
-    }
   const menus = [
     { name: "dashboard", link: "/dashboard", icon: MdOutlineDashboard },
-    { name: "user", link: "/", icon: AiOutlineUser },
+    { name: "user", link: "/user", icon: AiOutlineUser },
     { name: "messages", link: "/", icon: FiMessageSquare },
     { name: "analytics", link: "/", icon: TbReportAnalytics, margin: true },
     { name: "File Manager", link: "/", icon: FiFolder },
@@ -39,11 +22,10 @@ const Dashboard = () => {
   ];
   const [open, setOpen] = useState(false);
   return (
-    <section className={`${
-        open && "bg-gray-300"
-      } flex gap-6  relative`}
-      style={{height:"1000px"}}
-      >
+    <section
+      className={`${open && "bg-gray-300"} flex gap-6  relative`}
+      style={{ height: "1000px" }}
+    >
       <div
         className={`bg-[#0e0e0e] min-h-screen ${
           open ? "w-72" : "w-16"
@@ -86,39 +68,36 @@ const Dashboard = () => {
             </Link>
           ))}
 
-
           <button
-          onClick={LogoutHandel}
-              className={` group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
+            onClick={LogoutHandel}
+            className={` group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
+          >
+            <div>{React.createElement(HiOutlineLogout, { size: "20" })}</div>
+            <h2
+              style={{
+                transitionDelay: `1200ms`,
+              }}
+              className={`whitespace-pre duration-500 ${
+                !open && "opacity-0 translate-x-28 overflow-hidden"
+              }`}
             >
-              <div>{React.createElement(HiOutlineLogout, { size: "20" })}</div>
-              <h2
-                style={{
-                  transitionDelay: `1200ms`,
-                }}
-                className={`whitespace-pre duration-500 ${
-                  !open && "opacity-0 translate-x-28 overflow-hidden"
-                }`}
-              >
-                logout
-              </h2>
-              <h2
-                className={`${
-                  open && "hidden"
-                } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
-              >
-                logout
-              </h2>
-            </button>
-
-
+              logout
+            </h2>
+            <h2
+              className={`${
+                open && "hidden"
+              } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
+            >
+              logout
+            </h2>
+          </button>
         </div>
       </div>
       <div className={` m-3  ml-20 text-xl text-gray-900 font-semibold`}>
-        Hello {user}
+        {children}
       </div>
     </section>
   );
 };
 
-export default Dashboard;
+export default Admin;
