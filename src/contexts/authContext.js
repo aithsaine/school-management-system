@@ -27,9 +27,19 @@ export const AuthProvider = ({ children }) => {
       }
     }
   };
+  const logout = async () => {
+    await csrf();
+    try {
+      await api.post("/logout");
+      setUser(null);
+      navigate("/login");
+    } catch (er) {
+      console.log(er);
+    }
+  };
 
   return (
-    <AuthContext.Provider value={{ user, errors, login, getUser }}>
+    <AuthContext.Provider value={{ user, errors, login, getUser, logout }}>
       {children}
     </AuthContext.Provider>
   );

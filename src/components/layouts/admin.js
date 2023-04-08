@@ -6,9 +6,13 @@ import { TbReportAnalytics } from "react-icons/tb";
 import { AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
 import { FiMessageSquare, FiFolder, FiShoppingCart } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
+import useAuthContext from "../../contexts/authContext";
 
 const Admin = ({ children }) => {
-  const LogoutHandel = async () => {};
+  const { logout } = useAuthContext();
+  const LogoutHandel = async () => {
+    logout();
+  };
 
   const menus = [
     { name: "dashboard", link: "/dashboard", icon: MdOutlineDashboard },
