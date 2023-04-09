@@ -1,18 +1,21 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import api from "../tools/api";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { set_user } from "../redux/actions/actionCreators";
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
   const csrf = () => api.get("/sanctum/csrf-cookie");
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
   const getUser = async () => {
     await csrf();
     const { data } = await api.get("/api/user");
-    setUser(data.data);
+    dispatch(set_user(data.data));
   };
 
   const login = async ({ ...data }) => {
@@ -30,8 +33,10 @@ export const AuthProvider = ({ children }) => {
       }
       navigate("/admin");
     } catch (er) {
-      if (er.response.status == "422") {
+      if (er.response.status === "422") {
         setErrors(er.response.data.errors);
+      } else {
+        console.log(er.response.status);
       }
     }
   };
@@ -39,7 +44,7 @@ export const AuthProvider = ({ children }) => {
     await csrf();
     try {
       await api.post("/logout");
-      setUser(null);
+      dispatch(set_user(null));
       navigate("/login");
     } catch (er) {
       console.log(er);
@@ -50,7 +55,7 @@ export const AuthProvider = ({ children }) => {
   });
 
   return (
-    <AuthContext.Provider value={{ user, errors, login, getUser, logout }}>
+    <AuthContext.Provider value={{ errors, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

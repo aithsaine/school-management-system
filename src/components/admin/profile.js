@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import useAuthContext from "../../contexts/authContext";
 
-function User() {
+function Profile() {
   const { user } = useAuthContext();
 
   return <h1>{user && user.first_name}</h1>;
 }
 
-export default User;
+export default Profile;

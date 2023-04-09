@@ -18,7 +18,7 @@ const Admin = ({ children }) => {
     { name: "dashboard", link: "/admin", icon: MdOutlineDashboard },
     { name: "my profile", link: "/admin/profile", icon: AiOutlineUser },
     { name: "teachers", link: "/admin/teachers", icon: AiOutlineTeam },
-    { name: "Students", link: "admin/students", icon: TbSchool },
+    { name: "Students", link: "/admin/students", icon: TbSchool },
     { name: "messages", link: "/", icon: FiMessageSquare },
     { name: "analytics", link: "/", icon: TbReportAnalytics, margin: true },
     { name: "File Manager", link: "/", icon: FiFolder },
@@ -29,13 +29,13 @@ const Admin = ({ children }) => {
   const [open, setOpen] = useState(false);
   return (
     <section
-      className={`${open && "bg-gray-300"} flex gap-6  relative`}
+      className={`${open && "bg-gray-300"} flex   relative`}
       style={{ height: "1000px" }}
     >
       <div
         className={`bg-[#0e0e0e] min-h-screen ${
           open ? "w-72" : "w-16"
-        } duration-500 text-gray-100 px-4 absolute`}
+        } duration-500 text-gray-100 px-4 fixed scroll-x-auto`}
       >
         <div className="py-3 flex justify-end">
           <HiMenuAlt3

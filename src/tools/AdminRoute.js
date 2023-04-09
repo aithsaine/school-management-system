@@ -1,9 +1,9 @@
 import React from "react";
-import useAuthContext from "../contexts/authContext";
 import { Navigate, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function AdminRoute() {
-  const { user } = useAuthContext();
+  const user = useSelector((state) => state.user);
   return user && user.role === "admin" ? (
     <Outlet />
   ) : (

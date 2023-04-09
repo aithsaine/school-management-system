@@ -4,9 +4,11 @@ import Login from "./pages/Login";
 import AdminDashobard from "./components/admin/adminDashboard";
 import Admin from "./layouts/admin";
 import Home from "./pages/home";
-import User from "./components/admin/user";
+import Profile from "./components/admin/profile";
 import AdminRoute from "./tools/AdminRoute";
 import GestRoute from "./tools/GestRoute";
+import Students from "./components/admin/students";
+import Teachers from "./components/admin/teachers";
 
 function App() {
   return (
@@ -29,7 +31,23 @@ function App() {
             path="admin/profile"
             element={
               <Admin>
-                <User />
+                <Profile />
+              </Admin>
+            }
+          />
+          <Route
+            path="admin/students"
+            element={
+              <Admin>
+                <Students />
+              </Admin>
+            }
+          />
+          <Route
+            path="admin/teachers"
+            element={
+              <Admin>
+                <Teachers />
               </Admin>
             }
           />
