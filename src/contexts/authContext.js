@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
   const getUser = async () => {
     await csrf();
     const { data } = await api.get("/api/user");
-    setUser(data);
+    setUser(data.data);
   };
 
   const login = async ({ ...data }) => {
@@ -20,7 +20,15 @@ export const AuthProvider = ({ children }) => {
     try {
       await api.post("/login", data);
       getUser();
-      navigate("/dashboard");
+      switch (user.role) {
+        case "admin":
+          navigate("/admin");
+        case "teacher":
+          navigate("/teacher");
+        default:
+          navigate("/student");
+      }
+      navigate("/admin");
     } catch (er) {
       if (er.response.status == "422") {
         setErrors(er.response.data.errors);

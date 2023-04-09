@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import useAuthContext from "../../contexts/authContext";
+import useAuthContext from "../contexts/authContext";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,7 +33,7 @@ export default function Login() {
                       placeholder="Email"
                       value={email}
                     />
-                    <span className="text-red-500 mx-0 my-2">
+                    <span className="text-red-500 text-left text-sm mx-0 my-2">
                       {errors.email && errors.email[0]}
                     </span>
                   </div>

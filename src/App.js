@@ -1,11 +1,11 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Login from "./components/pages/Login";
-import Dashobard from "./components/pages/auth/admin/dashboard";
-import Admin from "./components/layouts/admin";
-import Home from "./components/pages/home";
-import User from "./components/pages/auth/admin/user";
-import AuthRoute from "./tools/AuthRoute";
+import Login from "./pages/Login";
+import AdminDashobard from "./components/admin/adminDashboard";
+import Admin from "./layouts/admin";
+import Home from "./pages/home";
+import User from "./components/admin/user";
+import AdminRoute from "./tools/AdminRoute";
 import GestRoute from "./tools/GestRoute";
 
 function App() {
@@ -16,17 +16,17 @@ function App() {
         <Route element={<GestRoute />}>
           <Route path="/login" element={<Login />} />
         </Route>
-        <Route element={<AuthRoute />}>
+        <Route element={<AdminRoute />}>
           <Route
-            path="/dashboard"
+            path="/admin"
             element={
               <Admin>
-                <Dashobard />
+                <AdminDashobard />
               </Admin>
             }
           />
           <Route
-            path="/user"
+            path="admin/profile"
             element={
               <Admin>
                 <User />

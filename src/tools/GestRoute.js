@@ -4,7 +4,7 @@ import { Navigate, Outlet } from "react-router-dom";
 
 function GestRoute() {
   const { user } = useAuthContext();
-  return user ? <Navigate to={"/dashboard"} /> : <Outlet />;
+  return user ? <Navigate to={"/admin"} /> : <Outlet />;
 }
 
 export default GestRoute;

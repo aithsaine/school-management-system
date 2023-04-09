@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { HiMenuAlt3, HiOutlineLogout } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
 import { RiSettings4Line } from "react-icons/ri";
-import { TbReportAnalytics } from "react-icons/tb";
-import { AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
+import { TbReportAnalytics, TbSchool } from "react-icons/tb";
+import { AiOutlineUser, AiOutlineHeart, AiOutlineTeam } from "react-icons/ai";
 import { FiMessageSquare, FiFolder, FiShoppingCart } from "react-icons/fi";
-import { Link, useNavigate } from "react-router-dom";
-import useAuthContext from "../../contexts/authContext";
+import { Link } from "react-router-dom";
+import useAuthContext from "../contexts/authContext";
 
 const Admin = ({ children }) => {
   const { logout } = useAuthContext();
@@ -15,8 +15,10 @@ const Admin = ({ children }) => {
   };
 
   const menus = [
-    { name: "dashboard", link: "/dashboard", icon: MdOutlineDashboard },
-    { name: "user", link: "/user", icon: AiOutlineUser },
+    { name: "dashboard", link: "/admin", icon: MdOutlineDashboard },
+    { name: "my profile", link: "/admin/profile", icon: AiOutlineUser },
+    { name: "teachers", link: "/admin/teachers", icon: AiOutlineTeam },
+    { name: "Students", link: "admin/students", icon: TbSchool },
     { name: "messages", link: "/", icon: FiMessageSquare },
     { name: "analytics", link: "/", icon: TbReportAnalytics, margin: true },
     { name: "File Manager", link: "/", icon: FiFolder },
