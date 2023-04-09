@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        //example : technicien specialiser , qualifier ...
         Schema::create('levels', function (Blueprint $table) {
             $table->id();
             $table->string("name");

@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // example 101 102 201 202 ...
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
             $table->string("name");

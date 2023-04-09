@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // example developpement digitale , gestion ...
         Schema::create('branches', function (Blueprint $table) {
             $table->id();
             $table->string("name");

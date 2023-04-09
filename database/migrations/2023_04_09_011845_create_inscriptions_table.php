@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign("student_number")->references("student_number")->on("students");
             $table->foreignId("group_id");
             $table->foreignId("branch_id");
+            $table->foreignId("level_id");
             $table->date("registration_date");
             $table->timestamps();
         });
