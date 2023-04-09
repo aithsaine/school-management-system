@@ -18,3 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return new UserResource($request->user());
 });
+Route::controller(App\Http\Controllers\Api\AdminStudentController::class)->group(function () {
+    Route::get("/admin/students", "index");
+});

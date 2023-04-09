@@ -10,5 +10,5 @@ class Student extends Model
 {
     use HasFactory, HasApiTokens;
     protected $primaryKey = "student_number";
-    protected $fillable = ["user_id"];
+    protected $fillable = ["student_number", "user_id"];
 }
