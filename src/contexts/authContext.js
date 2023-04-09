@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import api from "../tools/api";
 import { useNavigate } from "react-router-dom";
 const AuthContext = createContext({});
@@ -37,6 +37,9 @@ export const AuthProvider = ({ children }) => {
       console.log(er);
     }
   };
+  useEffect(() => {
+    if (!user) getUser();
+  });
 
   return (
     <AuthContext.Provider value={{ user, errors, login, getUser, logout }}>

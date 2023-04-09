@@ -46,6 +46,7 @@ const Admin = ({ children }) => {
           {menus?.map((menu, i) => (
             <Link
               to={menu?.link}
+              onClick={(e) => setOpen(false)}
               key={i}
               className={` ${
                 menu?.margin && "mt-5"
