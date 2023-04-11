@@ -1,12 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useAuthContext from "../contexts/authContext";
+import { useNavigate } from "react-router-dom";
+import api from "../tools/api";
+import router from "../tools/router";
 export default function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login, errors } = useAuthContext();
-  const LoginHandel = async (e) => {
+  const { setToken, setRole } = useAuthContext();
+  const [errors, setErrors] = useState();
+  const LoginHandel = (e) => {
     e.preventDefault();
-    login({ email, password });
+    api.post("api/login", { email, password }).then((responce) => {
+      localStorage.setItem("auth_token", responce.data.token);
+      localStorage.setItem("role", responce.data.user.role);
+      setToken(responce.data.token);
+      setRole(responce.data.user.role);
+    });
+    navigate("/admin");
   };
   return (
     <>
@@ -34,7 +45,7 @@ export default function Login() {
                       value={email}
                     />
                     <span className="text-red-500 text-left text-sm mx-0 my-2">
-                      {errors.email && errors.email[0]}
+                      {/* {errors.email && errors.email[0]} */}
                     </span>
                   </div>
 

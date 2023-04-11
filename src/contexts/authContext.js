@@ -1,61 +1,19 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import api from "../tools/api";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { set_user } from "../redux/actions/actionCreators";
-const AuthContext = createContext({});
+const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const csrf = () => api.get("/sanctum/csrf-cookie");
-  const [errors, setErrors] = useState([]);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
-
-  const getUser = async () => {
-    await csrf();
-    const { data } = await api.get("/api/user");
-    dispatch(set_user(data.data));
-  };
-
-  const login = async ({ ...data }) => {
-    await csrf();
-    try {
-      await api.post("/login", data);
-      getUser();
-      switch (user.role) {
-        case "admin":
-          navigate("/admin");
-        case "teacher":
-          navigate("/teacher");
-        default:
-          navigate("/student");
-      }
-      navigate("/admin");
-    } catch (er) {
-      if (er.response.status === "422") {
-        setErrors(er.response.data.errors);
-      } else {
-        console.log(er.response.status);
-      }
-    }
-  };
-  const logout = async () => {
-    await csrf();
-    try {
-      await api.post("/logout");
-      dispatch(set_user(null));
-      navigate("/login");
-    } catch (er) {
-      console.log(er);
-    }
-  };
-  useEffect(() => {
-    if (!user) getUser();
-  });
+  // const csrf = () => api.get("/sanctum/csrf-cookie");
+  const [user, setUser] = useState();
+  const [token, setToken] = useState(
+    localStorage.getItem("auth_token") ?? null
+  );
+  const [role, setRole] = useState(localStorage.getItem("role") ?? null);
 
   return (
-    <AuthContext.Provider value={{ errors, login, logout }}>
+    <AuthContext.Provider
+      value={{ user, setUser, token, setToken, role, setRole }}
+    >
       {children}
     </AuthContext.Provider>
   );
