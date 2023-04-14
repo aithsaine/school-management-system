@@ -7,19 +7,22 @@ import { AiOutlineUser, AiOutlineHeart, AiOutlineTeam } from "react-icons/ai";
 import { FiMessageSquare, FiFolder, FiShoppingCart } from "react-icons/fi";
 import { Link, Outlet } from "react-router-dom";
 import router from "../tools/router";
+import { set_user } from "../redux/actions/actionCreators";
 import api from "../tools/api";
+import { useDispatch, useSelector } from "react-redux";
 const AdminLayout = () => {
   const [open, setOpen] = useState(false);
-  const [user, setUser] = useState({});
-
+  const dispatch = useDispatch();
   useEffect(() => {
-    (async () => {
-      await api
-        .get("/api/user")
-        .then((res) => {
-          if (res.data.data.role !== "admin") router.navigate("/admin");
-        })
-        .catch((er) => {});
+    (() => {
+      api.get("/api/user").then((res) => {
+        if (res.data.data) {
+          dispatch(set_user(res.data.data));
+          if (res.data.data.role !== "admin") {
+            router.navigate("/login");
+          }
+        }
+      });
     })();
   }, []);
   const LogoutHandel = async (e) => {
