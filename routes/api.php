@@ -24,5 +24,5 @@ Route::controller(App\Http\Controllers\Api\AdminStudentController::class)->group
 });
 Route::controller(AuthenticationController::class)->group(function(){
     Route::post("login","login");
-    Route::post("logout","logout");
+    Route::post("logout","logout")->middleware("auth:sanctum");
     });
