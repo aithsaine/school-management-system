@@ -1,24 +1,34 @@
 import React, { useEffect, useState } from "react";
-import useAuthContext from "../contexts/authContext";
-import { useNavigate } from "react-router-dom";
-import api from "../tools/api";
+import { Navigate, useNavigate } from "react-router-dom";
+import api, { csrf } from "../tools/api";
+import Cookies from "js-cookie";
 import router from "../tools/router";
 export default function Login() {
   const navigate = useNavigate();
+  const [error, setError] = useState();
   const [email, setEmail] = useState("");
+  useEffect(() => {
+    (async () => {
+      await api
+        .get("/api/user")
+        .then((res) => {
+          if (res.data.data.role === "admin") {
+            router.navigate("/admin");
+          }
+        })
+        .catch((er) => {
+          setError(er);
+        });
+    })();
+  }, []);
   const [password, setPassword] = useState("");
-  const { setToken, setRole } = useAuthContext();
-  const [errors, setErrors] = useState();
-  const LoginHandel = (e) => {
+  const LoginHandel = async (e) => {
     e.preventDefault();
-    api.post("api/login", { email, password }).then((responce) => {
-      localStorage.setItem("auth_token", responce.data.token);
-      localStorage.setItem("role", responce.data.user.role);
-      setToken(responce.data.token);
-      setRole(responce.data.user.role);
-    });
+    await csrf();
+    await api.post("api/login", { email, password }).then((responce) => {});
     navigate("/admin");
   };
+
   return (
     <>
       <div className="container  h-full absolute ">

@@ -1,11 +1,13 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
-import useAuthContext from "../contexts/authContext";
+import React, { useEffect, useState } from "react";
+import { Navigate, Outlet } from "react-router-dom";
 import router from "../tools/router";
+import api from "../tools/api";
 function GestLayout() {
-  const { token, role } = useAuthContext();
-  if (token && role == "admin") return router.navigate("admin");
-  return <Outlet />;
+  return (
+    <>
+      <Outlet />;
+    </>
+  );
 }
 
 export default GestLayout;

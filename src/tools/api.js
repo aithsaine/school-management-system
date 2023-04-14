@@ -1,11 +1,12 @@
 import axios from "axios";
 import router from "./router";
-const token = localStorage.getItem("auth_token") ?? null;
 const api = axios.create({
   baseURL: "http://localhost:8000",
   withCredentials: true,
   headers: {
-    Authorization: `Bearer ${token}`,
+    Accept: "application/json",
+    "Content-Type": "application/json",
+    "X-Requested-With": "XMLHttpRequest",
   },
 });
 api.interceptors.response.use(
@@ -13,10 +14,9 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response && error.response.status === 401)
-      return router.navigate("/login");
-    throw error;
+    return router.navigate("/login");
   }
 );
 
 export default api;
+export const csrf = async () => await api.get("sanctum/csrf-cookie");
