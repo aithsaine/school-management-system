@@ -1,5 +1,4 @@
 import React from "react";
-import Table from "../table";
 import { success_toast } from "../../tools/notifications";
 import { ToastContainer } from "react-toastify";
 

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { DoubleBubble, DoubleOrbit } from "react-spinner-animated";
+import React from "react";
+import { HalfMalf } from "react-spinner-animated";
 import "react-spinner-animated/dist/index.css";
 
 const Loading = () => {
   return (
-    <DoubleBubble
+    <HalfMalf
       text={"Loading..."}
       bgColor={"#ffffff"}
       center={true}

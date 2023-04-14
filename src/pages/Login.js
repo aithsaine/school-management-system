@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import api, { csrf } from "../tools/api";
-import Cookies from "js-cookie";
 import router from "../tools/router";
 export default function Login() {
   const navigate = useNavigate();
@@ -33,7 +32,7 @@ export default function Login() {
         if (responce.status) if (responce.status === 200) navigate("/admin");
       })
       .catch((er) => {
-        if (er.response.status == 422) setErrors(er.response.data);
+        if (er.response.status === 422) setErrors(er.response.data);
       });
   };
 

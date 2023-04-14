@@ -28,7 +28,6 @@ const AdminLayout = () => {
     { name: "Saved", link: "/", icon: AiOutlineHeart, margin: true },
     { name: "Setting", link: "/", icon: RiSettings4Line },
   ];
-
   useEffect(() => {
     (() => {
       api
@@ -36,6 +35,7 @@ const AdminLayout = () => {
         .then((res) => {
           if (res) {
             dispatch(set_user(res.data.data));
+
             if (res.data.data.role !== "admin") {
               router.navigate("/login");
             }

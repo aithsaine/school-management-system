@@ -4,8 +4,9 @@ const reducer = (state = initial_state, action) => {
   switch (action.type) {
     case SET_USER:
       return { ...state, user: action.payload };
+    default:
+      return { ...state };
   }
-  return { ...state };
 };
 
 export default reducer;
