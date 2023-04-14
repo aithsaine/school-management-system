@@ -80,6 +80,7 @@ export default function Login() {
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Password"
                       value={password}
+                      autoComplete="current_password"
                     />
                     <span className="text-red-500 text-left text-sm mx-0 my-2">
                       {errors.password && errors.password[0]}

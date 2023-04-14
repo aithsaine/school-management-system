@@ -10,32 +10,12 @@ import router from "../tools/router";
 import { set_user } from "../redux/actions/actionCreators";
 import api from "../tools/api";
 import { useDispatch } from "react-redux";
+import Loading from "../tools/loader";
 
 const AdminLayout = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-  useEffect(() => {
-    (() => {
-      api.get("/api/user").then((res) => {
-        if (res) {
-          dispatch(set_user(res.data.data));
-          if (res.data.data.role !== "admin") {
-            router.navigate("/login");
-          }
-        }
-      });
-    })();
-  }, []);
-  const LogoutHandel = async (e) => {
-    e.preventDefault();
-    await api
-      .post("/api/logout")
-      .then((res) => {
-        router.navigate("/login");
-      })
-      .catch((er) => console.log(er));
-  };
-
+  const [isLoading, setLoading] = useState(true);
   const menus = [
     { name: "dashboard", link: "/admin", icon: MdOutlineDashboard },
     { name: "my profile", link: "/admin/profile", icon: AiOutlineUser },
@@ -49,10 +29,47 @@ const AdminLayout = () => {
     { name: "Setting", link: "/", icon: RiSettings4Line },
   ];
 
-  // if (!usre || !role) return router.navigate("login");
+  useEffect(() => {
+    (() => {
+      api
+        .get("/api/user")
+        .then((res) => {
+          if (res) {
+            dispatch(set_user(res.data.data));
+            if (res.data.data.role !== "admin") {
+              router.navigate("/login");
+            }
+          }
+        })
+        .catch((error) => {
+          if (error.response.status !== 422) return router.navigate("/login");
+        });
+    })();
+  }, []);
+
+  const LogoutHandel = async (e) => {
+    e.preventDefault();
+    await api
+      .post("/api/logout")
+      .then((res) => {
+        router.navigate("/login");
+      })
+      .catch((er) => console.log(er));
+  };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <section
-      className={`${open && "bg-gray-300"} flex   relative`}
+      className={`${open && "bg-gray-300"} flex z-10  relative`}
       style={{ height: "1000px" }}
     >
       <div
@@ -123,7 +140,7 @@ const AdminLayout = () => {
           </button>
         </div>
       </div>
-      <div className={` m-3  ml-20 text-xl text-gray-900 font-semibold`}>
+      <div className={` m-3  ml-20 text-xl text-gray-900 font-semibold z-100`}>
         <Outlet />
       </div>
     </section>
