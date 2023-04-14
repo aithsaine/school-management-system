@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class AdminStudentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(["auth:sanctum", "admin"]);
+    }
     //
     public function index(Request $request)
     {

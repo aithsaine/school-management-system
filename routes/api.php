@@ -16,13 +16,13 @@ use App\Http\Controllers\Api\AuthenticationController;
 |
 */
 
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
+Route::middleware(["auth:sanctum", "admin"])->get('/user', function (Request $request) {
     return new UserResource($request->user());
-}); 
+});
 Route::controller(App\Http\Controllers\Api\AdminStudentController::class)->group(function () {
     Route::get("/admin/students", "index");
 });
-Route::controller(AuthenticationController::class)->group(function(){
-    Route::post("login","login");
-    Route::post("logout","logout")->middleware("auth:sanctum");
-    });
+Route::controller(AuthenticationController::class)->group(function () {
+    Route::post("login", "login");
+    Route::post("logout", "logout")->middleware("auth:sanctum");
+});
