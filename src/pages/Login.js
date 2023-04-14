@@ -5,7 +5,11 @@ import Cookies from "js-cookie";
 import router from "../tools/router";
 export default function Login() {
   const navigate = useNavigate();
-  const [error, setError] = useState();
+  const [errors, setErrors] = useState({
+    email: null,
+    password: null,
+    incorrect_psd: null,
+  });
   const [email, setEmail] = useState("");
   useEffect(() => {
     (async () => {
@@ -16,22 +20,26 @@ export default function Login() {
             router.navigate("/admin");
           }
         })
-        .catch((er) => {
-          setError(er);
-        });
+        .catch((er) => {});
     })();
   }, []);
   const [password, setPassword] = useState("");
   const LoginHandel = async (e) => {
     e.preventDefault();
     await csrf();
-    await api.post("api/login", { email, password }).then((responce) => {});
-    navigate("/admin");
+    await api
+      .post("api/login", { email, password })
+      .then((responce) => {
+        if (responce.status) if (responce.status === 200) navigate("/admin");
+      })
+      .catch((er) => {
+        if (er.response.status == 422) setErrors(er.response.data);
+      });
   };
 
   return (
     <>
-      <div className="container  h-full absolute ">
+      <div className="container  h-full  ">
         <div className="flex content-center items-center justify-center h-full">
           <div className="w-full lg:w-4/12 px-4">
             <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
@@ -55,7 +63,7 @@ export default function Login() {
                       value={email}
                     />
                     <span className="text-red-500 text-left text-sm mx-0 my-2">
-                      {/* {errors.email && errors.email[0]} */}
+                      {errors.email && errors.email[0]}
                     </span>
                   </div>
 
@@ -73,6 +81,10 @@ export default function Login() {
                       placeholder="Password"
                       value={password}
                     />
+                    <span className="text-red-500 text-left text-sm mx-0 my-2">
+                      {errors.password && errors.password[0]}
+                      {errors.incorrect_psd && errors.incorrect_psd}
+                    </span>
                   </div>
                   <div>
                     <label className="inline-flex items-center cursor-pointer">

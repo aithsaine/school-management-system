@@ -9,14 +9,15 @@ import { Link, Outlet } from "react-router-dom";
 import router from "../tools/router";
 import { set_user } from "../redux/actions/actionCreators";
 import api from "../tools/api";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+
 const AdminLayout = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     (() => {
       api.get("/api/user").then((res) => {
-        if (res.data.data) {
+        if (res) {
           dispatch(set_user(res.data.data));
           if (res.data.data.role !== "admin") {
             router.navigate("/login");
