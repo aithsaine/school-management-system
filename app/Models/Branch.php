@@ -8,4 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Branch extends Model
 {
     use HasFactory;
+    public function level()
+    {
+        return $this->hasOne(Level::class);
+    }
+    public function students()
+    {
+        return $this->hasMany(Student::class);
+    }
+    public function groups()
+    {
+        return $this->hasMany(Group::class);
+    }
+    public function teachers()
+    {
+        return $this->hasMany(Teacher::class);
+    }
 }

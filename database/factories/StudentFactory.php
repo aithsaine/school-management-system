@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,7 +20,11 @@ class StudentFactory extends Factory
     {
         return [
             "student_number" => Str::random(8),
-            "user_id" => \App\Models\User::factory()->create()->id
+            "user_id" => \App\Models\User::factory()->create()->id,
+            "registration_date" => Carbon::yesterday(),
+            'group_id' => \App\Models\Group::all()->random()->id,
+            'branch_id' => \App\Models\Branch::all()->random()->id,
+            'level_id' => \App\Models\Level::all()->random()->id
         ];
     }
 }

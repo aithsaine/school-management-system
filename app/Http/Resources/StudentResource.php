@@ -26,7 +26,10 @@ class StudentResource extends JsonResource
             "birthday" => $this->user->birthday,
             "tele" => $this->user->tele,
             "email" => $this->user->email,
-            "role" => "student"
+            "role" => "student",
+            "branch" => $this->branch->key,
+            "level" => $this->level->key,
+            "group" => $this->group->name
         ];
     }
 }

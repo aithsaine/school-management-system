@@ -9,6 +9,21 @@ use Laravel\Sanctum\HasApiTokens;
 class Student extends Model
 {
     use HasFactory, HasApiTokens;
-    protected $primaryKey = "student_number";
     protected $fillable = ["student_number", "user_id"];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function level()
+    {
+        return $this->belongsTo(Level::class);
+    }
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
+    }
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
 }

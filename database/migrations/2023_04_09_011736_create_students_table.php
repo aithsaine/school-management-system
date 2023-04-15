@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->string("student_number")->primary();
             $table->foreignId("user_id");
+            $table->date("registration_date");
+            $table->foreignId("group_id");
+            $table->foreignId("branch_id");
+            $table->foreignId("level_id");
             $table->timestamps();
         });
     }
