@@ -3,10 +3,17 @@ import { HiMenuAlt3, HiOutlineLogout } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
 import { RiSettings4Line } from "react-icons/ri";
 import { TbSchool } from "react-icons/tb";
-import { AiOutlineUser, AiOutlineTeam } from "react-icons/ai";
+import {
+  AiOutlineUser,
+  AiOutlineTeam,
+  AiOutlineUserAdd,
+  AiOutlineUserDelete,
+  AiOutlineSearch,
+  AiOutlineUserSwitch,
+} from "react-icons/ai";
 import { Link, Outlet } from "react-router-dom";
 import router from "../tools/router";
-import { set_user } from "../redux/actions/actionCreators";
+import { set_info, set_user } from "../redux/actions/actionCreators";
 import api from "../tools/api";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../tools/loader";
@@ -25,12 +32,21 @@ const AdminLayout = () => {
   ];
   useEffect(() => {
     if (localStorage.getItem("isLogged")) {
-      (() => {
-        api
+      (async () => {
+        await api
           .get("/api/user")
           .then((res) => {
             if (res) {
               dispatch(set_user(res.data.data));
+              api
+                .get("/api/admin/info")
+                .then((res) => {
+                  dispatch(set_info(res.data));
+                })
+                .catch((error) => {
+                  if (error.response.status !== 422)
+                    return router.navigate("/login");
+                });
               if (res.data.data.role !== "admin") {
                 router.navigate("/");
               }
@@ -71,9 +87,9 @@ const AdminLayout = () => {
     <>
       <AuthNavbar user={user} />
 
-      <section className={` flex  `} style={{ height: "1000px" }}>
+      <section className={` flex  `}>
         <div
-          className={`bg-[#0e0e0e]  min-h-screen z-50 ${
+          className={`bg-[#0e0e0e] min-h-screen z-50 ${
             open ? "w-72" : "w-16"
           } duration-500 text-gray-100 px-4  `}
         >
@@ -129,7 +145,7 @@ const AdminLayout = () => {
               <div>{React.createElement(TbSchool, { size: "20" })}</div>
               <h2
                 style={{
-                  transitionDelay: `1200ms`,
+                  transitionDelay: `900ms`,
                 }}
                 className={`whitespace-pre duration-500 ${
                   !open && "opacity-0 translate-x-28 overflow-hidden"
@@ -148,21 +164,73 @@ const AdminLayout = () => {
             {isOpenSDP && (
               <ul className="left-0 ml-3 bg-[#0e0e0e]  rounded-md shadow-lg text-gray-100 ring-1 ring-black ring-opacity-5  z-10">
                 <li className="flex align-center">
-                  <Link className="group flex items-center text-sm gap-3.5 font-medium p-2 text-gray-300  hover:text-gray-100">
-                    <div>{React.createElement(TbSchool, { size: "15" })}</div>
+                  <Link
+                    onClick={(e) => {
+                      setOpen(false);
+                      setisOpenSDP(false);
+                    }}
+                    to={"/admin/student/add"}
+                    className="group flex items-center text-sm gap-3.5 font-medium p-2 text-gray-300  hover:text-gray-100"
+                  >
+                    <div>
+                      {React.createElement(AiOutlineUserAdd, { size: "15" })}
+                    </div>
                     <h2>Ajouter Stagiaire</h2>{" "}
                   </Link>
                 </li>
                 <li className="flex align-center">
-                  <Link className="group flex items-center text-sm gap-3.5 font-medium p-2 text-gray-300  hover:text-gray-100">
+                  <Link
+                    onClick={(e) => {
+                      setOpen(false);
+                      setisOpenSDP(false);
+                    }}
+                    className="group flex items-center text-sm gap-3.5 font-medium p-2 text-gray-300  hover:text-gray-100"
+                  >
                     <div>{React.createElement(TbSchool, { size: "15" })}</div>
-                    <h2>Ajouter Stagiaire</h2>{" "}
+                    <h2>Modifier Stagiaire</h2>{" "}
                   </Link>
                 </li>
                 <li className="flex align-center">
-                  <Link className="group flex items-center text-sm gap-3.5 font-medium p-2 text-gray-300  hover:text-gray-100">
-                    <div>{React.createElement(TbSchool, { size: "15" })}</div>
-                    <h2>Ajouter Stagiaire</h2>{" "}
+                  <Link
+                    onClick={(e) => {
+                      setOpen(false);
+                      setisOpenSDP(false);
+                    }}
+                    className="group flex items-center text-sm gap-3.5 font-medium p-2 text-gray-300  hover:text-gray-100"
+                  >
+                    <div>
+                      {React.createElement(AiOutlineUserDelete, { size: "15" })}
+                    </div>
+                    <h2>Supprimer Stagiaire</h2>{" "}
+                  </Link>
+                </li>
+                <li className="flex align-center">
+                  <Link
+                    onClick={(e) => {
+                      setOpen(false);
+                      setisOpenSDP(false);
+                    }}
+                    to={"/admin/students"}
+                    className="group flex items-center text-sm gap-3.5 font-medium p-2 text-gray-300  hover:text-gray-100"
+                  >
+                    <div>
+                      {React.createElement(AiOutlineUserSwitch, { size: "15" })}
+                    </div>
+                    <h2>List Stagiaires</h2>{" "}
+                  </Link>
+                </li>
+                <li className="flex align-center">
+                  <Link
+                    onClick={(e) => {
+                      setOpen(false);
+                      setisOpenSDP(false);
+                    }}
+                    className="group flex items-center text-sm gap-3.5 font-medium p-2 text-gray-300  hover:text-gray-100"
+                  >
+                    <div>
+                      {React.createElement(AiOutlineSearch, { size: "15" })}
+                    </div>
+                    <h2>chercher Stagiaires</h2>{" "}
                   </Link>
                 </li>
               </ul>
@@ -194,7 +262,7 @@ const AdminLayout = () => {
           </div>
         </div>
         <div
-          className={` m-3 scroll-x-auto ml-20 w-full text-xl text-gray-900 font-semibold z-100`}
+          className={` m-5 scroll-x-auto ml-5 w-full text-xl text-gray-900 font-semibold z-100`}
         >
           <Outlet />
         </div>
