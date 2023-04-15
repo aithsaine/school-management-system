@@ -7,6 +7,8 @@ import AdminDashboard from "../components/admin/adminDashboard";
 import Students from "../components/admin/students";
 import Teachers from "../components/admin/teachers";
 import Profile from "../components/admin/profile";
+import StudentLayout from "../layouts/studentLayout";
+import StudentDahsboard from "../components/student/studentDahsboard";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +22,16 @@ const router = createBrowserRouter([
       {
         path: "/home",
         element: <Home />,
+      },
+    ],
+  },
+  {
+    path: "/student",
+    element: <StudentLayout />,
+    children: [
+      {
+        path: "/student/",
+        element: <StudentDahsboard />,
       },
     ],
   },

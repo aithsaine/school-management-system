@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api, { csrf } from "../tools/api";
 import router from "../tools/router";
+import Loading from "../tools/loader";
 export default function Login() {
-  const navigate = useNavigate();
+  const [isLoading, setLoading] = useState(true);
+
   const [errors, setErrors] = useState({
     email: null,
     password: null,
@@ -11,16 +13,21 @@ export default function Login() {
   });
   const [email, setEmail] = useState("");
   useEffect(() => {
-    (async () => {
-      await api
-        .get("/api/user")
-        .then((res) => {
-          if (res.data.data.role === "admin") {
-            router.navigate("/admin");
-          }
-        })
-        .catch((er) => {});
-    })();
+    if (localStorage.getItem("isLogged")) {
+      (async () => {
+        await api
+          .get("/api/user")
+          .then((res) => {
+            /* if (res.data.data.role === "admin") {
+              router.navigate("/admin");
+            } else if (res.data.data.role === "student") {
+              router.navigate("/student");
+            }*/
+            router.navigate("/");
+          })
+          .catch((er) => {});
+      })();
+    }
   }, []);
   const [password, setPassword] = useState("");
   const LoginHandel = async (e) => {
@@ -29,12 +36,25 @@ export default function Login() {
     await api
       .post("api/login", { email, password })
       .then((responce) => {
-        if (responce.status) if (responce.status === 200) navigate("/admin");
+        localStorage.setItem("isLogged", true);
+        if (responce.status)
+          if (responce.status === 200) window.location.href = "/";
       })
       .catch((er) => {
         if (er.response.status === 422) setErrors(er.response.data);
       });
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
