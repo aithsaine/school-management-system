@@ -10,7 +10,7 @@ class Branch extends Model
     use HasFactory;
     public function level()
     {
-        return $this->hasOne(Level::class);
+        return $this->belongsTo(Level::class);
     }
     public function students()
     {

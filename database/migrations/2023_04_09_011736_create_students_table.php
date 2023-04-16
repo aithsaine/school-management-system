@@ -16,8 +16,6 @@ return new class extends Migration
             $table->foreignId("user_id");
             $table->date("registration_date");
             $table->foreignId("group_id");
-            $table->foreignId("branch_id");
-            $table->foreignId("level_id");
             $table->timestamps();
         });
     }

@@ -2,13 +2,22 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\StudentResource;
-use App\Models\Branch;
+use App\Models\User;
+use App\Models\Group;
 use App\Models\Level;
+use App\Models\Branch;
 use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\GroupResource;
+use App\Http\Resources\LevelResource;
+use App\Http\Resources\BranchResource;
+use App\Http\Resources\StudentResource;
+use App\Http\Resources\TeacherResource;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class AdminStudentController extends Controller
 {
@@ -17,17 +26,50 @@ class AdminStudentController extends Controller
         $this->middleware(["auth:sanctum", "admin"]);
     }
     //
-    public function info(Request $request)
+    public function info()
     {
         $students = StudentResource::collection(Student::all());
-        $branches = Branch::all();
-        $levels = Level::all();
-        $teachers = Teacher::all();
+        $branches =  BranchResource::collection(Branch::all());
+        $levels =   LevelResource::collection(Level::all());
+        $groups = GroupResource::collection(Group::all());
+        $teachers =  TeacherResource::collection(Teacher::all());
         return response()->json([
             "students" => $students,
             "branches" => $branches,
             "levels" => $levels,
-            "teachers" => $teachers
+            "teachers" => $teachers,
+            "groups" => $groups
         ]);
+    }
+
+    public function store(Request $request)
+    {
+        try {
+
+            Student::validate($request);
+        } catch (ValidationException $er) {
+            return response($er->errors(), 422);
+        }
+
+        $cleanFname = implode('', explode(" ", trim($request->first_name)));
+        $cleanLname = implode('', explode(" ", trim($request->last_name)));
+        $user = new User();
+        $user->cin = $request->cin;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $cleanFname . "." . $cleanLname . "@ofppt-edu.ma";
+        $user->password = Hash::make("P@ssw0rd");
+        $user->gender = $request->gender;
+        $user->birthday = $request->birthday;
+        $user->adress = $request->adress;
+        $user->tele = $request->tele;
+        $user->save();
+        $student = new Student();
+        $student->student_number = uniqid(Branch::find($request->branch)->key . '-');
+        $student->user_id = $user->id;
+        $student->group_id = $request->group;
+        $student->registration_date = Carbon::today();
+        $student->save();
+        return response(["status" => 200, "message" => "le stagiaire est ajouter avec success"]);
     }
 }
