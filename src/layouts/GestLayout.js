@@ -10,7 +10,6 @@ import GestNavbar from "../components/navbars/GestNavbar";
 
 function GestLayout() {
   const [navbar, setNavbar] = useState(<GestNavbar />);
-  const user = useSelector((state) => state.user);
   const [isLoading, setLoading] = useState(true);
   const dispatch = useDispatch();
 

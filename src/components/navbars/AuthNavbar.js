@@ -9,6 +9,7 @@ export default function AuthNavbar(props) {
     await api
       .post("/api/logout")
       .then((res) => {
+        localStorage.removeItem("isLogged");
         window.location.href = "/";
       })
       .catch((er) => console.log(er));

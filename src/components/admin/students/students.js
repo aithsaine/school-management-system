@@ -25,7 +25,10 @@ function Students() {
                 Branch
               </th>
               <th scope="col" className="p-2 whitespace-nowrap ">
-                Group
+                Email
+              </th>
+              <th scope="col" className="p-2 whitespace-nowrap ">
+                Niveau
               </th>
               <th
                 colSpan={2}
@@ -68,9 +71,14 @@ function Students() {
                     data-label="nom complet"
                     className="p-2 whitespace-nowrap"
                   >
-                    {item.group}
+                    {item.email}
                   </td>
-
+                  <td
+                    data-label="nom complet"
+                    className="p-2 whitespace-nowrap"
+                  >
+                    {item.level}
+                  </td>
                   <td
                     data-label="nom complet"
                     className="p-2 whitespace-nowrap"

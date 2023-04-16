@@ -10,6 +10,7 @@ import Profile from "../components/admin/profile";
 import StudentLayout from "../layouts/studentLayout";
 import StudentDahsboard from "../components/student/studentDahsboard";
 import AddStudent from "../components/admin/students/add";
+import Error404 from "../pages/404";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
         element: <Profile />,
       },
     ],
+  },
+  {
+    path: "*",
+    element: <Error404 />,
   },
 ]);
 export default router;

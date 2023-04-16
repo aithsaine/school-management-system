@@ -10,6 +10,7 @@ const reducer = (state = {}, action) => {
         branches: action.payload.branches,
         levels: action.payload.levels,
         teachers: action.payload.teachers,
+        groups: action.payload.groups,
       };
     default:
       return { ...state };

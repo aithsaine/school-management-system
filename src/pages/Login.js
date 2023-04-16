@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import api, { csrf } from "../tools/api";
 import router from "../tools/router";
 import Loading from "../tools/loader";
@@ -11,6 +10,8 @@ export default function Login() {
     password: null,
     incorrect_psd: null,
   });
+  const [password, setPassword] = useState("");
+
   const [email, setEmail] = useState("");
   useEffect(() => {
     if (localStorage.getItem("isLogged")) {
@@ -29,7 +30,7 @@ export default function Login() {
       })();
     }
   }, []);
-  const [password, setPassword] = useState("");
+
   const LoginHandel = async (e) => {
     e.preventDefault();
     await csrf();
@@ -43,6 +44,7 @@ export default function Login() {
       .catch((er) => {
         if (er.response.status === 422) setErrors(er.response.data);
       });
+    console.log(errors);
   };
 
   useEffect(() => {

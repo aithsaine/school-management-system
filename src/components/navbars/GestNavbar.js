@@ -54,7 +54,7 @@ export default function GestNavbar() {
               <li className="flex items-center">
                 <button
                   className={MainBtn}
-                  onClick={(e) => router.navigate("/login")}
+                  onClick={(e) => (window.location.href = "/login")}
                 >
                   login
                 </button>

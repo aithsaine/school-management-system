@@ -5,8 +5,11 @@ import router from "../tools/router";
 import { useDispatch } from "react-redux";
 import Loading from "../tools/loader";
 import { set_user } from "../redux/actions/actionCreators";
+import GestNavbar from "../components/navbars/GestNavbar";
+import AuthNavbar from "../components/navbars/AuthNavbar";
 
 export default function StudentLayout() {
+  const [navbar, setNavbar] = useState(<GestNavbar />);
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
@@ -17,6 +20,7 @@ export default function StudentLayout() {
           .then((res) => {
             if (res) {
               dispatch(set_user(res.data.data));
+              setNavbar(<AuthNavbar user={res.data.data} />);
               if (res.data.data.role !== "student") {
                 router.navigate("/");
               }
@@ -29,7 +33,7 @@ export default function StudentLayout() {
     } else {
       router.navigate("/");
     }
-  });
+  }, []);
 
   /*const LogoutHandel = async (e) => {
     e.preventDefault();
@@ -53,6 +57,7 @@ export default function StudentLayout() {
 
   return (
     <div>
+      {navbar}
       studentLayout
       <Outlet />
     </div>
