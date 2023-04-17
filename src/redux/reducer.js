@@ -1,5 +1,14 @@
 import { SET_INFO, SET_USER } from "./actions/types";
-const reducer = (state = {}, action) => {
+const reducer = (
+  state = {
+    students: [],
+    branches: [],
+    levels: [],
+    teachers: [],
+    groups: [],
+  },
+  action
+) => {
   switch (action.type) {
     case SET_USER:
       return { ...state, user: action.payload };
