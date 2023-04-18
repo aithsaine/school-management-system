@@ -16,6 +16,7 @@ use App\Http\Resources\BranchResource;
 use App\Http\Resources\StudentResource;
 use App\Http\Resources\TeacherResource;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
@@ -28,7 +29,7 @@ class AdminStudentController extends Controller
     //
     public function info()
     {
-        $students = StudentResource::collection(Student::all());
+        $students = StudentResource::collection(Student::orderBy("group_id")->get());
         $branches =  BranchResource::collection(Branch::all());
         $levels =   LevelResource::collection(Level::all());
         $groups = GroupResource::collection(Group::all());
@@ -71,5 +72,37 @@ class AdminStudentController extends Controller
         $student->registration_date = Carbon::today();
         $student->save();
         return response(["status" => 200, "message" => "le stagiaire est ajouter avec success"]);
+    }
+    public function filtreStudents(Request $request)
+
+    {
+        $name = $request->query("name");
+        $level = $request->query("level");
+        $branch = $request->query("branch");
+        $res = [];
+        $students = DB::table('students')
+            ->leftJoin('groups', "students.group_id", '=', "groups.id")
+            ->leftJoin('users', "students.user_id", "=", "users.id")
+            ->leftJoin("branches", "groups.branch_id", "=", "branches.id")
+            ->leftJoin("levels", "branches.level_id", "=", "levels.id")
+            ->select("students.student_number as std_nbr");
+        if ($name !== null) {
+            $students = $students->whereRaw("concat(users.first_name,' ',users.last_name) like '%$name%'");
+        }
+        if ($level !== null) {
+            $students = $students->where("levels.id",  $level);
+        }
+        if ($branch !== null) {
+            $students = $students->where("branches.id", $branch);
+        }
+
+
+        foreach ($students->get() as $item) {
+            $res[] = (Student::where("student_number", $item->std_nbr)->get())[0];
+        }
+
+
+
+        return response()->json(["students" => StudentResource::collection($res)]);
     }
 }
