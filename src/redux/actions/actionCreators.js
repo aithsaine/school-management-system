@@ -1,4 +1,4 @@
-import { SET_INFO, SET_STUDENTS, SET_USER } from "./types";
+import { FILTER_STUEDNTS, SET_INFO, SET_STUDENTS, SET_USER } from "./types";
 export const set_user = (user) => {
   return {
     type: SET_USER,
@@ -14,6 +14,12 @@ export const set_students = (students) => {
 export const set_info = (data) => {
   return {
     type: SET_INFO,
+    payload: data,
+  };
+};
+export const filter_students = (data) => {
+  return {
+    type: FILTER_STUEDNTS,
     payload: data,
   };
 };

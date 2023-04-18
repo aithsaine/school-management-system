@@ -231,7 +231,7 @@ export default function AddStudent() {
 
         <hr className="border-b-1 border-blueGray-300" />
         <h6 className="text-blueGray-400 text-sm  my-6 font-bold uppercase">
-          Information Du feliere
+          Information Du filière
         </h6>
 
         <div className="flex flex-wrap">
