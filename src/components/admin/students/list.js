@@ -12,15 +12,18 @@ import Modal from "../../../tools/modal";
 function Students() {
   const students = useSelector((state) => state.students);
   const [isOpen, setIsOpen] = useState(false);
-  const [student_number, setStudentNumber] = useState("");
-  const onClose = () => setIsOpen(false);
+  const [student, setStudent] = useState("");
+  const onClose = (item) => {
+    setIsOpen(false);
+    window.location.href = "http://localhost:3000/admin/students";
+  };
+  const ModalData = (data) => {
+    setIsOpen(true);
+    setStudent(data);
+  };
   return (
     <>
-      <Modal
-        student_number={student_number}
-        onClose={onClose}
-        isOpen={isOpen}
-      />
+      <Modal student={student} onClose={onClose} isOpen={isOpen} />
       <Card title={"Liste Des Stagiaire"} icon={AiOutlineUserSwitch}>
         <Link to={"/admin/student/add"} className={ForeignBtn}>
           Ajouter un nouveau stagiaire{" "}
@@ -126,10 +129,7 @@ function Students() {
                       </button>
 
                       <button
-                        onClick={(e) => {
-                          setIsOpen(true);
-                          setStudentNumber(item.student_number);
-                        }}
+                        onClick={(e) => ModalData(item)}
                         title="modifier"
                         className="bg-green-500 text-white py-1 px-2 rounded-full"
                       >
