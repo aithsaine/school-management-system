@@ -105,4 +105,32 @@ class AdminStudentController extends Controller
 
         return response()->json(["students" => StudentResource::collection($res)]);
     }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            "student_number" => ["required", "exists:students,student_number"],
+            "first_name" => ["required"],
+            "last_name" => ["required"],
+            "cin" => ["required"],
+            "birthday" => ["required"],
+            "group" => ["required", "exists:groups,id"],
+            "tele" => ["required"],
+            "adress" => ["required"]
+        ]);
+        $student = Student::where("student_number", $request->student_number)->first();
+        if ($student) {
+            $user = $student->user;
+            $user->first_name = $request->first_name;
+            $user->last_name = $request->last_name;
+            $user->cin = $request->cin;
+            $user->adress = $request->adress;
+            $user->tele = $request->tele;
+            $user->birthday = $request->birthday;
+            $user->save();
+            $student->group_id = $request->group;
+            $student->save();
+            return response()->json(['status' => 200, "message" => "le stagiaire est ajour avec success"]);
+        }
+    }
 }

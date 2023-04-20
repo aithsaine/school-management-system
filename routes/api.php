@@ -23,6 +23,7 @@ Route::controller(App\Http\Controllers\Api\AdminStudentController::class)->group
     Route::get("/admin/info", "info");
     Route::post("/admin/student/store", "store");
     Route::get("/admin/students/filter", "filtreStudents");
+    Route::patch("/admin/student/update", "update");
 });
 Route::controller(AuthenticationController::class)->group(function () {
     Route::post("login", "login");

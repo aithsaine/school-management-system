@@ -26,7 +26,7 @@ return new class extends Migration
         $user->password = Hash::make("adminadmin");
         $user->save();
         $admin = new App\Models\Admin();
-        $user->admins()->save($admin);
+        $user->admin()->save($admin);
     }
 
     /**
