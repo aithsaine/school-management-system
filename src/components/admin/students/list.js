@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../../assets/styles/table.css";
 import { useSelector } from "react-redux";
 import Card from "../../card";
@@ -9,6 +9,10 @@ import { faTrash, faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { ForeignBtn } from "../../../tools/customClasses";
 import Modal from "../../../tools/modal";
+import $ from "jquery";
+import api from "../../../tools/api";
+import { success_toast } from "../../../tools/notifications";
+import { ToastContainer } from "react-toastify";
 function Students() {
   const students = useSelector((state) => state.students);
   const [isOpen, setIsOpen] = useState(false);
@@ -17,10 +21,19 @@ function Students() {
     setIsOpen(false);
     window.location.href = "http://localhost:3000/admin/students";
   };
+  useEffect(() => {
+    $(".delete-student-btn").click((e) => {
+      const cin = e.currentTarget.dataset.cin;
+      api
+        .delete(`/api/admin/student/${cin}/delete`)
+        .then((res) => success_toast(res.data.message));
+    });
+  });
   const ModalData = (data) => {
     setIsOpen(true);
     setStudent(data);
   };
+
   return (
     <>
       <Modal student={student} onClose={onClose} isOpen={isOpen} />
@@ -29,6 +42,7 @@ function Students() {
           Ajouter un nouveau stagiaire{" "}
         </Link>
         <FilterForm />
+        <ToastContainer />
         <table className="table-auto w-full">
           <thead className="bg-gray-50">
             <tr className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
@@ -123,7 +137,8 @@ function Students() {
                     <div className="w-full lg:text-center">
                       <button
                         title="supprimer"
-                        className="bg-red-500 mx-2 text-white py-1 px-2 rounded-full"
+                        data-cin={item.cin}
+                        className="delete-student-btn bg-red-500 mx-2 text-white py-1 px-2 rounded-full"
                       >
                         <FontAwesomeIcon icon={faTrash} className="m-0" />
                       </button>
