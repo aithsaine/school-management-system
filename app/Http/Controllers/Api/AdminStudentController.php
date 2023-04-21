@@ -27,19 +27,11 @@ class AdminStudentController extends Controller
         $this->middleware(["auth:sanctum", "admin"]);
     }
     //
-    public function info()
+    public function index()
     {
         $students = StudentResource::collection(Student::orderBy("group_id")->get());
-        $branches =  BranchResource::collection(Branch::all());
-        $levels =   LevelResource::collection(Level::all());
-        $groups = GroupResource::collection(Group::all());
-        $teachers =  TeacherResource::collection(Teacher::all());
         return response()->json([
             "students" => $students,
-            "branches" => $branches,
-            "levels" => $levels,
-            "teachers" => $teachers,
-            "groups" => $groups
         ]);
     }
 
@@ -75,7 +67,7 @@ class AdminStudentController extends Controller
         $student->group_id = $request->group;
         $student->registration_date = Carbon::today();
         $student->save();
-        return response(["status" => 200, "message" => "le stagiaire est ajouter avec success"]);
+        return response(["status" => 200, "students" => StudentResource::collection(Student::all()), "message" => "le stagiaire est ajouter avec success"]);
     }
     public function filtreStudents(Request $request)
 
@@ -141,6 +133,6 @@ class AdminStudentController extends Controller
     {
         $user = User::where("cin", $cin);
         $user->delete();
-        return response()->json(['status' => 200, "message" => "le stagiaire ete suprimé avec success"]);
+        return response()->json(['status' => 200, "students" => StudentResource::collection(Student::all()), "message" => "le stagiaire ete suprimé avec success"]);
     }
 }

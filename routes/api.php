@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AdminController;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Route;
@@ -20,7 +21,7 @@ Route::middleware(["auth:sanctum"])->get('/user', function (Request $request) {
     return  new UserResource($request->user());
 });
 Route::controller(App\Http\Controllers\Api\AdminStudentController::class)->group(function () {
-    Route::get("/admin/info", "info");
+    Route::get("/admin/students", "index");
     Route::post("/admin/student/store", "store");
     Route::get("/admin/students/filter", "filtreStudents");
     Route::patch("/admin/student/update", "update");
@@ -29,4 +30,7 @@ Route::controller(App\Http\Controllers\Api\AdminStudentController::class)->group
 Route::controller(AuthenticationController::class)->group(function () {
     Route::post("login", "login");
     Route::post("logout", "logout")->middleware("auth:sanctum");
+});
+Route::controller(AdminController::class)->group(function () {
+    Route::get("admin/info", "info");
 });
