@@ -25,17 +25,15 @@ function Students() {
   const onClose = (item) => {
     setIsOpen(false);
   };
-  useEffect(() => {
-    $(".delete-student-btn").click((e) => {
-      const cin = e.currentTarget.dataset.cin;
-      api.delete(`/api/admin/student/${cin}/delete`).then((res) => {
-        if (res.status === 200) {
-          dispatch(set_students(res.data.students));
-          success_toast(res.data.message);
-        }
-      });
+  $(".delete-student-btn").click(async (e) => {
+    const cin = e.currentTarget.dataset.cin;
+    await api.delete(`/api/admin/student/${cin}/delete`).then((res) => {
+      if (res.status === 200) {
+        success_toast(res.data.message);
+        dispatch(set_students(res.data.students));
+      }
     });
-  }, []);
+  });
 
   useEffect(() => {
     api
