@@ -7,7 +7,6 @@ import {
   AiOutlineUser,
   AiOutlineTeam,
   AiOutlineUserAdd,
-  AiOutlineUserDelete,
   AiOutlineSearch,
   AiOutlineUserSwitch,
 } from "react-icons/ai";
@@ -178,32 +177,7 @@ const AdminLayout = () => {
                     <h2>Ajouter Stagiaire</h2>{" "}
                   </Link>
                 </li>
-                <li className="flex align-center">
-                  <Link
-                    onClick={(e) => {
-                      setOpen(false);
-                      setisOpenSDP(false);
-                    }}
-                    className="group flex items-center text-sm gap-3.5 font-medium p-2 text-gray-300  hover:text-gray-100"
-                  >
-                    <div>{React.createElement(TbSchool, { size: "15" })}</div>
-                    <h2>Modifier Stagiaire</h2>{" "}
-                  </Link>
-                </li>
-                <li className="flex align-center">
-                  <Link
-                    onClick={(e) => {
-                      setOpen(false);
-                      setisOpenSDP(false);
-                    }}
-                    className="group flex items-center text-sm gap-3.5 font-medium p-2 text-gray-300  hover:text-gray-100"
-                  >
-                    <div>
-                      {React.createElement(AiOutlineUserDelete, { size: "15" })}
-                    </div>
-                    <h2>Supprimer Stagiaire</h2>{" "}
-                  </Link>
-                </li>
+
                 <li className="flex align-center">
                   <Link
                     onClick={(e) => {
@@ -262,7 +236,7 @@ const AdminLayout = () => {
           </div>
         </div>
         <div
-          className={` m-5 scroll-x-auto ml-5 w-full text-xl text-gray-900 font-semibold z-100`}
+          className={` my-5 overflow-x-hidden ml-5 w-full text-xl text-gray-900 font-semibold z-100`}
         >
           <Outlet />
         </div>

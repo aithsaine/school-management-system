@@ -31,6 +31,7 @@ abbr[title] {
 
 table {
   text-indent: 0;
+  width: 100%;
   border-color: inherit;
 }
 
