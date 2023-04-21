@@ -54,6 +54,10 @@ class AdminStudentController extends Controller
 
         $cleanFname = implode('', explode(" ", trim($request->first_name)));
         $cleanLname = implode('', explode(" ", trim($request->last_name)));
+        $userEmails = User::all(["email"])->toArray();
+        if (in_array($cleanFname . "." . $cleanLname . "@ofppt-edu.ma", $userEmails)) {
+            return response(["message" => "erreur"], 422);
+        }
         $user = new User();
         $user->cin = $request->cin;
         $user->first_name = $request->first_name;
@@ -132,5 +136,11 @@ class AdminStudentController extends Controller
             $student->save();
             return response()->json(['status' => 200, "message" => "le stagiaire est ajour avec success"]);
         }
+    }
+    public function delete($cin)
+    {
+        $user = User::where("cin", $cin);
+        $user->delete();
+        return response()->json(['status' => 200, "message" => "le stagiaire ete suprimé avec success"]);
     }
 }

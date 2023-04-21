@@ -24,6 +24,7 @@ Route::controller(App\Http\Controllers\Api\AdminStudentController::class)->group
     Route::post("/admin/student/store", "store");
     Route::get("/admin/students/filter", "filtreStudents");
     Route::patch("/admin/student/update", "update");
+    Route::delete("/admin/student/{cin}/delete", "delete");
 });
 Route::controller(AuthenticationController::class)->group(function () {
     Route::post("login", "login");
