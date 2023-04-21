@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import Card from "../../card";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import api from "../../../tools/api";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { MainBtn } from "../../../tools/customClasses";
 import { ToastContainer } from "react-toastify";
 import { error_toast, success_toast } from "../../../tools/notifications";
+import { set_students } from "../../../redux/actions/actionCreators";
 
 export default function AddStudent() {
   const [errors, setErrors] = useState({
@@ -33,6 +34,7 @@ export default function AddStudent() {
   const [adress, setAdress] = useState();
   const [birthday, setBirthDaty] = useState();
   const [level, setLevel] = useState();
+  const dispatch = useDispatch();
   const changeLevelHndler = async (e) => {
     setAvailablseBranches(
       branches.filter((item) => item.level === Number(e.target.value))
@@ -62,6 +64,7 @@ export default function AddStudent() {
       })
       .then((res) => {
         if (res.status === 200) {
+          dispatch(set_students(res.data.students));
           setAdress("");
           setTele("");
           setBirthDaty("");
@@ -82,7 +85,7 @@ export default function AddStudent() {
 
   return (
     <Card title={"Ajouter un stagiaire"} icon={AiOutlineUserAdd}>
-      <ToastContainer />
+      <ToastContainer containerId={"b"} />
 
       <form>
         <hr className="border-b-1 border-blueGray-300" />

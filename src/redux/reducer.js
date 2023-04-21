@@ -1,4 +1,9 @@
-import { FILTER_STUEDNTS, SET_INFO, SET_USER } from "./actions/types";
+import {
+  FILTER_STUEDNTS,
+  SET_INFO,
+  SET_STUDENTS,
+  SET_USER,
+} from "./actions/types";
 const reducer = (
   state = {
     students: [],
@@ -15,12 +20,13 @@ const reducer = (
     case SET_INFO:
       return {
         ...state,
-        students: action.payload.students,
         branches: action.payload.branches,
         levels: action.payload.levels,
         teachers: action.payload.teachers,
         groups: action.payload.groups,
       };
+    case SET_STUDENTS:
+      return { ...state, students: action.payload };
     case FILTER_STUEDNTS:
       return { ...state, students: action.payload };
     default:

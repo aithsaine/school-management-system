@@ -238,8 +238,6 @@ const Modal = ({ isOpen, onClose, student }) => {
                           value={adress}
                           onChange={(e) => {
                             setAdress(e.target.value);
-                            e.target.classList.remove("border-red-500");
-                            e.target.classList.add("border-gray-300");
                           }}
                           className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
                         ></textarea>
@@ -291,7 +289,15 @@ const Modal = ({ isOpen, onClose, student }) => {
               onClick={(e) => {
                 setComplete(false);
                 setCurrentStep(1);
-
+                setFirstName(student && student.first_name);
+                setLastName(student && student.last_name);
+                setCin(student && student.cin);
+                setAdress(student && student.adress);
+                setBirthDaty(student && student.birthday);
+                setTele(student && student.tele);
+                setLevel(student && student.level_id);
+                setBranch(student && student.branch_id);
+                setGroup(student && student.group_id);
                 onClose();
               }}
               type="button"

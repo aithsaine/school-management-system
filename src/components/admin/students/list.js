@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../../assets/styles/table.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Card from "../../card";
 import { AiOutlineUserSwitch } from "react-icons/ai";
 import FilterForm from "../../filterForm";
@@ -9,26 +9,44 @@ import { faTrash, faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { ForeignBtn } from "../../../tools/customClasses";
 import Modal from "../../../tools/modal";
+
 import $ from "jquery";
 import api from "../../../tools/api";
 import { success_toast } from "../../../tools/notifications";
 import { ToastContainer } from "react-toastify";
+import { set_students } from "../../../redux/actions/actionCreators";
+import router from "../../../tools/router";
 function Students() {
+  const toastId = React.useRef(null);
+  const dispatch = useDispatch();
   const students = useSelector((state) => state.students);
   const [isOpen, setIsOpen] = useState(false);
   const [student, setStudent] = useState("");
   const onClose = (item) => {
     setIsOpen(false);
-    window.location.href = "http://localhost:3000/admin/students";
   };
   useEffect(() => {
     $(".delete-student-btn").click((e) => {
       const cin = e.currentTarget.dataset.cin;
-      api
-        .delete(`/api/admin/student/${cin}/delete`)
-        .then((res) => success_toast(res.data.message));
+      api.delete(`/api/admin/student/${cin}/delete`).then((res) => {
+        if (res.status === 200) {
+          dispatch(set_students(res.data.students));
+          success_toast(res.data.message);
+        }
+      });
     });
-  });
+  }, []);
+
+  useEffect(() => {
+    api
+      .get("/api/admin/students")
+      .then((res) => {
+        dispatch(set_students(res.data.students));
+      })
+      .catch((error) => {
+        if (error.response.status !== 422) return router.navigate("/login");
+      });
+  }, []);
   const ModalData = (data) => {
     setIsOpen(true);
     setStudent(data);
@@ -42,7 +60,7 @@ function Students() {
           Ajouter un nouveau stagiaire{" "}
         </Link>
         <FilterForm />
-        <ToastContainer />
+        <ToastContainer containerId={"a"} />
         <table className="table-auto w-full">
           <thead className="bg-gray-50">
             <tr className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
