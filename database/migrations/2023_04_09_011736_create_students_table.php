@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string("student_number")->unique();
             $table->unsignedBigInteger("user_id");
-            $table->foreign("user_id")->references("id")->on("users")->cascadeOnDelete();
+            $table->foreign("user_id")->references("id")->on("users")->cascadeOnDelete()->cascadeOnUpdate();
             $table->date("registration_date");
-            $table->foreignId("group_id");
+            $table->unsignedBigInteger("group_id");
+            $table->foreign("group_id")->references("id")->on("groups")->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

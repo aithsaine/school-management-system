@@ -16,7 +16,8 @@ return new class extends Migration
             $table->id();
             $table->string("name");
             $table->string("key");
-            $table->foreignId("level_id");
+            $table->unsignedBigInteger("level_id");
+            $table->foreign("level_id")->references("id")->on("levels")->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
