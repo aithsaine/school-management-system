@@ -11,7 +11,10 @@ import CreateBranch from "./add";
 import { Toaster } from "react-hot-toast";
 import swal from "sweetalert";
 import api from "../../../tools/api";
-import { set_branches } from "../../../redux/actions/actionCreators";
+import {
+  set_branches,
+  set_students,
+} from "../../../redux/actions/actionCreators";
 
 export default function Branches() {
   const { branches } = useSelector((state) => state);
@@ -33,11 +36,12 @@ export default function Branches() {
           .delete(`api/admin/branch/${id}/delete`)
           .then((res) => {
             dispatch(set_branches(res.data.branches));
+            dispatch(set_students(res.data.students));
             swal(res.data.message, {
               icon: "success",
             });
           })
-          .catch((err) =>
+          .catch(() =>
             swal("echec de supprission", {
               icon: "error",
             })
