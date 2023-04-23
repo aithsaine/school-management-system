@@ -18,15 +18,17 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $fname = fake()->firstName;
+        $lname = fake()->lastName;
         return [
-            "cin" => Str::random(5),
-            'first_name' => fake()->firstName,
-            'last_name' => fake()->lastName,
+            "cin" => "JH" . fake()->numberBetween(11000, 999999),
+            'first_name' => $fname,
+            'last_name' => $lname,
             "gender" => "male",
             "tele" => fake()->phoneNumber,
             "adress" => fake()->address,
             "birthday" => fake()->date,
-            'email' => fake()->safeEmail(),
+            'email' => $fname . "." . $lname . "@ofppt-edu.ma",
             'email_verified_at' => now(),
             'password' => Hash::make('adminadmin'), // password
             'remember_token' => Str::random(10),

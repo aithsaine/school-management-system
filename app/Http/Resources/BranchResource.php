@@ -18,7 +18,9 @@ class BranchResource extends JsonResource
             "id" => $this->id,
             "name" => $this->name,
             "key" => $this->key,
-            "level" => $this->level->id
+            "level" => $this->level->id,
+            "level_name" => $this->level->name,
+            "groups_count" => $this->groups->count()
         ];
     }
 }

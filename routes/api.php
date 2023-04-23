@@ -34,3 +34,7 @@ Route::controller(AuthenticationController::class)->group(function () {
 Route::controller(AdminController::class)->group(function () {
     Route::get("admin/info", "info");
 });
+Route::controller(App\Http\Controllers\Api\AdminBranchController::class)->group(function () {
+    Route::post("/admin/branch/store", "store");
+    Route::delete("/admin/branch/{id}/delete", "delete");
+});

@@ -23,8 +23,6 @@ class StudentFactory extends Factory
             "user_id" => \App\Models\User::factory()->create()->id,
             "registration_date" => Carbon::yesterday(),
             'group_id' => \App\Models\Group::all()->random()->id,
-            'branch_id' => \App\Models\Branch::all()->random()->id,
-            'level_id' => \App\Models\Level::all()->random()->id
         ];
     }
 }
