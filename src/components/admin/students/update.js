@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import "../assets/styles/stepper.css";
+import "../../../assets/styles/stepper.css";
 import { TiTick } from "react-icons/ti";
-import Card from "../components/card";
 import { useSelector } from "react-redux";
-import { error_toast, success_toast } from "../tools/notifications";
-import api from "./api";
-import { ToastContainer } from "react-toastify";
-const Modal = ({ isOpen, onClose, student }) => {
+import { success_toast, error_toast } from "../../../tools/notifications";
+import Card from "../../card";
+import api from "../../../tools/api";
+import { Toaster } from "react-hot-toast";
+const UpdateStudent = ({ isOpen, onClose, student }) => {
   const steps = ["info personnel", "info scolaire", "contact"];
   const [currentStep, setCurrentStep] = useState(1);
   const [complete, setComplete] = useState(false);
@@ -50,7 +50,7 @@ const Modal = ({ isOpen, onClose, student }) => {
       role="dialog"
       aria-modal="true"
     >
-      <ToastContainer />
+      <Toaster />
 
       <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div className="fixed inset-0 transition-opacity" aria-hidden="true">
@@ -312,4 +312,4 @@ const Modal = ({ isOpen, onClose, student }) => {
   );
 };
 
-export default Modal;
+export default UpdateStudent;

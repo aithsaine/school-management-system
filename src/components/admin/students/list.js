@@ -8,43 +8,50 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { ForeignBtn } from "../../../tools/customClasses";
-import Modal from "../../../tools/modal";
 
 import $ from "jquery";
 import api from "../../../tools/api";
 import { success_toast } from "../../../tools/notifications";
-import { ToastContainer } from "react-toastify";
 import { set_students } from "../../../redux/actions/actionCreators";
-import router from "../../../tools/router";
+import UpdateStudent from "./update";
+import { Toaster } from "react-hot-toast";
+import swal from "sweetalert";
 function Students() {
   const toastId = React.useRef(null);
   const dispatch = useDispatch();
   const students = useSelector((state) => state.students);
   const [isOpen, setIsOpen] = useState(false);
   const [student, setStudent] = useState("");
-  const onClose = (item) => {
+  const onClose = () => {
     setIsOpen(false);
   };
-  $(".delete-student-btn").click(async (e) => {
-    const cin = e.currentTarget.dataset.cin;
-    await api.delete(`/api/admin/student/${cin}/delete`).then((res) => {
-      if (res.status === 200) {
-        success_toast(res.data.message);
-        dispatch(set_students(res.data.students));
+
+  const deleteHandel = (cin) => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        api
+          .delete(`api/admin/student/${cin}/delete`)
+          .then((res) => {
+            dispatch(set_students(res.data.students));
+            swal(res.data.message, {
+              icon: "success",
+            });
+          })
+          .catch((err) =>
+            swal("echec de supprission", {
+              icon: "error",
+            })
+          );
       }
     });
-  });
+  };
 
-  useEffect(() => {
-    api
-      .get("/api/admin/students")
-      .then((res) => {
-        dispatch(set_students(res.data.students));
-      })
-      .catch((error) => {
-        if (error.response.status !== 422) return router.navigate("/login");
-      });
-  }, []);
   const ModalData = (data) => {
     setIsOpen(true);
     setStudent(data);
@@ -52,39 +59,38 @@ function Students() {
 
   return (
     <>
-      <Modal student={student} onClose={onClose} isOpen={isOpen} />
+      <UpdateStudent student={student} onClose={onClose} isOpen={isOpen} />
       <Card title={"Liste Des Stagiaire"} icon={AiOutlineUserSwitch}>
         <Link to={"/admin/student/add"} className={ForeignBtn}>
           Ajouter un nouveau stagiaire{" "}
         </Link>
         <FilterForm />
-        <ToastContainer containerId={"a"} />
         <table className="table-auto w-50">
           <thead className="bg-gray-50">
             <tr className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
-              <th scope="col" className="p-1 whitespace-nowrap ">
+              <th scope="col" className="p-1  ">
                 Nom Complet
               </th>
-              <th scope="col" className="p-1 whitespace-nowrap ">
+              <th scope="col" className="p-1  ">
                 Numero d'etudiant
               </th>
-              <th scope="col" className="p-1 whitespace-nowrap ">
+              <th scope="col" className="p-1  ">
                 Email
               </th>
-              <th scope="col" className="p-1 whitespace-nowrap ">
+              <th scope="col" className="p-1  ">
                 Sexe
               </th>
 
-              <th scope="col" className="p-1 whitespace-nowrap ">
+              <th scope="col" className="p-1  ">
                 Niveau
               </th>
-              <th scope="col" className="p-1 whitespace-nowrap ">
+              <th scope="col" className="p-1  ">
                 Branch
               </th>
-              <th scope="col" className="p-1 whitespace-nowrap ">
+              <th scope="col" className="p-1  ">
                 Group
               </th>
-              <th scope="col" className="p-1 whitespace-nowrap ">
+              <th scope="col" className="p-1  ">
                 supprimer/modifier
               </th>
             </tr>
@@ -93,10 +99,7 @@ function Students() {
             {students.map((item, key) => {
               return (
                 <tr key={key}>
-                  <td
-                    data-label="NOM COMPLETE"
-                    className="p-1 whitespace-nowrap"
-                  >
+                  <td data-label="NOM COMPLETE" className="p-1 ">
                     <div className="flex items-center">
                       <div className="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3">
                         <img
@@ -109,52 +112,32 @@ function Students() {
                       </div>
                     </div>
                   </td>
-                  <td
-                    data-label="Numero d'etudiant"
-                    className="p-1 whitespace-nowrap"
-                  >
+                  <td data-label="Numero d'etudiant" className="p-1 ">
                     {item.student_number}
                   </td>
-                  <td
-                    data-label="nom complet"
-                    className="p-1 whitespace-nowrap"
-                  >
+                  <td data-label="nom complet" className="p-1 ">
                     {item.email}
                   </td>
-                  <td
-                    data-label="nom complet"
-                    className="p-1 whitespace-nowrap"
-                  >
+                  <td data-label="nom complet" className="p-1 ">
                     {item.gender}
                   </td>
 
-                  <td
-                    data-label="nom complet"
-                    className="p-1 whitespace-nowrap"
-                  >
+                  <td data-label="nom complet" className="p-1 ">
                     {item.level}
                   </td>
-                  <td
-                    data-label="nom complet"
-                    className="p-1 whitespace-nowrap"
-                  >
+                  <td data-label="nom complet" className="p-1 ">
                     {item.branch}
                   </td>
-                  <td
-                    data-label="nom complet"
-                    className="p-1 whitespace-nowrap"
-                  >
+                  <td data-label="nom complet" className="p-1 ">
                     {item.group}
                   </td>
-                  <td
-                    data-label="nom complet"
-                    className="p-1 whitespace-nowrap"
-                  >
+                  <td data-label="nom complet" className="p-1 ">
                     <div className="w-full lg:text-center">
                       <button
+                        onClick={(e) => deleteHandel(item.cin)}
                         title="supprimer"
                         data-cin={item.cin}
-                        className="delete-student-btn bg-red-500 mx-2 text-white py-1 px-2 rounded-full"
+                        className=" bg-red-500 mx-2 text-white py-1 px-2 rounded-full"
                       >
                         <FontAwesomeIcon icon={faTrash} className="m-0" />
                       </button>
@@ -173,6 +156,7 @@ function Students() {
             })}
           </tbody>
         </table>
+        <Toaster />
       </Card>
     </>
   );

@@ -1,5 +1,6 @@
 import {
   FILTER_STUEDNTS,
+  SET_BRANCHES,
   SET_INFO,
   SET_STUDENTS,
   SET_USER,
@@ -24,11 +25,14 @@ const reducer = (
         levels: action.payload.levels,
         teachers: action.payload.teachers,
         groups: action.payload.groups,
+        students: action.payload.students,
       };
     case SET_STUDENTS:
       return { ...state, students: action.payload };
     case FILTER_STUEDNTS:
       return { ...state, students: action.payload };
+    case SET_BRANCHES:
+      return { ...state, branches: action.payload };
     default:
       return { ...state };
   }

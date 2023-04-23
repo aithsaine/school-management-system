@@ -4,9 +4,9 @@ import { AiOutlineUserAdd } from "react-icons/ai";
 import api from "../../../tools/api";
 import { useDispatch, useSelector } from "react-redux";
 import { MainBtn } from "../../../tools/customClasses";
-import { ToastContainer } from "react-toastify";
 import { error_toast, success_toast } from "../../../tools/notifications";
 import { set_students } from "../../../redux/actions/actionCreators";
+import { Toaster } from "react-hot-toast";
 
 export default function AddStudent() {
   const [errors, setErrors] = useState({
@@ -85,7 +85,7 @@ export default function AddStudent() {
 
   return (
     <Card title={"Ajouter un stagiaire"} icon={AiOutlineUserAdd}>
-      <ToastContainer containerId={"b"} />
+      <Toaster />
 
       <form>
         <hr className="border-b-1 border-blueGray-300" />

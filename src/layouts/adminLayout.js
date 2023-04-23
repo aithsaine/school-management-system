@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { HiMenuAlt3, HiOutlineLogout } from "react-icons/hi";
+import {
+  HiMenuAlt1,
+  HiMenuAlt2,
+  HiMenuAlt3,
+  HiMenuAlt4,
+  HiOutlineLogout,
+} from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
 import { RiSettings4Line } from "react-icons/ri";
 import { TbSchool } from "react-icons/tb";
@@ -8,6 +14,7 @@ import {
   AiOutlineTeam,
   AiOutlineUserAdd,
   AiOutlineSearch,
+  AiTwotoneExperiment,
   AiOutlineUserSwitch,
 } from "react-icons/ai";
 import { Link, Outlet } from "react-router-dom";
@@ -93,7 +100,7 @@ const AdminLayout = () => {
           } duration-500 text-gray-100 px-4  `}
         >
           <div className="py-3 flex justify-end">
-            <HiMenuAlt3
+            <HiMenuAlt1
               size={26}
               className="cursor-pointer"
               onClick={() => {
@@ -106,7 +113,10 @@ const AdminLayout = () => {
             {menus?.map((menu, i) => (
               <Link
                 to={menu.link}
-                onClick={(e) => setOpen(false)}
+                onClick={(e) => {
+                  setOpen(false);
+                  setisOpenSDP(false);
+                }}
                 key={i}
                 className={` ${
                   menu?.margin && "mt-5"
@@ -133,6 +143,36 @@ const AdminLayout = () => {
               </Link>
             ))}
 
+            {/* Branches Item in Menu */}
+            <Link
+              to={"/admin/branches"}
+              onClick={(e) => {
+                setOpen(false);
+                setisOpenSDP(false);
+              }}
+              className={` group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
+            >
+              <div>
+                {React.createElement(AiTwotoneExperiment, { size: "20" })}
+              </div>
+              <h2
+                style={{
+                  transitionDelay: `900ms`,
+                }}
+                className={`whitespace-pre duration-500 ${
+                  !open && "opacity-0 translate-x-28 overflow-hidden"
+                }`}
+              >
+                Branches
+              </h2>
+              <h2
+                className={`${
+                  open && "hidden"
+                } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
+              >
+                Branches
+              </h2>
+            </Link>
             {/* Stagiaire Item in Menu */}
             <button
               onClick={(e) => {

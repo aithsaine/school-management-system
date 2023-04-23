@@ -1,25 +1,59 @@
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import "react-toastify/dist/ReactToastify.css";
 
 export const success_toast = (msg) => {
   return toast.success(msg, {
-    hideProgressBar: true,
+    duration: 4000,
     position: "bottom-right",
-    autoClose: 5000,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    theme: "colored",
+
+    // Styling
+    style: {
+      backgroundColor: "green",
+      color: "white",
+    },
+    className: "",
+
+    // Custom Icon
+    icon: "👏",
+
+    // Change colors of success/error/loading icon
+    iconTheme: {
+      primary: "#000",
+      secondary: "#fff",
+    },
+
+    // Aria
+    ariaProps: {
+      role: "status",
+      "aria-live": "polite",
+    },
   });
 };
 export const error_toast = (msg) => {
   return toast.error(msg, {
-    hideProgressBar: true,
+    duration: 4000,
     position: "bottom-right",
-    autoClose: 5000,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    theme: "colored",
+
+    // Styling
+    style: {
+      backgroundColor: "red",
+      color: "white",
+    },
+    className: "",
+
+    // Custom Icon
+    icon: "👏",
+
+    // Change colors of success/error/loading icon
+    iconTheme: {
+      primary: "#000",
+      secondary: "#fff",
+    },
+
+    // Aria
+    ariaProps: {
+      role: "status",
+      "aria-live": "polite",
+    },
   });
 };

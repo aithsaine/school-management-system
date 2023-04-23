@@ -11,6 +11,7 @@ import StudentLayout from "../layouts/studentLayout";
 import StudentDahsboard from "../components/student/studentDahsboard";
 import AddStudent from "../components/admin/students/add";
 import Error404 from "../pages/404";
+import Branches from "../components/admin/branches/list";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: "/admin/student/add",
         element: <AddStudent />,
+      },
+      {
+        path: "/admin/branches",
+        element: <Branches />,
       },
       {
         path: "/admin/teachers",

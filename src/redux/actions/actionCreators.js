@@ -1,4 +1,10 @@
-import { FILTER_STUEDNTS, SET_INFO, SET_STUDENTS, SET_USER } from "./types";
+import {
+  FILTER_STUEDNTS,
+  SET_BRANCHES,
+  SET_INFO,
+  SET_STUDENTS,
+  SET_USER,
+} from "./types";
 export const set_user = (user) => {
   return {
     type: SET_USER,
@@ -20,6 +26,12 @@ export const set_info = (data) => {
 export const filter_students = (data) => {
   return {
     type: FILTER_STUEDNTS,
+    payload: data,
+  };
+};
+export const set_branches = (data) => {
+  return {
+    type: SET_BRANCHES,
     payload: data,
   };
 };
