@@ -3,6 +3,7 @@ import {
   SET_BRANCHES,
   SET_INFO,
   SET_STUDENTS,
+  SET_TEACHERS,
   SET_USER,
 } from "./types";
 export const set_user = (user) => {
@@ -32,6 +33,12 @@ export const filter_students = (data) => {
 export const set_branches = (data) => {
   return {
     type: SET_BRANCHES,
+    payload: data,
+  };
+};
+export const set_teachers = (data) => {
+  return {
+    type: SET_TEACHERS,
     payload: data,
   };
 };

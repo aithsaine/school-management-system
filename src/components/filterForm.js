@@ -22,7 +22,11 @@ function FilterForm() {
   };
 
   return (
-    <form onSubmit={submitHandel} className="bg-white p-6 rounded-lg shadow-md">
+    <form
+      onSubmit={submitHandel}
+      style={{ boxShadow: "2px 2px 2px gray" }}
+      className="bg-white p-6 rounded-lg shadow-md"
+    >
       <div className="grid grid-cols-1  md:grid-cols-4 gap-4">
         <div>
           <label htmlFor="name" className="block text-gray-700 text-lg mb-2">

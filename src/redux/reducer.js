@@ -3,6 +3,7 @@ import {
   SET_BRANCHES,
   SET_INFO,
   SET_STUDENTS,
+  SET_TEACHERS,
   SET_USER,
 } from "./actions/types";
 const reducer = (
@@ -33,6 +34,8 @@ const reducer = (
       return { ...state, students: action.payload };
     case SET_BRANCHES:
       return { ...state, branches: action.payload };
+    case SET_TEACHERS:
+      return { ...state, teachers: action.payload };
     default:
       return { ...state };
   }

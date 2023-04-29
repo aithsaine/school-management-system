@@ -9,9 +9,7 @@ import { faTrash, faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { ForeignBtn } from "../../../tools/customClasses";
 
-import $ from "jquery";
 import api from "../../../tools/api";
-import { success_toast } from "../../../tools/notifications";
 import { set_students } from "../../../redux/actions/actionCreators";
 import UpdateStudent from "./update";
 import { Toaster } from "react-hot-toast";

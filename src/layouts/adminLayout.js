@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  HiMenuAlt1,
-  HiMenuAlt2,
-  HiMenuAlt3,
-  HiMenuAlt4,
-  HiOutlineLogout,
-} from "react-icons/hi";
+import { HiMenuAlt1, HiOutlineLogout } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
 import { RiSettings4Line } from "react-icons/ri";
 import { TbSchool } from "react-icons/tb";
@@ -30,10 +24,10 @@ const AdminLayout = () => {
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(true);
   const [isOpenSDP, setisOpenSDP] = useState(false);
+  const [isOpenTDP, setisOpenTDP] = useState(false);
   const menus = [
     { name: "dashboard", link: "/admin", icon: MdOutlineDashboard },
     { name: "my profile", link: "/admin/profile", icon: AiOutlineUser },
-    { name: "teachers", link: "/admin/teachers", icon: AiOutlineTeam },
     { name: "Setting", link: "/", icon: RiSettings4Line },
   ];
   useEffect(() => {
@@ -106,6 +100,7 @@ const AdminLayout = () => {
               onClick={() => {
                 setOpen(!open);
                 setisOpenSDP(false);
+                setisOpenTDP(false);
               }}
             />
           </div>
@@ -116,6 +111,7 @@ const AdminLayout = () => {
                 onClick={(e) => {
                   setOpen(false);
                   setisOpenSDP(false);
+                  setisOpenTDP(false);
                 }}
                 key={i}
                 className={` ${
@@ -149,6 +145,7 @@ const AdminLayout = () => {
               onClick={(e) => {
                 setOpen(false);
                 setisOpenSDP(false);
+                setisOpenTDP(false);
               }}
               className={` group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
             >
@@ -173,11 +170,89 @@ const AdminLayout = () => {
                 Branches
               </h2>
             </Link>
+            {/* Formateur Item in Menu */}
+            <button
+              onClick={(e) => {
+                setOpen(true);
+                setisOpenTDP(!isOpenTDP);
+                setisOpenSDP(false);
+              }}
+              className={` group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
+            >
+              <div>{React.createElement(AiOutlineTeam, { size: "20" })}</div>
+              <h2
+                style={{
+                  transitionDelay: `900ms`,
+                }}
+                className={`whitespace-pre duration-500 ${
+                  !open && "opacity-0 translate-x-28 overflow-hidden"
+                }`}
+              >
+                Formateurs
+              </h2>
+              <h2
+                className={`${
+                  open && "hidden"
+                } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
+              >
+                Formateurs
+              </h2>
+            </button>
+            {isOpenTDP && (
+              <ul className="left-0 ml-3 bg-[#0e0e0e]  rounded-md shadow-lg text-gray-100 ring-1 ring-black ring-opacity-5  z-10">
+                <li className="flex align-center">
+                  <Link
+                    onClick={(e) => {
+                      setOpen(false);
+                      setisOpenTDP(false);
+                    }}
+                    to={"/admin/formateur/add"}
+                    className="group flex items-center text-sm gap-3.5 font-medium p-2 text-gray-300  hover:text-gray-100"
+                  >
+                    <div>
+                      {React.createElement(AiOutlineUserAdd, { size: "15" })}
+                    </div>
+                    <h2>Ajouter formateur</h2>{" "}
+                  </Link>
+                </li>
+
+                <li className="flex align-center">
+                  <Link
+                    onClick={(e) => {
+                      setOpen(false);
+                      setisOpenTDP(false);
+                    }}
+                    to={"/admin/formateurs"}
+                    className="group flex items-center text-sm gap-3.5 font-medium p-2 text-gray-300  hover:text-gray-100"
+                  >
+                    <div>
+                      {React.createElement(AiOutlineUserSwitch, { size: "15" })}
+                    </div>
+                    <h2>List Formateurs</h2>{" "}
+                  </Link>
+                </li>
+                <li className="flex align-center">
+                  <Link
+                    onClick={(e) => {
+                      setOpen(false);
+                      setisOpenTDP(false);
+                    }}
+                    className="group flex items-center text-sm gap-3.5 font-medium p-2 text-gray-300  hover:text-gray-100"
+                  >
+                    <div>
+                      {React.createElement(AiOutlineSearch, { size: "15" })}
+                    </div>
+                    <h2>chercher formateur</h2>{" "}
+                  </Link>
+                </li>
+              </ul>
+            )}
             {/* Stagiaire Item in Menu */}
             <button
               onClick={(e) => {
                 setOpen(true);
                 setisOpenSDP(!isOpenSDP);
+                setisOpenTDP(false);
               }}
               className={` group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
             >

@@ -40,7 +40,7 @@ function GestLayout() {
   return (
     <div className="h-screen flex flex-col justify-between  ">
       {navbar}
-      <div className="flex flex-center ">
+      <div className=" ">
         <Outlet />;
       </div>
       <Footer />

@@ -3,3 +3,4 @@ export const SET_STUDENTS = "SET_STUDENTS";
 export const SET_INFO = "SET_INFO";
 export const FILTER_STUEDNTS = "FILTER_STUDENTS";
 export const SET_BRANCHES = "SET_BRANCHES";
+export const SET_TEACHERS = "SET_TEACHERS";
