@@ -38,3 +38,6 @@ Route::controller(App\Http\Controllers\Api\AdminBranchController::class)->group(
     Route::post("/admin/branch/store", "store");
     Route::delete("/admin/branch/{id}/delete", "delete");
 });
+Route::controller(App\Http\Controllers\Api\AdminTeachersController::class)->group(function () {
+    Route::post("/admin/teacher/store", "store");
+});

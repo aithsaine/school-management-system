@@ -24,7 +24,7 @@ class TeacherResource extends JsonResource
             "birthday" => $this->user->birthday,
             "tele" => $this->user->tele,
             "email" => $this->user->email,
-            "role" => "student",
+            "role" => "teacher",
         ];;
     }
 }

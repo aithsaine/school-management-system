@@ -48,7 +48,7 @@ class AdminStudentController extends Controller
         $cleanLname = implode('', explode(" ", trim($request->last_name)));
         $userEmails = User::all(["email"])->toArray();
         if (in_array($cleanFname . "." . $cleanLname . "@ofppt-edu.ma", $userEmails)) {
-            return response(["message" => "erreur"], 422);
+            return response(["message" => "email already exist"], 422);
         }
         $user = new User();
         $user->cin = $request->cin;
