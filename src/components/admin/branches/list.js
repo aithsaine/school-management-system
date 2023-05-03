@@ -49,6 +49,9 @@ export default function Branches() {
       }
     });
   };
+  useEffect(()=>{
+    document.title = "Admin - branche"
+      },[])
   return (
     <div>
       <Toaster />

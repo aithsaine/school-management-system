@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import Card from "../../card";
 import { AiOutlineTeam } from "react-icons/ai";
 import { Toaster } from "react-hot-toast";
@@ -10,6 +10,10 @@ import { faSyncAlt, faTrash } from "@fortawesome/free-solid-svg-icons";
 import fake_image from "../../../assets/pictures/fake-profile.png";
 function Teachers() {
   const teachers = useSelector((state) => state.teachers);
+  useEffect(()=>{
+    document.title = "Admin - Formateurs"
+      },[])
+
   return (
     <Card title="Formateurs" icon={AiOutlineTeam}>
       <Link to={"/admin/formateur/add"} className={ForeignBtn}>

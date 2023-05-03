@@ -54,6 +54,10 @@ function Students() {
     setIsOpen(true);
     setStudent(data);
   };
+  useEffect(()=>{
+    document.title = "Admin - Stagiaires"
+      },[])
+
 
   return (
     <>

@@ -23,6 +23,7 @@ const CreateBranch = ({ isOpen, onClose }) => {
         error_toast("erreur");
       });
   };
+
   return (
     <div
       className={`${

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Card from "../../card";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import api from "../../../tools/api";
@@ -82,6 +82,9 @@ export default function AddStudent() {
         }
       });
   };
+  useEffect(()=>{
+    document.title = "Admin - Ajouter un Stagiaire"
+      },[])
 
   return (
     <Card title={"Ajouter un stagiaire"} icon={AiOutlineUserAdd}>

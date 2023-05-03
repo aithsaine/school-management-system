@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import api from "../../../tools/api";
 import { error_toast, success_toast } from "../../../tools/notifications";
 import { useDispatch } from "react-redux";
@@ -59,6 +59,9 @@ export default function AddTeacher() {
         }
       });
   };
+  useEffect(()=>{
+    document.title = "Admin - Ajouter Formateur"
+      },[])
 
   return (
     <Card title={"Ajouter un formateur"} icon={AiOutlineUserAdd}>
