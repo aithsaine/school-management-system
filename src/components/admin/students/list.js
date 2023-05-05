@@ -14,6 +14,7 @@ import { set_students } from "../../../redux/actions/actionCreators";
 import UpdateStudent from "./update";
 import { Toaster } from "react-hot-toast";
 import swal from "sweetalert";
+const PER_PAGE = 8;
 function Students() {
   const dispatch = useDispatch();
   const students = useSelector((state) => state.students);
@@ -22,6 +23,16 @@ function Students() {
   const onClose = () => {
     setIsOpen(false);
   };
+  const [currentPage, setCurrentPage] = useState(1);
+
+
+
+  const pages = Math.ceil(students.length / PER_PAGE);
+  const startIndex = (currentPage - 1) * PER_PAGE;
+  const endIndex = startIndex + PER_PAGE;
+
+  const currentData = students.slice(startIndex, endIndex);
+
 
   const deleteHandel = (cin) => {
     swal({
@@ -66,6 +77,8 @@ function Students() {
           Ajouter un nouveau stagiaire{" "}
         </Link>
         <FilterForm />
+        <div style={{height:"500px"}}>
+
         <table className="table-auto w-50">
           <thead className="bg-gray-50">
             <tr className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
@@ -97,7 +110,7 @@ function Students() {
             </tr>
           </thead>
           <tbody className="text-sm divide-y divide-gray-100">
-            {students.map((item, key) => {
+            {currentData.map((item, key) => {
               return (
                 <tr key={key}>
                   <td data-label="NOM COMPLETE" className="p-1 ">
@@ -157,8 +170,43 @@ function Students() {
             })}
           </tbody>
         </table>
+        </div>
+
+
         <Toaster />
+     
       </Card>
+      <div class="table-pagination">
+                        <div class="buttons">
+                            <div id="pagination">
+                                <div class="flex justify-center items-center">
+                                    <button id="prev"
+                                    onClick={() => currentPage>1?setCurrentPage(currentPage-1):''}
+
+                                        class="mr-6 flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-lg font-bold text-gray-700 hover:bg-gray-200 transition duration-300 ease-in-out">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path fill-rule="evenodd"
+                                                d="M10.293 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 111.414 1.414L5.414 9H17a1 1 0 010 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+
+                                    <span id="page">{currentPage} of {pages}</span>
+                                    <button id="next"
+                                    onClick={() =>currentPage<pages?setCurrentPage(currentPage+1):""}
+                                        class=" ml-6 flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-lg font-bold text-gray-700 hover:bg-gray-200 transition duration-300 ease-in-out mr-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path fill-rule="evenodd"
+                                                d="M9.707 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 010-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
     </>
   );
 }
