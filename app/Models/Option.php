@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Group extends Model
+class Option extends Model
 {
-    protected $fillable = ["option_id","name"];
     use HasFactory;
+    protected $fillable = ["branch_id", "name", "season", "key"];
     public function branch()
     {
         return $this->belongsTo(Branch::class);

@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GroupResource extends JsonResource
+class OptionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,7 +17,9 @@ class GroupResource extends JsonResource
         return [
             "id" => $this->id,
             "name" => $this->name,
-            "option" => $this->option_id
+            "key" => $this->key,
+            "season"=>$this->season,
+            "branch"=>$this->branch_id
         ];
     }
 }

@@ -33,15 +33,11 @@ return new class extends Migration
                 "level_id" => "2"
             ],
             [
-                "name" => "Electromécanique",
-                "Key" => "EQ",
-                "level_id" => "3"
+                "name" => "Assistant administratif",
+                "Key" => "AA",
+                "level_id" => "2"
             ],
-            [
-                "name" => "Electricité de maintenance industrielle",
-                "key" => "EMI",
-                "level_id" => "1"
-            ]
+            
         ]);
     }
 

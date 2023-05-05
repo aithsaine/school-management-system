@@ -17,10 +17,11 @@ class Branch extends Model
     {
         return $this->hasMany(Student::class);
     }
-    public function groups()
+    public function options()
     {
-        return $this->hasMany(Group::class);
+        return $this->hasMany(Option::class);
     }
+ 
     public function teachers()
     {
         return $this->hasMany(Teacher::class);

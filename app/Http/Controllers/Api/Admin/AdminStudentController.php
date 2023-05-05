@@ -126,7 +126,7 @@ class AdminStudentController extends Controller
             $user->save();
             $student->group_id = $request->group;
             $student->save();
-            return response()->json(['status' => 200, "message" => "le stagiaire est ajour avec success"]);
+            return response()->json(['status' => 200,"students"=>StudentResource::collection(Student::orderBy("group_id")->get()), "message" => "le stagiaire est ajour avec success"]);
         }
     }
     public function delete($cin)

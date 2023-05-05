@@ -41,6 +41,6 @@ class AdminBranchController extends Controller
     public function delete($id)
     {
         Branch::find($id)->delete();
-        return response(["status" => 200, "branches" => BranchResource::collection(Branch::orderBy("level_id")->get()), "students" => StudentResource::collection(Student::all()),"groups" => GroupResource::collection(Group::orderBy("branch_id")->get()), "message" => "la branche est supprimé avec success"]);
+        return response(["status" => 200, "branches" => BranchResource::collection(Branch::orderBy("level_id")->get()), "students" => StudentResource::collection(Student::all()),"groups" => GroupResource::collection(Group::orderBy("option_id")->get()), "message" => "la branche est supprimé avec success"]);
     }
 }

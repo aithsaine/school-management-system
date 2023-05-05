@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // example 101 102 201 202 ...
-        Schema::create('groups', function (Blueprint $table) {
+        Schema::create('options', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
             $table->unsignedBigInteger("branch_id");
-            $table->foreign("branch_id")->references("id")->on("branches")->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign("branch_id")->references("id")->on("branches")->cascadeOnDelete();
+            $table->string("name");
+            $table->integer("season");
+            $table->string("key");
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('groups');
+        Schema::dropIfExists('options');
     }
 };

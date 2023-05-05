@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\GroupResource;
 use App\Http\Resources\StudentResource;
+use App\Models\Option;
 
 class AdminGroupsController extends Controller
 {
@@ -17,20 +18,28 @@ class AdminGroupsController extends Controller
     {
         $request->validate([
             "branch"=>["required","exists:branches,id"],
-            "name"=>["required",new UniqueGroup($request->branch??-1)]
+            "season"=>["required"],
+            "option"=>["required",$request->option!=-1? "exists:options,id":""],
+            "name"=>["required", new UniqueGroup($request->option,$request->branch)]
         ]);
+        $id = $request->option;
+        if($request->season ==1)
+        {
+          $id =  Option::where("branch_id",$request->branch)->where("key","TC")->first()->id;
+        }
+        Group::create(
+            [
 
-        Group::create([
-            "branch_id"=>$request->branch,
+            "option_id"=>$id,
             "name"=>$request->name
         ]);
 
-        return response(["status" => 200, "groups" => GroupResource::collection(Group::orderBy("branch_id")->get()), "message" => "la group est ajouter avec success"]);
+        return response(["status" => 200, "groups" => GroupResource::collection(Group::orderBy("option_id")->get()), "message" => "la group est ajouter avec success"]);
 
     }
     public function delete($id)
     {
         Group::find($id)->delete();
-        return response(["status" => 200, "branches" => GroupResource::collection(Group::orderBy("branch_id")->get()), "students" => StudentResource::collection(Student::all()), "message" => "le groupe est supprimé avec success"]);
+        return response(["status" => 200, "groups" => GroupResource::collection(Group::orderBy("option_id")->get()), "students" => StudentResource::collection(Student::all()), "message" => "le groupe est supprimé avec success"]);
     }
 }
