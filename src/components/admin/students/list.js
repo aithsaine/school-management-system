@@ -15,7 +15,6 @@ import UpdateStudent from "./update";
 import { Toaster } from "react-hot-toast";
 import swal from "sweetalert";
 function Students() {
-  const toastId = React.useRef(null);
   const dispatch = useDispatch();
   const students = useSelector((state) => state.students);
   const [isOpen, setIsOpen] = useState(false);

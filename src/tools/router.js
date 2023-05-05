@@ -13,6 +13,7 @@ import AddStudent from "../components/admin/students/add";
 import Error404 from "../pages/404";
 import Branches from "../components/admin/branches/list";
 import AddTeacher from "../components/admin/teachers/add";
+import Groups from "../components/admin/groups/list";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
       {
         path: "/admin/branches",
         element: <Branches />,
+      },
+      {
+        path:"/admin/groupes",
+        element:<Groups/>
       },
       {
         path: "/admin/formateurs",

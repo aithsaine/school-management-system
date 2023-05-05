@@ -1,31 +1,30 @@
 import React, { useEffect, useState } from "react";
 import Card from "../../card";
-import { AiTwotoneExperiment } from "react-icons/ai";
+import { RiGroupLine } from "react-icons/ri";
 import { ForeignBtn } from "../../../tools/customClasses";
 import "../../../assets/styles/table.css";
 
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import CreateBranch from "./add";
+import CreateGroup from "./add";
 import { Toaster } from "react-hot-toast";
 import swal from "sweetalert";
 import api from "../../../tools/api";
 import {
-  set_branches,
   set_groups,
   set_students,
 } from "../../../redux/actions/actionCreators";
 
-export default function Branches() {
-  const { branches,levels,groups  } = useSelector((state) => state);
+export default function Groups() {
+  const { groups,branches,levels } = useSelector((state) => state);
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const onClose = (item) => {
     setIsOpen(false);
   };
   const deleteHandel = (id) => {
-    swal({
+        swal({
       title: "Are you sure?",
       text: "Once deleted, you will not be able to recover this imaginary file!",
       icon: "warning",
@@ -34,10 +33,9 @@ export default function Branches() {
     }).then((willDelete) => {
       if (willDelete) {
         api
-          .delete(`api/admin/branch/${id}/delete`)
+          .delete(`api/admin/group/${id}/delete`)
           .then((res) => {
-            dispatch(set_branches(res.data.branches));
-            dispatch(set_groups(res.data.groups))
+            dispatch(set_groups(res.data.branches));
             dispatch(set_students(res.data.students));
             swal(res.data.message, {
               icon: "success",
@@ -49,24 +47,24 @@ export default function Branches() {
             })
           );
       }
-    });
+    }); 
   };
   useEffect(()=>{
-    document.title = "Admin - branche"
+    document.title = "Admin - Groupes"
       },[])
   return (
     <div>
       <Toaster />
-      <Card title="Branches" icon={AiTwotoneExperiment}>
+      <Card title="Groupes" icon={RiGroupLine}>
         <button
           onClick={(e) => {
             setIsOpen(true);
           }}
           className={ForeignBtn}
         >
-          Ajouter une nouvelle branches{" "}
+          Ajouter un nouveau Groupes{" "}
         </button>
-        <CreateBranch isOpen={isOpen} onClose={onClose} />
+        <CreateGroup isOpen={isOpen} onClose={onClose} />
         <hr className="my-6" />
         <table className="table-auto w-50">
           <thead className="bg-gray-50">
@@ -76,14 +74,14 @@ export default function Branches() {
               </th>
 
               <th scope="col" className="p-1  ">
-                Nom de branch
+                Group
               </th>
               <th scope="col" className="p-1  ">
-                Niveau
+                branche
               </th>
 
               <th scope="col" className="p-1  ">
-                Nomber des Group
+                niveau
               </th>
               <th scope="col" className="p-1  ">
                 supprimer
@@ -91,21 +89,21 @@ export default function Branches() {
             </tr>
           </thead>
           <tbody className="text-sm divide-y divide-gray-100">
-            {branches.map((item, key) => {
+            {groups.map((item, key) => {
               return (
                 <tr key={key}>
                   <td data-label="nom complet" className="p-1 ">
                     {key + 1}
                   </td>
                   <td data-label="Numero d'etudiant" className="p-1 ">
-                    {item.name}
+                     {branches.find(elem=>elem.id==item.branch).key+'-'+item.name }
                   </td>
-                  <td data-label="nom complet" className="p-1 ">
-                    {levels.find(elem=>elem.id==item.level).name}
+                  <td data-label="nom complet" className="p-1">
+                  {branches.find(elem=>elem.id==item.branch).name }
                   </td>
 
                   <td data-label="nom complet" className="p-1 ">
-                    {groups.filter(elem=>elem.branch==item.id).length}
+                  {levels.find(elem=>elem.id==branches.find(elem=>elem.id==item.branch).level ).name}
                   </td>
 
                   <td data-label="nom complet" className="p-1 ">

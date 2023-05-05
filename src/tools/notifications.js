@@ -3,13 +3,15 @@ import "react-toastify/dist/ReactToastify.css";
 
 export const success_toast = (msg) => {
   return toast.success(msg, {
-    duration: 4000,
+    duration: 3000,
     position: "bottom-right",
 
     // Styling
     style: {
       backgroundColor: "green",
       color: "white",
+      fontSize:"15px"
+
     },
     className: "",
 
@@ -31,18 +33,20 @@ export const success_toast = (msg) => {
 };
 export const error_toast = (msg) => {
   return toast.error(msg, {
-    duration: 4000,
+    duration: 3000,
     position: "bottom-right",
+  
 
     // Styling
     style: {
       backgroundColor: "red",
       color: "white",
+      fontSize:"15px"
     },
     className: "",
 
     // Custom Icon
-    icon: "👏",
+    icon: "❌",
 
     // Change colors of success/error/loading icon
     iconTheme: {

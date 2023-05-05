@@ -1,6 +1,7 @@
 import {
   FILTER_STUEDNTS,
   SET_BRANCHES,
+  SET_GROUPS,
   SET_INFO,
   SET_STUDENTS,
   SET_TEACHERS,
@@ -42,3 +43,10 @@ export const set_teachers = (data) => {
     payload: data,
   };
 };
+
+export const set_groups = (data)=>{
+  return{
+    type:SET_GROUPS,
+    payload:data
+  }
+}

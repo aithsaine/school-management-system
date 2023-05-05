@@ -20,7 +20,7 @@ const CreateBranch = ({ isOpen, onClose }) => {
         success_toast(res.data.message);
       })
       .catch((er) => {
-        error_toast("erreur");
+        error_toast(er.response.data.message);
       });
   };
 

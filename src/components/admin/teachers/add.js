@@ -55,7 +55,7 @@ export default function AddTeacher() {
       .catch((er) => {
         if (er.response.status === 422) {
           setErrors(er.response.data);
-          error_toast("Entrer tout les information");
+          error_toast(er.response.data.message);
         }
       });
   };
