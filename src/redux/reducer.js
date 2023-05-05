@@ -14,6 +14,7 @@ const reducer = (
     levels: [],
     teachers: [],
     groups: [],
+    options:[]
   },
   action
 ) => {
@@ -28,6 +29,7 @@ const reducer = (
         teachers: action.payload.teachers,
         groups: action.payload.groups,
         students: action.payload.students,
+        options:action.payload.options
       };
     case SET_STUDENTS:
       return { ...state, students: action.payload };

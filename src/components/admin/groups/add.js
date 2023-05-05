@@ -4,34 +4,41 @@ import { useDispatch, useSelector } from "react-redux";
 import api from "../../../tools/api";
 import { success_toast, error_toast } from "../../../tools/notifications";
 import { Toaster } from "react-hot-toast";
-import {  set_groups } from "../../../redux/actions/actionCreators";
+import { set_groups } from "../../../redux/actions/actionCreators";
 
 const CreateGroup = ({ isOpen, onClose }) => {
-    const { levels, branches } = useSelector((state) => state);
+    const { levels, branches,options } = useSelector((state) => state);
     const [level, setLevel] = useState("");
     const [name, setName] = useState("");
     const [branch, setBranch] = useState("")
+    const [option, setOption] = useState(-1);
+    const [season, setSeason] = useState(1)
     const dispatch = useDispatch();
     const [availableBranchs, setAvailablseBranches] = useState([]);
+    const [availableOptions, setAvailablseOptions] = useState([]);
     const saveHandel = () => {
-          api
-              .post("/api/admin/group/store", { branch, name})
-              .then((res) => {
+        api
+            .post("/api/admin/group/store", { option,branch,season, name })
+            .then((res) => {
                 dispatch(set_groups(res.data.groups));
                 success_toast(res.data.message);
-              })
-              .catch((er) => {
+              
+                setName("")
+            })
+            .catch((er) => {
                 error_toast(er.response.data.message);
-              }); 
+            });
     };
-
-
     const changeLevelHndler = async (e) => {
         setAvailablseBranches(
             branches.filter((item) => item.level === Number(e.target.value))
         );
     };
-
+    const changeBranchHndler = async (e)=>{
+        setAvailablseOptions(
+            options.filter(item=>item.branch==Number(e.target.value)&&item.key!=="TC")
+        )
+    }
     return (
         <div
             className={`${isOpen ? "block" : "hidden"
@@ -106,11 +113,71 @@ const CreateGroup = ({ isOpen, onClose }) => {
                                                 onChange={(e) => {
                                                     setBranch(Number(e.target.value));
                                                 }}
+                                                onClick={changeBranchHndler}
+
 
                                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
                                             >
                                                 <option value={""}>Selectionner la branch</option>
                                                 {availableBranchs.map((item, index) => (
+                                                    <option value={item.id} key={index}>
+                                                        {item.name}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flex flex-wrap">
+                                    {/* L'Anneé*/}
+                                    <div className="w-full  px-4">
+                                        <div className="relative w-full mb-3">
+                                            <label
+                                                className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                                htmlFor="grid-password"
+                                            >
+                                                Choisie L'Anneé :
+                                            </label>
+                                            <div className="m-2 p-1">
+                                                <span onClick={e=>{setSeason(1)
+                                                setOption(-1)}} className="p-2">
+
+                                                    <input id="1stDegree" className=" " type="radio" value="1" name="season" />
+                                                    <label htmlFor="1stDegree" className="text-sm">1ére anneé</label>
+                                                </span>
+                                                <span onClick={e=>setSeason(2)} className="p-2">
+
+                                                    <input id="2ndDegree" type="radio" value="2" name="season" />
+                                                    <label htmlFor="2ndDegree" className="text-sm">2éme anneé</label>
+                                                </span>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    {/* */}
+                                </div>
+                                <div className={`flex flex-wrap ${season==1?"hidden":''}`}>
+                                    {/*Options */}
+                                    <div className="w-full px-4">
+                                        <div className="relative w-full mb-3">
+                                            <label
+                                                className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                                htmlFor="grid-password"
+                                            >
+                                                {" "}
+                                                Option :
+                                            </label>
+                                            <select
+                                            value={option}
+                                                onChange={(e) => {
+                                                    setOption(Number(e.target.value));
+                                                }}
+
+                                                className={`bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
+                                            >
+                                                <option value={""}>Selectionner l'option</option>
+                                                {availableOptions.map((item, index) => (
                                                     <option value={item.id} key={index}>
                                                         {item.name}
                                                     </option>
@@ -141,9 +208,7 @@ const CreateGroup = ({ isOpen, onClose }) => {
                                     </div>
                                     {/* */}
                                 </div>
-                                <div className="flex flex-wrap">
 
-                                </div>
                             </Card>
                         </div>
                     </div>
@@ -161,6 +226,7 @@ const CreateGroup = ({ isOpen, onClose }) => {
                         <button
                             onClick={(e) => {
                                 e.preventDefault();
+                                setName("")
                                 onClose();
                             }}
                             type="button"

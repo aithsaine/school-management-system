@@ -17,7 +17,7 @@ import swal from "sweetalert";
 const PER_PAGE = 8;
 function Students() {
   const dispatch = useDispatch();
-  const students = useSelector((state) => state.students);
+  const {students,levels,branches,groups,options} = useSelector((state) => state);
   const [isOpen, setIsOpen] = useState(false);
   const [student, setStudent] = useState("");
   const onClose = () => {
@@ -126,25 +126,42 @@ function Students() {
                       </div>
                     </div>
                   </td>
+
+
                   <td data-label="Numero d'etudiant" className="p-1 ">
                     {item.student_number}
                   </td>
+
+
+
                   <td data-label="nom complet" className="p-1 ">
                     {item.email}
                   </td>
+
+
                   <td data-label="nom complet" className="p-1 ">
                     {item.gender}
                   </td>
 
+
                   <td data-label="nom complet" className="p-1 ">
-                    {item.level}
+                    {levels.find(elem=>elem.id==branches.find(elem1=>elem1.id==options.find(elem2=>elem2.id==groups.find(elem3=>elem3.id==item.group).option).branch).level).name}
                   </td>
+
+
                   <td data-label="nom complet" className="p-1 ">
-                    {item.branch}
+                  {branches.find(elem1=>elem1.id==options.find(elem2=>elem2.id==groups.find(elem3=>elem3.id==item.group).option).branch).name}
+
                   </td>
+
+
                   <td data-label="nom complet" className="p-1 ">
-                    {item.group}
+                  <span> {branches.find(elem1=>elem1.id==options.find(elem2=>elem2.id==groups.find(elem3=>elem3.id==item.group).option).branch).key +"-"+ options.find(elem=>elem.id==groups.find(elem1=>elem1.id==item.group).option).key+"-"+groups.find(elem3=>elem3.id==item.group).name}</span>
+
                   </td>
+
+
+
                   <td data-label="nom complet" className="p-1 ">
                     <div className="w-full lg:text-center">
                       <button

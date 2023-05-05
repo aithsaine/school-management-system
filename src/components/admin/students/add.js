@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "../../card";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import api from "../../../tools/api";
@@ -21,7 +21,7 @@ export default function AddStudent() {
     branch: "",
     level: "",
   });
-  const { branches, levels, groups } = useSelector((state) => state);
+  const { branches, levels, groups, options } = useSelector((state) => state);
   const [availableBranchs, setAvailablseBranches] = useState([]);
   const [availableGroups, setAvailablseBGroups] = useState([]);
   const [first_name, setFirstName] = useState();
@@ -33,19 +33,28 @@ export default function AddStudent() {
   const [tele, setTele] = useState();
   const [adress, setAdress] = useState();
   const [birthday, setBirthDaty] = useState();
+  const [availableOptions, setAvailablseOptions] = useState([])
   const [level, setLevel] = useState();
+  const [option, setOption] = useState("")
   const dispatch = useDispatch();
+
   const changeLevelHndler = async (e) => {
     setAvailablseBranches(
       branches.filter((item) => item.level === Number(e.target.value))
     );
     setAvailablseBGroups([]);
+    setAvailablseOptions([])
   };
   const changeBranchHndler = async (e) => {
-    setAvailablseBGroups(
-      groups.filter((item) => item.branch === Number(e.target.value))
-    );
+    setAvailablseOptions(
+      options.filter(item => item.branch == Number(e.target.value))
+    )
   };
+  const changeOptionHandler = async (e) => {
+    setAvailablseBGroups(
+      groups.filter(item => item.option == Number(e.target.value))
+    )
+  }
 
   const submitHandel = async (e) => {
     e.preventDefault();
@@ -82,9 +91,9 @@ export default function AddStudent() {
         }
       });
   };
-  useEffect(()=>{
+  useEffect(() => {
     document.title = "Admin - Ajouter un Stagiaire"
-      },[])
+  }, [])
 
   return (
     <Card title={"Ajouter un stagiaire"} icon={AiOutlineUserAdd}>
@@ -113,9 +122,8 @@ export default function AddStudent() {
                   e.target.classList.remove("border-red-500");
                   e.target.classList.add("border-gray-300");
                 }}
-                className={`bg-gray-50 border ${
-                  errors.first_name && "border-red-500"
-                } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
+                className={`bg-gray-50 border ${errors.first_name && "border-red-500"
+                  } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
               />
             </div>
           </div>
@@ -132,11 +140,10 @@ export default function AddStudent() {
                   e.target.classList.remove("border-red-500");
                   e.target.classList.add("border-gray-300");
                 }}
-                className={`bg-gray-50 border ${
-                  errors.last_name && errors.last_name !== null
+                className={`bg-gray-50 border ${errors.last_name && errors.last_name !== null
                     ? "border-red-500"
                     : "border-gray-300"
-                } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
+                  } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
               />
             </div>
           </div>
@@ -159,11 +166,10 @@ export default function AddStudent() {
                   e.target.classList.remove("border-red-500");
                   e.target.classList.add("border-gray-300");
                 }}
-                className={`bg-gray-50 border ${
-                  errors.cin && errors.cin !== null
+                className={`bg-gray-50 border ${errors.cin && errors.cin !== null
                     ? "border-red-500"
                     : "border-gray-300"
-                }  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
+                  }  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
               />
             </div>
           </div>
@@ -181,11 +187,10 @@ export default function AddStudent() {
                   e.target.classList.add("border-gray-300");
                 }}
                 type="date"
-                className={`bg-gray-50 border ${
-                  errors.birthday && errors.birthday !== null
+                className={`bg-gray-50 border ${errors.birthday && errors.birthday !== null
                     ? "border-red-500"
                     : "border-gray-300"
-                } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
+                  } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
               />
             </div>
           </div>
@@ -259,11 +264,10 @@ export default function AddStudent() {
                   e.target.classList.add("border-gray-300");
                 }}
                 onClick={changeLevelHndler}
-                className={`bg-gray-50 border ${
-                  errors.level && errors.level !== null
+                className={`bg-gray-50 border ${errors.level && errors.level !== null
                     ? "border-red-500"
                     : "border-gray-300"
-                } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
+                  } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
               >
                 <option value={""}>Selectionner la Niveau</option>
                 {levels.map((item, key) => (
@@ -289,11 +293,10 @@ export default function AddStudent() {
                 }}
                 onClick={changeBranchHndler}
                 id="branch-select"
-                className={`bg-gray-50 border ${
-                  errors.branch && errors.branch !== null
+                className={`bg-gray-50 border ${errors.branch && errors.branch !== null
                     ? "border-red-500"
                     : "border-gray-300"
-                } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
+                  } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
               >
                 <option value={""}>Selectionner la branch</option>
                 {availableBranchs.map((item, index) => (
@@ -306,7 +309,40 @@ export default function AddStudent() {
           </div>
         </div>
 
+     
+
+
+
         <div className="flex flex-wrap">
+          {/*Options */}
+          <div className="w-6/12 px-4">
+            <div className="relative w-full mb-3">
+              <label
+                className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                htmlFor="grid-password"
+              >
+                {" "}
+                Option :
+              </label>
+              <select
+                value={option}
+                onClick={changeOptionHandler}
+                onChange={e=>setOption(e.target.value)}
+
+
+                className={`bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
+              >
+                <option value={""}>Selectionner l'option</option>
+                {availableOptions.map((item, index) => (
+                  <option value={item.id} key={index}>
+                  {item.key=='TC'?"1ére anneé":"2éme année : "+item.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+
           {/* Group*/}
           <div className="w-full lg:w-6/12 px-4">
             <div className="relative w-full mb-3">
@@ -323,11 +359,10 @@ export default function AddStudent() {
                   e.target.classList.remove("border-red-500");
                   e.target.classList.add("border-gray-300");
                 }}
-                className={`bg-gray-50 border ${
-                  errors.group && errors.group !== null
+                className={`bg-gray-50 border ${errors.group && errors.group !== null
                     ? "border-red-500"
                     : "border-gray-300"
-                } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
+                  } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
               >
                 <option value={""}>Selectionner le groupe</option>
                 {availableGroups.map((item, key) => (
@@ -346,6 +381,7 @@ export default function AddStudent() {
           Information De Contact
         </h6>
 
+
         <div className="flex flex-wrap">
           {/* Phone*/}
           <div className="w-full lg:w-6/12 px-4">
@@ -363,16 +399,17 @@ export default function AddStudent() {
                   e.target.classList.remove("border-red-500");
                   e.target.classList.add("border-gray-300");
                 }}
-                className={`bg-gray-50 border ${
-                  errors.tele && errors.tele !== null
+                className={`bg-gray-50 border ${errors.tele && errors.tele !== null
                     ? "border-red-500"
                     : "border-gray-300"
-                } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
+                  } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
               />
             </div>
           </div>
           {/* */}
         </div>
+
+
 
         <div className="flex flex-wrap">
           {/*Adress */}
@@ -391,11 +428,10 @@ export default function AddStudent() {
                   e.target.classList.remove("border-red-500");
                   e.target.classList.add("border-gray-300");
                 }}
-                className={`bg-gray-50 border ${
-                  errors.adress && errors.adress !== null
+                className={`bg-gray-50 border ${errors.adress && errors.adress !== null
                     ? "border-red-500"
                     : "border-gray-300"
-                } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
+                  } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
               ></textarea>
             </div>
           </div>

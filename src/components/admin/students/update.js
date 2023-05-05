@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../../../assets/styles/stepper.css";
 import { TiTick } from "react-icons/ti";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {set_students} from "../../../redux/actions/actionCreators"
 import { success_toast, error_toast } from "../../../tools/notifications";
 import Card from "../../card";
 import api from "../../../tools/api";
@@ -10,7 +11,7 @@ const UpdateStudent = ({ isOpen, onClose, student }) => {
   const steps = ["info personnel", "info scolaire", "contact"];
   const [currentStep, setCurrentStep] = useState(1);
   const [complete, setComplete] = useState(false);
-  const { branches, groups } = useSelector((state) => state);
+  const { branches, groups,options } = useSelector((state) => state);
 
   const [first_name, setFirstName] = useState("");
   const [birthday, setBirthDaty] = useState("");
@@ -23,6 +24,7 @@ const UpdateStudent = ({ isOpen, onClose, student }) => {
   const [branch, setBranch] = useState("");
   const [group, setGroup] = useState("");
   const [student_number, setStudentNumber] = useState("");
+  const dispatch = useDispatch()
 
   useEffect(() => {
     setFirstName(student && student.first_name);
@@ -37,7 +39,7 @@ const UpdateStudent = ({ isOpen, onClose, student }) => {
     setStudentNumber(student && student.student_number);
     setAvailablseBGroups(
       student &&
-        groups.filter((item) => item.branch === Number(student.branch_id))
+        groups.filter((item) => item.option ==options.find(elem=>elem.id==groups.find(elem1=>elem1.id==student.group).option).id )
     );
   }, [student, branches, groups]);
 
@@ -268,7 +270,9 @@ const UpdateStudent = ({ isOpen, onClose, student }) => {
                         adress,
                       })
                       .then((res) => {
+                        dispatch(set_students(res.data.students))
                         success_toast(res.data.message);
+                        
                       })
                       .catch((er) => {
                         error_toast("erreur");
