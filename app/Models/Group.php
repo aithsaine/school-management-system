@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
+    protected $fillable = ["branch_id","name"];
     use HasFactory;
     public function branch()
     {

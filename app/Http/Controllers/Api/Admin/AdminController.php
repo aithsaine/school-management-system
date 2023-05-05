@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BranchResource;
@@ -24,9 +24,9 @@ class AdminController extends Controller
     //
     public function info()
     {
-        $branches =  BranchResource::collection(Branch::all());
+        $branches =  BranchResource::collection(Branch::orderBy("level_id")->get());
         $levels =   LevelResource::collection(Level::all());
-        $groups = GroupResource::collection(Group::all());
+        $groups = GroupResource::collection(Group::orderBy("branch_id")->get());
         $students = StudentResource::collection(Student::orderBy("group_id")->get());
         $teachers =  TeacherResource::collection(Teacher::all());
         return response()->json([

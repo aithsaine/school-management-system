@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\BranchResource;
-use App\Http\Resources\StudentResource;
+use App\Models\Group;
 use App\Models\Branch;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\GroupResource;
+use App\Http\Resources\BranchResource;
+use App\Http\Resources\StudentResource;
 
 class AdminBranchController extends Controller
 {
@@ -34,11 +36,11 @@ class AdminBranchController extends Controller
             "name" => $request->name,
             "key" => $request->key
         ]);
-        return response(["status" => 200, "branches" => BranchResource::collection(Branch::all()), "message" => "la branche est ajouter avec success"]);
+        return response(["status" => 200, "branches" => BranchResource::collection(Branch::orderBy("level_id")->get()), "message" => "la branche est ajouter avec success"]);
     }
     public function delete($id)
     {
         Branch::find($id)->delete();
-        return response(["status" => 200, "branches" => BranchResource::collection(Branch::all()), "students" => StudentResource::collection(Student::all()), "message" => "la branche est supprimé avec success"]);
+        return response(["status" => 200, "branches" => BranchResource::collection(Branch::orderBy("level_id")->get()), "students" => StudentResource::collection(Student::all()),"groups" => GroupResource::collection(Group::orderBy("branch_id")->get()), "message" => "la branche est supprimé avec success"]);
     }
 }
