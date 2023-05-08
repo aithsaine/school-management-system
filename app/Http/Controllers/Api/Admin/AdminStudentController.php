@@ -79,7 +79,8 @@ class AdminStudentController extends Controller
         $students = DB::table('students')
             ->leftJoin('groups', "students.group_id", '=', "groups.id")
             ->leftJoin('users', "students.user_id", "=", "users.id")
-            ->leftJoin("branches", "groups.branch_id", "=", "branches.id")
+            ->leftJoin("options","groups.option_id","=","options.id")
+            ->leftJoin("branches", "options.branch_id", "=", "branches.id")
             ->leftJoin("levels", "branches.level_id", "=", "levels.id")
             ->select("students.student_number as std_nbr");
         if ($name !== null) {

@@ -13,4 +13,8 @@ class Option extends Model
     {
         return $this->belongsTo(Branch::class);
     }
+    public function modules()
+    {
+        return $this->hasMany(Module::class);
+    }
 }

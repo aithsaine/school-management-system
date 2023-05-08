@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\BranchResource;
 use App\Http\Resources\GroupResource;
 use App\Http\Resources\LevelResource;
+use App\Http\Resources\ModuleResource;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\StudentResource;
 use App\Http\Resources\TeacherResource;
 use App\Models\Branch;
 use App\Models\Group;
 use App\Models\Level;
+use App\Models\Module;
 use App\Models\Option;
 use App\Models\Student;
 use App\Models\Teacher;
@@ -32,13 +34,15 @@ class AdminController extends Controller
        $options = OptionResource::collection(Option::all());
         $students = StudentResource::collection(Student::orderBy("group_id")->get());
         $teachers =  TeacherResource::collection(Teacher::all());
+        $modules = ModuleResource::collection(Module::all());
         return response()->json([
             "students" => $students,
             "branches" => $branches,
             "levels" => $levels,
             "teachers" => $teachers,
             "groups" => $groups,
-            "options"=>$options
+            "options"=>$options,
+            "modules"=>$modules
         ]);
     }
 }

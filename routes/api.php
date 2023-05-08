@@ -43,3 +43,7 @@ Route::controller(App\Http\Controllers\Api\Admin\AdminGroupsController::class)->
     Route::post("/admin/group/store","store");
     Route::delete("/admin/group/{id}/delete","delete");
 });
+Route::controller(App\Http\Controllers\Api\Admin\AdminModuleController::class)->group(function(){
+    Route::post("admin/module/store","store");
+    Route::delete("admin/module/{id}/delete","delete");
+});

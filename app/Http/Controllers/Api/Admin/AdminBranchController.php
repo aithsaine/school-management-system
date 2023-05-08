@@ -28,8 +28,8 @@ class AdminBranchController extends Controller
     {
         $request->validate([
             "level" => ["required", "exists:levels,id"],
-            "name" => ["required", "unique:branches,name"],
-            "key" => ["required", "unique:branches,key"]
+            "name" => ["required", "unique:branches,name","regex:/[a-zA-Z]/"],
+            "key" => ["required", "unique:branches,key","regex:/[0-9A-Z]/"]
         ]);
         Branch::create([
             "level_id" => $request->level,

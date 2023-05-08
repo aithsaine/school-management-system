@@ -20,7 +20,7 @@ class AdminGroupsController extends Controller
             "branch"=>["required","exists:branches,id"],
             "season"=>["required"],
             "option"=>["required",$request->option!=-1? "exists:options,id":""],
-            "name"=>["required", new UniqueGroup($request->option,$request->branch)]
+            "name"=>["required", new UniqueGroup($request->option??-1,$request->branch??-1)]
         ]);
         $id = $request->option;
         if($request->season ==1)
