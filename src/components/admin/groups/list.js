@@ -119,11 +119,11 @@ export default function Groups() {
                     </td>
 
                     <td data-label="Numero d'etudiant" className="p-1 ">
-                      {branches.find(elem => elem.id == options.find(elem1 => elem1.id == item.option).branch).key + '-' + item.name}
+                      {branches.find(elem => elem.id == options.find(elem1 => elem1.id == item.option).branch).key + '-' +(options.find(elem=>elem.id==item.option).key!=="TC"?options.find(elem=>elem.id==item.option).key+"-":"") + item.name}
                     </td>
 
                     <td data-label="nom complet" className="p-1">
-                      {branches.find(elem => elem.id == options.find(elem1 => elem1.id == item.option).branch).name}
+                      {branches.find(elem => elem.id == options.find(elem1 => elem1.id == item.option).branch).name.toUpperCase()}
                     </td>
 
                     <td data-label="nom complet" className="p-1 ">

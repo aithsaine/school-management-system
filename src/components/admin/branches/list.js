@@ -19,7 +19,7 @@ import {
 const PER_PAGE = 10;
 
 export default function Branches() {
-  const { branches,levels,groups  } = useSelector((state) => state);
+  const { branches, levels, groups } = useSelector((state) => state);
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const onClose = (item) => {
@@ -52,7 +52,7 @@ export default function Branches() {
       }
     });
   };
-   const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
 
 
@@ -62,9 +62,9 @@ export default function Branches() {
 
   const currentData = branches.slice(startIndex, endIndex);
 
-  useEffect(()=>{
+  useEffect(() => {
     document.title = "Admin - branche"
-      },[])
+  }, [])
   return (
     <div>
       <Toaster />
@@ -79,97 +79,97 @@ export default function Branches() {
         </button>
         <CreateBranch isOpen={isOpen} onClose={onClose} />
         <hr className="my-6" />
-        <div style={{height:"500px"}}>
-        <table className="table-auto w-50">
-          <thead className="bg-gray-50">
-            <tr className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
-              <th scope="col" className="p-1  ">
-                #
-              </th>
+        <div style={{ height: "500px" }}>
+          <table className="table-auto w-50">
+            <thead className="bg-gray-50">
+              <tr className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+                <th scope="col" className="p-1  ">
+                  #
+                </th>
 
-              <th scope="col" className="p-1  ">
-                Nom de branch
-              </th>
-              <th scope="col" className="p-1  ">
-                Niveau
-              </th>
+                <th scope="col" className="p-1  ">
+                  Nom de branch
+                </th>
+                <th scope="col" className="p-1  ">
+                  Niveau
+                </th>
 
-              <th scope="col" className="p-1  ">
-                Nomber des Group
-              </th>
-              <th scope="col" className="p-1  ">
-                supprimer
-              </th>
-            </tr>
-          </thead>
-          <tbody className="text-sm divide-y divide-gray-100">
-            {currentData.map((item, key) => {
-              return (
-                <tr key={key}>
-                  <td data-label="nom complet" className="p-1 ">
-                    {key + 1}
-                  </td>
-                  <td data-label="Numero d'etudiant" className="p-1 ">
-                    {item.name}
-                  </td>
-                  <td data-label="nom complet" className="p-1 ">
-                    {levels.find(elem=>elem.id==item.level).name}
-                  </td>
+                <th scope="col" className="p-1  ">
+                  Nomber des Group
+                </th>
+                <th scope="col" className="p-1  ">
+                  supprimer
+                </th>
+              </tr>
+            </thead>
+            <tbody className="text-sm divide-y divide-gray-100">
+              {currentData.map((item, key) => {
+                return (
+                  <tr key={key}>
+                    <td data-label="nom complet" className="p-1 ">
+                      {key + 1}
+                    </td>
+                    <td data-label="Numero d'etudiant" className="p-1 ">
+                      {item.name.toUpperCase()}
+                    </td>
+                    <td data-label="nom complet" className="p-1 ">
+                      {levels.find(elem => elem.id == item.level).name}
+                    </td>
 
-                  <td data-label="nom complet" className="p-1 ">
-                    {groups.filter(elem=>elem.branch==item.id).length}
-                  </td>
+                    <td data-label="nom complet" className="p-1 ">
+                      {groups.filter(elem => elem.branch == item.id).length}
+                    </td>
 
-                  <td data-label="nom complet" className="p-1 ">
-                    <div className="w-full lg:text-center">
-                      <button
-                        onClick={(e) => deleteHandel(item.id)}
-                        title="supprimer"
-                        className="delete-student-btn bg-red-500 mx-2 text-white py-1 px-2 rounded-full"
-                      >
-                        <FontAwesomeIcon icon={faTrash} className="m-0" />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                    <td data-label="nom complet" className="p-1 ">
+                      <div className="w-full lg:text-center">
+                        <button
+                          onClick={(e) => deleteHandel(item.id)}
+                          title="supprimer"
+                          className="delete-student-btn bg-red-500 mx-2 text-white py-1 px-2 rounded-full"
+                        >
+                          <FontAwesomeIcon icon={faTrash} className="m-0" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       </Card>
-              
+
       <div class="table-pagination">
-                        <div class="buttons">
-                            <div id="pagination">
-                                <div class="flex justify-center items-center">
-                                    <button id="prev"
-                                    onClick={() => currentPage>1?setCurrentPage(currentPage-1):''}
+        <div class="buttons">
+          <div id="pagination">
+            <div class="flex justify-center items-center">
+              <button id="prev"
+                onClick={() => currentPage > 1 ? setCurrentPage(currentPage - 1) : ''}
 
-                                        class="mr-6 flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-lg font-bold text-gray-700 hover:bg-gray-200 transition duration-300 ease-in-out">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20"
-                                            fill="currentColor">
-                                            <path fill-rule="evenodd"
-                                                d="M10.293 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 111.414 1.414L5.414 9H17a1 1 0 010 2H5.414l4.293 4.293a1 1 0 010 1.414z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </button>
+                class="mr-6 flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-lg font-bold text-gray-700 hover:bg-gray-200 transition duration-300 ease-in-out">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20"
+                  fill="currentColor">
+                  <path fill-rule="evenodd"
+                    d="M10.293 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 111.414 1.414L5.414 9H17a1 1 0 010 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+                    clip-rule="evenodd" />
+                </svg>
+              </button>
 
-                                    <span id="page">{currentPage} of {pages}</span>
-                                    <button id="next"
-                                    onClick={() =>currentPage<pages?setCurrentPage(currentPage+1):""}
-                                        class=" ml-6 flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-lg font-bold text-gray-700 hover:bg-gray-200 transition duration-300 ease-in-out mr-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20"
-                                            fill="currentColor">
-                                            <path fill-rule="evenodd"
-                                                d="M9.707 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 010-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+              <span id="page">{currentPage} of {pages}</span>
+              <button id="next"
+                onClick={() => currentPage < pages ? setCurrentPage(currentPage + 1) : ""}
+                class=" ml-6 flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-lg font-bold text-gray-700 hover:bg-gray-200 transition duration-300 ease-in-out mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20"
+                  fill="currentColor">
+                  <path fill-rule="evenodd"
+                    d="M9.707 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 010-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                    clip-rule="evenodd" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
   );

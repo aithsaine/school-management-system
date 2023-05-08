@@ -14,6 +14,7 @@ import Error404 from "../pages/404";
 import Branches from "../components/admin/branches/list";
 import AddTeacher from "../components/admin/teachers/add";
 import Groups from "../components/admin/groups/list";
+import Modules from "../components/admin/modules/list";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
       {
         path:"/admin/groupes",
         element:<Groups/>
+      },
+      {
+        path:"/admin/modules",
+        element:<Modules/>
       },
       {
         path: "/admin/formateurs",

@@ -4,30 +4,36 @@ import { useDispatch, useSelector } from "react-redux";
 import api from "../../../tools/api";
 import { success_toast, error_toast } from "../../../tools/notifications";
 import { Toaster } from "react-hot-toast";
-import { set_groups } from "../../../redux/actions/actionCreators";
+import { set_groups, set_modules } from "../../../redux/actions/actionCreators";
 
-const CreateGroup = ({ isOpen, onClose }) => {
+const CreateModule = ({ isOpen, onClose }) => {
     const { levels, branches, options } = useSelector((state) => state);
     const [level, setLevel] = useState("");
-    const [name, setName] = useState("");
+    const [title, setTitle] = useState("");
     const [branch, setBranch] = useState("")
     const [option, setOption] = useState(-1);
-    const [season, setSeason] = useState(1)
+    const [season, setSeason] = useState(1);
+    const [duration, setDuration] = useState(null);
+    const [coefficient, setCoefficient] = useState(null);
+    const [key,setKey] = useState("");
     const dispatch = useDispatch();
     const [availableBranchs, setAvailablseBranches] = useState([]);
     const [availableOptions, setAvailablseOptions] = useState([]);
     const saveHandel = () => {
         api
-            .post("/api/admin/group/store", { option, branch, season, name })
+            .post("/api/admin/module/store", { option, branch, season, title, key, duration,coefficient })
             .then((res) => {
-                dispatch(set_groups(res.data.groups));
+                dispatch(set_modules(res.data.modules));
                 success_toast(res.data.message);
                 document.forms[0].reset()
-                setName("")
+                setTitle("")
+                setKey("")
+                setCoefficient("")
+                setDuration("")
                 setSeason(1)
                 setBranch("")
                 setLevel("")
-                setOption("")
+                setOption(-1)
             })
             .catch((er) => {
                 error_toast(er.response.data.message);
@@ -52,7 +58,7 @@ const CreateGroup = ({ isOpen, onClose }) => {
             aria-modal="true"
         >
             <Toaster />
-            <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div  className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                 <div className="fixed inset-0 transition-opacity" aria-hidden="true">
                     <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
                 </div>
@@ -201,12 +207,80 @@ const CreateGroup = ({ isOpen, onClose }) => {
                                                 className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                                 htmlFor="grid-password"
                                             >
-                                                Nom de group <span className="text-xs text-gray-500">(example 101,102,201,202 ...)</span> :
+                                                Nom de Module :
                                             </label>
                                             <input
-                                                value={name}
+                                                value={title}
                                                 onChange={(e) => {
-                                                    setName(e.target.value);
+                                                    setTitle(e.target.value);
+                                                }}
+                                                className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
+                                            />
+                                        </div>
+                                    </div>
+                                    {/* */}
+                                </div>
+                                
+                                <div className="flex flex-wrap">
+                                    {/* Mot Clé*/}
+                                    <div className="w-full  px-4">
+                                        <div className="relative w-full mb-3">
+                                            <label
+                                                className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                                htmlFor="grid-password"
+                                            >
+                                                Mot Clé :
+                                            </label>
+                                            <input
+                                                value={key}
+                                                onChange={(e) => {
+                                                    setKey(e.target.value);
+                                                }}
+                                                className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
+                                            />
+                                        </div>
+                                    </div>
+                                    {/* */}
+                                </div>
+
+                                
+                                <div className="flex flex-wrap">
+                                    {/* duration*/}
+                                    <div className="w-full  px-4">
+                                        <div className="relative w-full mb-3">
+                                            <label
+                                                className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                                htmlFor="grid-password"
+                                            >
+                                                Duree :
+                                            </label>
+                                            <input
+                                                value={duration}
+                                                onChange={(e) => {
+                                                    setDuration(e.target.value);
+                                                }}
+                                                className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
+                                            />
+                                        </div>
+                                    </div>
+                                    {/* */}
+                                </div>
+
+                                
+                                <div className="flex flex-wrap">
+                                    {/* coefficient*/}
+                                    <div className="w-full  px-4">
+                                        <div className="relative w-full mb-3">
+                                            <label
+                                                className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                                htmlFor="grid-password"
+                                            >
+                                                Nom de Module :
+                                            </label>
+                                            <input
+                                                value={coefficient}
+                                                onChange={(e) => {
+                                                    setCoefficient(e.target.value);
                                                 }}
                                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
                                             />
@@ -232,12 +306,15 @@ const CreateGroup = ({ isOpen, onClose }) => {
                         <button
                             onClick={(e) => {
                                 e.preventDefault();
-                                setName("")
                                 document.forms[0].reset()
+                                setTitle("")
                                 setSeason(1)
                                 setBranch("")
+                                setKey("")
+                                setCoefficient("")
+                                setDuration("")
                                 setLevel("")
-                                setOption("")
+                                setOption(-1)
                                 onClose();
                             }}
                             type="button"
@@ -252,4 +329,4 @@ const CreateGroup = ({ isOpen, onClose }) => {
     );
 };
 
-export default CreateGroup;
+export default CreateModule;

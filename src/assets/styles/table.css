@@ -9,6 +9,11 @@ html {
   -o-tab-size: 4;
   tab-size: 4;
 }
+::selection{
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
 html {
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;

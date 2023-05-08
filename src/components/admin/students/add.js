@@ -428,7 +428,7 @@ export default function AddStudent() {
                   e.target.classList.remove("border-red-500");
                   e.target.classList.add("border-gray-300");
                 }}
-                className={`bg-gray-50 border ${errors.adress && errors.adress !== null
+                className={`bg-gray-50 border resize-none rounded-md ${errors.adress && errors.adress !== null
                     ? "border-red-500"
                     : "border-gray-300"
                   } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}

@@ -28,7 +28,7 @@ function Teachers() {
     <>
     <Card title="Formateurs" icon={AiOutlineTeam}>
       <Link to={"/admin/formateur/add"} className={ForeignBtn}>
-        Ajouter un nouveau stagiaire{" "}
+        Ajouter un nouveau Formateur{" "}
       </Link>
       <div style={{height:"500px"}}>
 

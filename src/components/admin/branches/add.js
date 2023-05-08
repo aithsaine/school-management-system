@@ -18,6 +18,9 @@ const CreateBranch = ({ isOpen, onClose }) => {
       .then((res) => {
         dispatch(set_branches(res.data.branches));
         success_toast(res.data.message);
+        document.forms[0].reset()
+        setName("")
+        setKey("")
       })
       .catch((er) => {
         error_toast(er.response.data.message);
@@ -39,7 +42,7 @@ const CreateBranch = ({ isOpen, onClose }) => {
           <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
         </div>
 
-        <form className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+        <form id="addForm" className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div className="sm:flex sm:items-start">
               <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
@@ -140,6 +143,9 @@ const CreateBranch = ({ isOpen, onClose }) => {
             <button
               onClick={(e) => {
                 e.preventDefault();
+                document.forms[0].reset()
+                setName("")
+                setKey("")
                 onClose();
               }}
               type="button"

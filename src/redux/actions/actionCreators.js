@@ -3,6 +3,7 @@ import {
   SET_BRANCHES,
   SET_GROUPS,
   SET_INFO,
+  SET_MODULES,
   SET_STUDENTS,
   SET_TEACHERS,
   SET_USER,
@@ -47,6 +48,13 @@ export const set_teachers = (data) => {
 export const set_groups = (data)=>{
   return{
     type:SET_GROUPS,
+    payload:data
+  }
+}
+
+export const set_modules = (data)=>{
+  return{
+    type:SET_MODULES,
     payload:data
   }
 }
