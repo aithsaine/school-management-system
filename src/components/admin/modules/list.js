@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { ForeignBtn } from "../../../tools/customClasses";
 import CreateModule from "./add";
+import { v4 as uuid } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { set_modules } from "../../../redux/actions/actionCreators";
@@ -84,32 +85,32 @@ function Modules() {
     </tr>
   </thead>
   <tbody className="text-sm divide-y divide-gray-100">
-    {options.map((item, index) => {
+    {options.map((item) => {
       return (
         <>
-        <tr key={item.index}>
+        <tr key={uuid()+"dsd"}>
           <td colSpan={4} style={{backgroundColor:"gray",height:"30px"}}>
             <h1>{branches.find(elem=>elem.id==item.branch).name.toUpperCase()} : {item.key=="TC"?"1ére Anneé":`2éme Anneé option ${item.name.toUpperCase()}`}</h1>
           </td>
         </tr>
       
-        { modules.filter(elem=>elem.option==item.id).map(element=>{
+        { modules.filter(elem=>elem.option==item.id).map((element,index)=>{
 
-          return (<tr key={index}>
+          return <tr  key={uuid()}>
 
-          <td style={{borderBottom:"2px solid black"}} data-label="nom complet" className="p-1 ">
+          <td style={{borderBottom:"2px solid black"}} data-label="nom complet" className="p-1 hover:bg-sky-400">
             {element.key}
           </td>
 
-          <td style={{borderBottom:"2px solid black"}} data-label="Numero d'etudiant" className="p-1 ">
+          <td style={{borderBottom:"2px solid black"}} data-label="Numero d'etudiant" className="p-1 hover:bg-sky-400">
             {element.title}
           </td>
 
-          <td style={{borderBottom:"2px solid black"}} data-label="nom complet" className="p-1 ">
+          <td style={{borderBottom:"2px solid black"}} data-label="nom complet" className="p-1 hover:bg-sky-400">
             {element.coefficient}
           </td>
 
-          <td style={{borderBottom:"2px solid black"}} data-label="nom complet" className="p-1 ">
+          <td style={{borderBottom:"2px solid black"}} data-label="nom complet" className="p-1 hover:bg-sky-400">
             {element.duration}
           </td>
          
@@ -125,7 +126,7 @@ function Modules() {
               </button>
             </div>
           </td>
-        </tr>)
+        </tr>
         })}
        
         </>

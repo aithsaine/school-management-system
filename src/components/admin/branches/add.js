@@ -31,7 +31,7 @@ const CreateBranch = ({ isOpen, onClose }) => {
     <div
       className={`${
         isOpen ? "block" : "hidden"
-      } fixed z-10 inset-0 overflow-y-auto`}
+      } fixed z-10 inset-0 mt-10 overflow-y-auto`}
       aria-labelledby="modal-title"
       role="dialog"
       aria-modal="true"

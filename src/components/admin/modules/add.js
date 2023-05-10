@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import api from "../../../tools/api";
 import { success_toast, error_toast } from "../../../tools/notifications";
 import { Toaster } from "react-hot-toast";
-import { set_groups, set_modules } from "../../../redux/actions/actionCreators";
+import { set_modules } from "../../../redux/actions/actionCreators";
 
 const CreateModule = ({ isOpen, onClose }) => {
     const { levels, branches, options } = useSelector((state) => state);
@@ -13,8 +13,8 @@ const CreateModule = ({ isOpen, onClose }) => {
     const [branch, setBranch] = useState("")
     const [option, setOption] = useState(-1);
     const [season, setSeason] = useState(1);
-    const [duration, setDuration] = useState(null);
-    const [coefficient, setCoefficient] = useState(null);
+    const [duration, setDuration] = useState('');
+    const [coefficient, setCoefficient] = useState('');
     const [key,setKey] = useState("");
     const dispatch = useDispatch();
     const [availableBranchs, setAvailablseBranches] = useState([]);
