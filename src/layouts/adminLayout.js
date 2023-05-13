@@ -291,12 +291,13 @@ const AdminLayout = () => {
                       setOpen(false);
                       setisOpenTDP(false);
                     }}
+                    to={"admin/formateur/affecter"}
                     className="group flex items-center text-sm gap-3.5 font-medium p-2 text-gray-300  hover:text-gray-100"
                   >
                     <div>
                       {React.createElement(AiOutlineSearch, { size: "15" })}
                     </div>
-                    <h2>chercher formateur</h2>{" "}
+                    <h2>Affecter formateur</h2>{" "}
                   </Link>
                 </li>
               </ul>
