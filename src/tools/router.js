@@ -15,7 +15,7 @@ import Branches from "../components/admin/branches/list";
 import AddTeacher from "../components/admin/teachers/add";
 import Groups from "../components/admin/groups/list";
 import Modules from "../components/admin/modules/list";
-import AssignTeacher from "../components/admin/teachers/assign";
+import Assigns from "../components/admin/teachers/assigns";
 
 const router = createBrowserRouter([
   {
@@ -80,7 +80,7 @@ const router = createBrowserRouter([
       },
       {
         path:"admin/formateur/affecter",
-        element:<AssignTeacher/>      
+        element:<Assigns/>      
       },
       {
         path: "/admin/profile",

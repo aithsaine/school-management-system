@@ -89,8 +89,8 @@ function Modules() {
       return (
         <>
         <tr key={uuid()+"dsd"}>
-          <td colSpan={4} style={{backgroundColor:"gray",height:"30px"}}>
-            <h1>{branches.find(elem=>elem.id==item.branch).name.toUpperCase()} : {item.key=="TC"?"1ére Anneé":`2éme Anneé option ${item.name.toUpperCase()}`}</h1>
+          <td  colSpan={5} style={{backgroundColor:"gray",height:"30px"}}>
+            <h1 className="text-center">{branches.find(elem=>elem.id==item.branch).name.toUpperCase()} : {item.key=="TC"?"1ére Anneé":`2éme Anneé option ${item.name.toUpperCase()}`}</h1>
           </td>
         </tr>
       

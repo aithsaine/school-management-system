@@ -65,7 +65,7 @@ const CreateGroup = ({ isOpen, onClose }) => {
                                     className="text-lg leading-6 font-medium text-gray-900"
                                     id="modal-title"
                                 >
-                                    Ajouter une nouvelle branch
+                                    Ajouter un Nouveau Group
                                 </h3>
                                 <div className="flex justify-between"></div>
                             </div>

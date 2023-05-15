@@ -71,7 +71,7 @@ const CreateModule = ({ isOpen, onClose }) => {
                                     className="text-lg leading-6 font-medium text-gray-900"
                                     id="modal-title"
                                 >
-                                    Ajouter une nouvelle branch
+                                    Ajouter une Nouveau Module
                                 </h3>
                                 <div className="flex justify-between"></div>
                             </div>
@@ -229,7 +229,7 @@ const CreateModule = ({ isOpen, onClose }) => {
                                                 className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                                 htmlFor="grid-password"
                                             >
-                                                Mot Clé :
+                                                Mot Clé  <span className="text-xs text-gray-500">(example M101,EGTS,M201,M202 ...)</span>:
                                             </label>
                                             <input
                                                 value={key}
@@ -275,7 +275,7 @@ const CreateModule = ({ isOpen, onClose }) => {
                                                 className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                                 htmlFor="grid-password"
                                             >
-                                                Nom de Module :
+                                                Coefficient :
                                             </label>
                                             <input
                                                 value={coefficient}

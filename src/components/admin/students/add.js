@@ -74,7 +74,15 @@ export default function AddStudent() {
       .then((res) => {
         if (res.status === 200) {
           dispatch(set_students(res.data.students));
+          document.forms[0].reset()
           setAdress("");
+          setAvailablseBGroups([])
+          setLevel("")
+          setAvailablseBGroups([])
+          setAvailablseOptions([])
+          setBranch("")
+          setGroup("")
+          setOption("")
           setTele("");
           setBirthDaty("");
           setFirstName("");

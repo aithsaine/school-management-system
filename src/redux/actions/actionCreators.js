@@ -1,5 +1,6 @@
 import {
   FILTER_STUEDNTS,
+  SET_ASSIGNEMENT,
   SET_BRANCHES,
   SET_GROUPS,
   SET_INFO,
@@ -55,6 +56,12 @@ export const set_groups = (data)=>{
 export const set_modules = (data)=>{
   return{
     type:SET_MODULES,
+    payload:data
+  }
+}
+export const set_assignement = (data)=>{
+  return {
+    type:SET_ASSIGNEMENT,
     payload:data
   }
 }

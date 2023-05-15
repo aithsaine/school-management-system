@@ -74,7 +74,7 @@ const CreateBranch = ({ isOpen, onClose }) => {
                         }}
                         className={`bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
                       >
-                        <option value={""}>Selectionner le groupe</option>
+                        <option value={""}>choisie le groupe</option>
                         {levels.map((item, key) => (
                           <option value={item.id} key={key}>
                             {item.name}
@@ -113,7 +113,7 @@ const CreateBranch = ({ isOpen, onClose }) => {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Key de Branch :
+                        clé de Branch :
                       </label>
                       <input
                         value={key}
