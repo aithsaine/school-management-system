@@ -17,4 +17,8 @@ class Option extends Model
     {
         return $this->hasMany(Module::class);
     }
+    public function groups()
+    {
+        return $this->hasMany(Group::class);
+    }
 }

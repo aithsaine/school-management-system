@@ -9,8 +9,8 @@ class Group extends Model
 {
     protected $fillable = ["option_id","name"];
     use HasFactory;
-    public function branch()
+    public function option()
     {
-        return $this->belongsTo(Branch::class);
+        return $this->belongsTo(Option::class);
     }
 }

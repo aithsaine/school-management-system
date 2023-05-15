@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AffectationResource;
 use App\Http\Resources\BranchResource;
 use App\Http\Resources\GroupResource;
 use App\Http\Resources\LevelResource;
@@ -10,6 +11,7 @@ use App\Http\Resources\ModuleResource;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\StudentResource;
 use App\Http\Resources\TeacherResource;
+use App\Models\Affectation;
 use App\Models\Branch;
 use App\Models\Group;
 use App\Models\Level;
@@ -35,6 +37,7 @@ class AdminController extends Controller
         $students = StudentResource::collection(Student::orderBy("group_id")->get());
         $teachers =  TeacherResource::collection(Teacher::all());
         $modules = ModuleResource::collection(Module::all());
+        $assignements = AffectationResource::collection(Affectation::orderBy("group_id")->get());
         return response()->json([
             "students" => $students,
             "branches" => $branches,
@@ -42,7 +45,8 @@ class AdminController extends Controller
             "teachers" => $teachers,
             "groups" => $groups,
             "options"=>$options,
-            "modules"=>$modules
+            "modules"=>$modules,
+            "assignements"=>$assignements
         ]);
     }
 }

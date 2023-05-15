@@ -189,6 +189,80 @@ return new class extends Migration
                 "duration"=>160,
                 "coefficient"=>2
             ],
+
+
+
+            [
+                "option_id"=>4,
+                "title"=>"Métier et Formation dans le secteur AGC",
+                "key"=>"M101",
+                "duration"=>100,
+                "coefficient"=>2
+            ],
+            [
+                "option_id"=>4,
+                "title"=>"Bureautique",
+                "key"=>"M102",
+                "duration"=>90,
+                "coefficient"=>1
+            ],
+            [
+                "option_id"=>4,
+                "title"=>"L’entreprise et son environnement",
+                "key"=>"M103",
+                "duration"=>120,
+                "coefficient"=>3
+            ],
+            [
+                "option_id"=>4,
+                "title"=>"Statistiques",
+                "key"=>"M104",
+                "duration"=>160,
+                "coefficient"=>4
+            ],
+            [
+                "option_id"=>4,
+                "title"=>"Comptabilité générale : les concepts de base",
+                "key"=>"M105",
+                "duration"=>120,
+                "coefficient"=>3
+            ],
+            [
+                "option_id"=>4,
+                "title"=>"Marketing",
+                "key"=>"M106",
+                "duration"=>160,
+                "coefficient"=>2
+            ],
+            [
+                "option_id"=>4,
+                "title"=>"Comptabilité générale : les opérations courantes",
+                "key"=>"M107",
+                "duration"=>110,
+                "coefficient"=>3
+            ],
+            [
+                "option_id"=>4,
+                "title"=>"Traitement des salaires",
+                "key"=>"M108",
+                "duration"=>90,
+                "coefficient"=>2
+            ],
+            [
+                "option_id"=>4,
+                "title"=>"Logiciel de gestion commerciale, comptable et de paie",
+                "key"=>"M109",
+                "duration"=>100,
+                "coefficient"=>3
+            ],
+            [
+                "option_id"=>4,
+                "title"=>"Comptabilité générale : les écritures d’inventaire et de régularisation",
+                "key"=>"M110",
+                "duration"=>80,
+                "coefficient"=>4
+            ],
+            
         
         ]);
       
