@@ -16,6 +16,9 @@ import AddTeacher from "../components/admin/teachers/add";
 import Groups from "../components/admin/groups/list";
 import Modules from "../components/admin/modules/list";
 import Assigns from "../components/admin/teachers/assigns";
+import TeacherLayout from "../layouts/teacherLayout";
+import { element } from "prop-types";
+import TeacherDashboard from "../components/teacher/teacherDashboard";
 
 const router = createBrowserRouter([
   {
@@ -87,6 +90,16 @@ const router = createBrowserRouter([
         element: <Profile />,
       },
     ],
+  },
+  {
+    path:"/formateur",
+    element:<TeacherLayout/>,
+    children:[
+      {
+        path:"/formateur/",
+        element:<TeacherDashboard/>
+      }
+    ]
   },
   {
     path: "*",

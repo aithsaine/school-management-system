@@ -54,7 +54,7 @@ export default function AuthNavbar(props) {
               <li className="flex items-center">
                 <Link
                   className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  to={`${user.role == "admin" ? "/admin" : "/student"}`}
+                  to={`${user.role == "admin" ? "/admin" : (user.role=="student"?"/student":"/formateur")}`}
                 >
                   <i className="text-blueGray-400 fab fa-facebook text-lg leading-lg mr-2" />{" "}
                   Dashboard
