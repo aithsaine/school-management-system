@@ -30,7 +30,6 @@ function AdminDashboard() {
     ,
       title: 'Stagiaires',
       value: students.length,
-    
     },
     {
       color:"bg-indigo-400",
