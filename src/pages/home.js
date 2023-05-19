@@ -1,6 +1,6 @@
 import React from "react";
 import "../assets/styles/landing.css";
-import hero from "../assets/pictures/ofppt.jpg";
+import hero from "../assets/pictures/ofppt1.jpg";
 
 function Home() {
   return (

@@ -4,8 +4,10 @@ import {
   SET_BRANCHES,
   SET_GROUPS,
   SET_INFO,
+  SET_LEVELS,
   SET_MODULES,
   SET_STUDENTS,
+  SET_TEACHER,
   SET_TEACHERS,
   SET_USER,
 } from "./types";
@@ -62,6 +64,20 @@ export const set_modules = (data)=>{
 export const set_assignement = (data)=>{
   return {
     type:SET_ASSIGNEMENT,
+    payload:data
+  }
+}
+
+export const set_teacher = (data)=>{
+  return {
+    type:SET_TEACHER,
+    payload:data
+  }
+}
+ 
+export const set_levels = (data)=>{
+  return {
+    type:SET_LEVELS,
     payload:data
   }
 }

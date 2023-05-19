@@ -62,6 +62,7 @@ function Modules() {
         >
           Ajouter un nouveau Module
         </button>
+        <hr className="my-6" />
 
         <div style={{ height: "500px" }}>
 
