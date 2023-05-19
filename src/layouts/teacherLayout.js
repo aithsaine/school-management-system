@@ -18,8 +18,8 @@ export default function TeacherLayout() {
   const [isLoading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const menus = [
-    { name: "dashboard", link: "/admin", icon: MdOutlineDashboard },
-    { name: "my profile", link: "/admin/profile", icon: AiOutlineUser },
+    { name: "dashboard", link: "/formateur", icon: MdOutlineDashboard },
+    { name: "my profile", link: "/formateur/profile", icon: AiOutlineUser },
     { name: "Setting", link: "/", icon: RiSettings4Line },
   ];
   const LogoutHandel = async (e) => {

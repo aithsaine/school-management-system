@@ -11,6 +11,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { set_modules } from "../../../redux/actions/actionCreators";
 import swal from "sweetalert";
 import api from "../../../tools/api";
+import { useEffect } from "react";
 function Modules() {
   const {modules,options,branches,levels} = useSelector(state=>state)
   const [isOpen, setIsOpen] = useState(false);
@@ -18,6 +19,10 @@ function Modules() {
   const onClose = (item) => {
     setIsOpen(false);
   };
+
+  useEffect(()=>{
+    document.title = "Admin -  Modules"
+  },[])
 
   const deleteHandel = (id) => {
     swal({

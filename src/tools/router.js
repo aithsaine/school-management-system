@@ -19,6 +19,7 @@ import Assigns from "../components/admin/teachers/assigns";
 import TeacherLayout from "../layouts/teacherLayout";
 import { element } from "prop-types";
 import TeacherDashboard from "../components/teacher/teacherDashboard";
+import TeacherProfile from "../components/teacher/profile";
 
 const router = createBrowserRouter([
   {
@@ -98,6 +99,10 @@ const router = createBrowserRouter([
       {
         path:"/formateur/",
         element:<TeacherDashboard/>
+      },
+      {
+        path:"/formateur/profile",
+        element:<TeacherProfile/>
       }
     ]
   },
