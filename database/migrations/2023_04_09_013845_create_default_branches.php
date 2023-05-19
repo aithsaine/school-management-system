@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -13,7 +11,7 @@ return new class extends Migration
     {
         App\Models\Branch::insert([
             [
-                "name" => "Debeloppement Digital",
+                "name" => "Développement Digital",
                 "key" => "DEV",
                 "level_id" => "1"
             ],

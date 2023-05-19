@@ -26,6 +26,7 @@ class UserResource extends JsonResource
             $role = "student";
         }
         return [
+            "id"=>$this->id,
             "first_name" => $this->first_name,
             "last_name" => $this->last_name,
             "cin" => $this->cin,
@@ -34,6 +35,7 @@ class UserResource extends JsonResource
             "birthday" => $this->birthday,
             "tele" => $this->tele,
             "email" => $this->email,
+            "hiring_date"=>$this->created_at->format("F, d Y"),
             "role" => $role
         ];
     }

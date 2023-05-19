@@ -11,6 +11,10 @@ use App\Models\Module;
 class AdminModuleController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware(["auth:sanctum", "admin"]);
+    }
     public function store(Request $request)
     {
         $request->validate(

@@ -13,6 +13,10 @@ use App\Models\Option;
 
 class AdminGroupsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(["auth:sanctum", "admin"]);
+    }
     //
     public function store(Request $request)
     {

@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Api\Admin\AdminAffectationController;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Route;
@@ -48,8 +47,13 @@ Route::controller(App\Http\Controllers\Api\Admin\AdminModuleController::class)->
     Route::post("admin/module/store","store");
     Route::delete("admin/module/{id}/delete","delete");
 });
-Route::controller(AdminAffectationController::class)->group(function(){
+Route::controller(App\Http\Controllers\Api\Admin\AdminAffectationController::class)->group(function(){
     Route::post("admin/affectaion/store","store");
     Route::patch("admin/affectaion/update","update");
     Route::delete("admin/affectaion/delete","delete");
+});
+
+Route::controller(App\Http\Controllers\Api\Teacher\TeacherController::class)->group(function()
+{
+  Route::get("teacher/{id}/info","info");
 });
