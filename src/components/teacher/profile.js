@@ -119,7 +119,7 @@ export default function TeacherProfile() {
                                 {UniqueGroups.map((item,index)=>{
                                     return(
                                         <li key={index}><a href="#">
-                                        <div className="text-teal-600 text-base">{(options.find(elem=>elem.id==groups.find(elem1=>elem1.id==item.group).option).season==1?"1ére anneé :":"2éme anneé :")+ branches.find(elem=>elem.id==options.find(elem1=>elem1.id==groups.find(elem2=>elem2.id==item.group).option).branch).name + (options.find(elem=>elem.id==groups.find(elem1=>elem1.id==item.group).option).season==2?" option "+options.find(elem=>elem.id==groups.find(elem2=>elem2.id==item.group).option).name:"")}</div>
+                                        <div className="text-teal-600 text-base">{(options.find(elem=>elem.id==groups.find(elem1=>elem1.id==item.group).option).season==1?"1ére anneé :":"2éme anneé :")+ branches.find(elem=>elem.id==options.find(elem1=>elem1.id==groups.find(elem2=>elem2.id==item.group).option).branch).name + (options.find(elem=>elem.id==groups.find(elem1=>elem1.id==item.group).option).season==2?" option "+options.find(elem=>elem.id==groups.find(elem2=>elem2.id==item.group).option).name:"")+ " group "+ groups.find(elem=>elem.id==item.group).name}</div>
                                         <div className="text-gray-500 text-xs">{assignements.filter(elem=>elem.group==item.group).length} module</div>
                                     </a></li>
                                     )
