@@ -4,7 +4,16 @@ import api from "../tools/api";
 import router from "../tools/router";
 import { useDispatch } from "react-redux";
 import Loading from "../tools/loader";
-import { set_assignement, set_groups, set_info, set_levels, set_modules, set_students, set_teacher, set_user } from "../redux/actions/actionCreators";
+import {
+  set_assignement,
+  set_groups,
+  set_info,
+  set_levels,
+  set_modules,
+  set_students,
+  set_teacher,
+  set_user,
+} from "../redux/actions/actionCreators";
 import GestNavbar from "../components/navbars/GestNavbar";
 import AuthNavbar from "../components/navbars/AuthNavbar";
 import { HiMenuAlt1, HiOutlineLogout } from "react-icons/hi";
@@ -35,14 +44,13 @@ export default function TeacherLayout() {
   };
   useEffect(() => {
     if (localStorage.getItem("isLogged")) {
-      (async() => {
-     await   api
+      (async () => {
+        await api
           .get("/api/user")
           .then((res) => {
             if (res) {
-            
-              (() => {
-                api
+              (async () => {
+                await api
                   .get(`api/teacher/${res.data.data.id}/info`)
                   .then((result) => {
                     if (result) {
@@ -51,30 +59,32 @@ export default function TeacherLayout() {
                       // dispatch(set_modules(result.data.modules))
                       // dispatch(set_groups(result.data.groups))
                       // dispatch(set_levels(result.data.levels))
-                      dispatch(set_info(result.data))
-                      dispatch(set_teacher(result.data.teacher))
-
-                     
+                      dispatch(set_info(result.data));
+                      dispatch(set_teacher(result.data.teacher));
                     }
                   })
                   .catch((error) => {
-                    if (error.response.status !== 422) return router.navigate("/login");
+                    if (error.response.status !== 422)
+                      return router.navigate("/login");
                   });
               })();
 
               dispatch(set_user(res.data.data));
-              setNavbar(<AuthNavbar user={res.data.data} />);
+              setNavbar(<AuthNavbar role={res.data.data.role} />);
               if (res.data.data.role !== "teacher") {
                 router.navigate("/");
               }
             }
-
           })
           .catch((error) => {
-            if (error.response.status !== 422) return router.navigate("/login");
+            if (error.response.status !== 422) {
+              api.post("/api/logout").then((res) => {
+                localStorage.removeItem("isLogged");
+                router.navigate("/login");
+              });
+            }
           });
       })();
-      
     } else {
       router.navigate("/");
     }
@@ -151,29 +161,29 @@ export default function TeacherLayout() {
                 </h2>
               </Link>
             ))}
-                 {/* Modules Item in Menu */}
-                 <Link
+            {/* Modules Item in Menu */}
+            <Link
               to={"/formateur/modules"}
               onClick={(e) => {
                 setOpen(false);
               }}
               className={` group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
             >
-              <div>
-                {React.createElement(AiFillBook, { size: "20" })}
-              </div>
+              <div>{React.createElement(AiFillBook, { size: "20" })}</div>
               <h2
                 style={{
                   transitionDelay: `800ms`,
                 }}
-                className={`whitespace-pre duration-500 ${!open && "opacity-0 translate-x-28 overflow-hidden"
-                  }`}
+                className={`whitespace-pre duration-500 ${
+                  !open && "opacity-0 translate-x-28 overflow-hidden"
+                }`}
               >
                 Modules
               </h2>
               <h2
-                className={`${open && "hidden"
-                  } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
+                className={`${
+                  open && "hidden"
+                } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
               >
                 Modules
               </h2>
@@ -210,7 +220,7 @@ export default function TeacherLayout() {
           <Outlet />
         </div>
       </section>
-      <Footer/>
+      <Footer />
     </>
   );
 }

@@ -14,13 +14,13 @@ export default function StudentLayout() {
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
     if (localStorage.getItem("isLogged")) {
-      (() => {
-        api
+      (async() => {
+        await api
           .get("/api/user")
           .then((res) => {
             if (res) {
               dispatch(set_user(res.data.data));
-              setNavbar(<AuthNavbar user={res.data.data} />);
+              setNavbar(<AuthNavbar role={res.data.data.role} />);
               if (res.data.data.role !== "student") {
                 router.navigate("/");
               }

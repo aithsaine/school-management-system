@@ -41,7 +41,7 @@ export default function Login() {
         localStorage.setItem("isLogged", true);
         if (responce.status)
           if (responce.status === 200) {window.location.href = "/"
-          localStorage.setItem("role",responce.data.role)
+          localStorage.setItem("role",responce.data.user.role)
         };
       })
       .catch((er) => {

@@ -15,13 +15,13 @@ function GestLayout() {
 
   useEffect(() => {
     if (localStorage.getItem("isLogged")) {
-      (() => {
-        api
+      (async() => {
+       await api
           .get("/api/user")
           .then((res) => {
             if (res) {
               dispatch(set_user(res.data.data));
-              setNavbar(<AuthNavbar user={res.data.data} />);
+              setNavbar(<AuthNavbar role={res.data.data.role} />);
             }
           })
           .catch((error) => {});

@@ -4,7 +4,7 @@ import api from "../../tools/api";
 import logo from "../../assets/pictures/logo.png";
 export default function AuthNavbar(props) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
-  const { user } = props;
+  const { role } = props;
   const LogoutHandel = async (e) => {
     e.preventDefault();
     await api
@@ -54,7 +54,7 @@ export default function AuthNavbar(props) {
               <li className="flex items-center">
                 <Link
                   className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  to={`${user.role == "admin" ? "/admin" : (user.role=="student"?"/student":"/formateur")}`}
+                  to={`${role == "admin" ? "/admin" : (role=="student"?"/student":"/formateur")}`}
                 >
                   <i className="text-blueGray-400 fab fa-facebook text-lg leading-lg mr-2" />{" "}
                   Dashboard

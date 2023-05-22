@@ -49,13 +49,16 @@ const AdminLayout = () => {
                   if (error.response.status !== 422)
                     return router.navigate("/login");
                 });
-              if (res.data.data.role !== "admin") {
-                router.navigate("/");
-              }
+             
             }
           })
           .catch((error) => {
-            if (error.response.status !== 422) return router.navigate("/login");
+            if (error.response.status !== 422) {
+              api.post("/api/logout").then((res) => {
+                localStorage.removeItem("isLogged");
+                router.navigate("/login");
+              });
+            };
           });
       })();
     } else {
@@ -87,7 +90,7 @@ const AdminLayout = () => {
 
   return (
     <>
-      <AuthNavbar user={user} />
+      <AuthNavbar role={localStorage.getItem("role")} />
 
       <section className={` flex  `}>
         <div
