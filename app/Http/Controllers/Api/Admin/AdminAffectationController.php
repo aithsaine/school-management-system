@@ -43,10 +43,16 @@ class AdminAffectationController extends Controller
             "assign"=>["required","exists:affectations,id"],
             "teacher"=>["required","exists:teachers,id"]
         ]);
-        $affectaion = Affectation::find($request->assign);
-        $affectaion->teacher_id=$request->teacher;
-        $affectaion->save();
-        return response(["status" => 200, "assignements" => AffectationResource::collection(Affectation::orderBy("group_id")->get()), "message" => "Le nom du formateur a été mis à jour avec succès"]);
+        if(Affectation::find($request->assign)->status !="not started"){
+            return response(["message" => "impossible de changer le formateur parceque le module déja lancés!"],401);
+        }
+        else{
+
+            $affectaion = Affectation::find($request->assign);
+            $affectaion->teacher_id=$request->teacher;
+            $affectaion->save();
+            return response(["status" => 200, "assignements" => AffectationResource::collection(Affectation::orderBy("group_id")->get()), "message" => "Le nom du formateur a été mis à jour avec succès"]);
+        }
     
     }
     public function delete(Request $request)
@@ -54,8 +60,13 @@ class AdminAffectationController extends Controller
         $request->validate([
             "assign"=>["required","exists:affectations,id"],
         ]);
-        Affectation::destroy($request->assign);
-        return response(["status" => 200, "assignements" => AffectationResource::collection(Affectation::orderBy("group_id")->get()), "message" => "L'affectation' a été supprimé avec succès"]);
+        if(Affectation::find($request->assign)->status !="not started"){
+            return response(["message" => "impossible de supprimer cette affectation parceque le module déja lancés!"],401);
+        }
+        else{
+            Affectation::destroy($request->assign);
+            return response(["status" => 200, "assignements" => AffectationResource::collection(Affectation::orderBy("group_id")->get()), "message" => "L'affectation' a été supprimé avec succès"]);
+        }
 
     }
 }

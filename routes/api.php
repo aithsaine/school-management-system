@@ -57,3 +57,7 @@ Route::controller(App\Http\Controllers\Api\Teacher\TeacherController::class)->gr
 {
   Route::get("teacher/{id}/info","info");
 });
+Route::controller(App\Http\Controllers\Api\Teacher\TeacherModulesController::class)->group(function(){
+    Route::patch("teacher/module/start","start_module");
+    Route::patch("teacher/module/end","end_module");
+});
