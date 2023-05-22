@@ -19,6 +19,7 @@ import api from "../tools/api";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../tools/loader";
 import AuthNavbar from "../components/navbars/AuthNavbar";
+import Footer from "../components/footer";
 
 const AdminLayout = () => {
   const [open, setOpen] = useState(false);
@@ -407,6 +408,8 @@ const AdminLayout = () => {
           <Outlet />
         </div>
       </section>
+      <Footer/>
+
     </>
   );
 };

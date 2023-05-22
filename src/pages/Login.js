@@ -19,6 +19,7 @@ export default function Login() {
         await api
           .get("/api/user")
           .then((res) => {
+            localStorage.setItem("role",res.data.data.role)
             /* if (res.data.data.role === "admin") {
               router.navigate("/admin");
             } else if (res.data.data.role === "student") {
@@ -39,7 +40,9 @@ export default function Login() {
       .then((responce) => {
         localStorage.setItem("isLogged", true);
         if (responce.status)
-          if (responce.status === 200) window.location.href = "/";
+          if (responce.status === 200) {window.location.href = "/"
+          localStorage.setItem("role",responce.data.role)
+        };
       })
       .catch((er) => {
         if (er.response.status === 422) setErrors(er.response.data);

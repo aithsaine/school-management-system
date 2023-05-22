@@ -38,6 +38,7 @@ function Modules() {
           .then((res) => {
             dispatch(set_modules(res.data.modules));
             swal(res.data.message, {
+              buttons:  true,
               icon: "success",
             });
           })

@@ -44,9 +44,10 @@ export default function Assigns() {
       dispatch(set_assignement(res.data.assignements));
       success_toast(res.data.message);
     })
-    .catch((er) => {
-      error_toast(er.response.data.message);
-    });
+    .catch((err) => {
+      swal(err.response.data.message, {
+        icon: "error",
+      })    });
   }    });
 
   }
@@ -97,6 +98,7 @@ export default function Assigns() {
                     <td data-label="NOM COMPLETE" className="p-1 ">
                       {/* {teachers.find(elem=>elem.id===item.teacher).first_name.toUpperCase()} {teachers.find(elem=>elem.id===item.teacher).last_name.toUpperCase()} */}
                       <select
+                      disabled={item.status !=="not started"}
                         onChange={(e) => {
                           api
                             .patch("api/admin/affectaion/update", {
@@ -111,8 +113,9 @@ export default function Assigns() {
                               error_toast(er.response.data.message);
                             });
                         }}
-                        className={`bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
-                      >
+                        className={`${item.status!="not started"?"cursor-not-allowed":""} bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-600`}
+                     
+                     >
                         {teachers.map((elem, key) => (
                           <option
                             selected={elem.id == item.teacher}

@@ -9,8 +9,9 @@ import GestNavbar from "../components/navbars/GestNavbar";
 import AuthNavbar from "../components/navbars/AuthNavbar";
 import { HiMenuAlt1, HiOutlineLogout } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
-import { AiOutlineUser } from "react-icons/ai";
+import { AiFillBook, AiOutlineUser } from "react-icons/ai";
 import { RiSettings4Line } from "react-icons/ri";
+import Footer from "../components/footer";
 
 export default function TeacherLayout() {
   const [navbar, setNavbar] = useState(<GestNavbar />);
@@ -34,8 +35,8 @@ export default function TeacherLayout() {
   };
   useEffect(() => {
     if (localStorage.getItem("isLogged")) {
-      (() => {
-        api
+      (async() => {
+     await   api
           .get("/api/user")
           .then((res) => {
             if (res) {
@@ -150,6 +151,33 @@ export default function TeacherLayout() {
                 </h2>
               </Link>
             ))}
+                 {/* Modules Item in Menu */}
+                 <Link
+              to={"/formateur/modules"}
+              onClick={(e) => {
+                setOpen(false);
+              }}
+              className={` group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
+            >
+              <div>
+                {React.createElement(AiFillBook, { size: "20" })}
+              </div>
+              <h2
+                style={{
+                  transitionDelay: `800ms`,
+                }}
+                className={`whitespace-pre duration-500 ${!open && "opacity-0 translate-x-28 overflow-hidden"
+                  }`}
+              >
+                Modules
+              </h2>
+              <h2
+                className={`${open && "hidden"
+                  } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
+              >
+                Modules
+              </h2>
+            </Link>
             {/* LogOut Item in Menu */}
             <button
               onClick={LogoutHandel}
@@ -182,6 +210,7 @@ export default function TeacherLayout() {
           <Outlet />
         </div>
       </section>
+      <Footer/>
     </>
   );
 }

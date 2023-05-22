@@ -20,6 +20,7 @@ import TeacherLayout from "../layouts/teacherLayout";
 import { element } from "prop-types";
 import TeacherDashboard from "../components/teacher/teacherDashboard";
 import TeacherProfile from "../components/teacher/profile";
+import TeacherModules from "../components/teacher/modules";
 
 const router = createBrowserRouter([
   {
@@ -103,6 +104,10 @@ const router = createBrowserRouter([
       {
         path:"/formateur/profile",
         element:<TeacherProfile/>
+      },
+      {
+        path:"/formateur/modules",
+        element:<TeacherModules/>
       }
     ]
   },

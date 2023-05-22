@@ -2,8 +2,7 @@ import React from "react";
 import Card from "../card";
 import { AiOutlineUser } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
-import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function TeacherProfile() {
     const {user,assignements,groups,options,teacher,branches} = useSelector(state=>state);
@@ -118,14 +117,12 @@ export default function TeacherProfile() {
                             <ul className="list-inside space-y-2">
                                 {UniqueGroups.map((item,index)=>{
                                     return(
-                                        <li key={index}><a href="#">
+                                        <li key={index}><Link to="/formateur/modules">
                                         <div className="text-teal-600 text-base">{(options.find(elem=>elem.id==groups.find(elem1=>elem1.id==item.group).option).season==1?"1ére anneé :":"2éme anneé :")+ branches.find(elem=>elem.id==options.find(elem1=>elem1.id==groups.find(elem2=>elem2.id==item.group).option).branch).name + (options.find(elem=>elem.id==groups.find(elem1=>elem1.id==item.group).option).season==2?" option "+options.find(elem=>elem.id==groups.find(elem2=>elem2.id==item.group).option).name:"")+ " group "+ groups.find(elem=>elem.id==item.group).name}</div>
                                         <div className="text-gray-500 text-xs">{assignements.filter(elem=>elem.group==item.group).length} module</div>
-                                    </a></li>
+                                    </Link></li>
                                     )
-                                })}
-
-                            
+                                })}                          
                              
                             </ul>
                         </div>
