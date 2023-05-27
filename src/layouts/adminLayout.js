@@ -32,6 +32,7 @@ const AdminLayout = () => {
     { name: "my profile", link: "/admin/profile", icon: AiOutlineUser },
     { name: "Setting", link: "/", icon: RiSettings4Line },
   ];
+
   useEffect(() => {
     if (localStorage.getItem("isLogged")) {
       (async () => {
@@ -47,7 +48,7 @@ const AdminLayout = () => {
                 })
                 .catch((error) => {
                   if (error.response.status !== 422)
-                    return router.navigate("/login");
+                    return router.navigate("/");
                 });
              
             }
@@ -56,9 +57,11 @@ const AdminLayout = () => {
             if (error.response.status !== 422) {
               api.post("/api/logout").then((res) => {
                 localStorage.removeItem("isLogged");
-                router.navigate("/login");
+                router.navigate("/");
               });
+
             };
+            router.navigate("/");
           });
       })();
     } else {
@@ -73,10 +76,11 @@ const AdminLayout = () => {
       .post("/api/logout")
       .then((res) => {
         localStorage.removeItem("isLogged");
-        router.navigate("/");
+        router.navigate(-1);
       })
       .catch((er) => console.log(er));
   };
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
@@ -88,6 +92,10 @@ const AdminLayout = () => {
     return <Loading />;
   }
 
+
+
+if(user&&user.role=="admin"){
+
   return (
     <>
       <AuthNavbar role={localStorage.getItem("role")} />
@@ -96,7 +104,7 @@ const AdminLayout = () => {
         <div
           className={`bg-[#0e0e0e] min-h-screen z-50 ${open ? "w-72" : "w-16"
             } duration-500 text-gray-100 px-4  `}
-        >
+            >
           <div className="py-3 flex justify-end">
             <HiMenuAlt1
               size={26}
@@ -106,13 +114,13 @@ const AdminLayout = () => {
                 setisOpenSDP(false);
                 setisOpenTDP(false);
               }}
-            />
+              />
           </div>
           <div className="mt-4  scroll-x flex flex-col gap-4 ">
             {menus?.map((menu, i) => (
               <Link
-                to={menu.link}
-                onClick={(e) => {
+              to={menu.link}
+              onClick={(e) => {
                   setOpen(false);
                   setisOpenSDP(false);
                   setisOpenTDP(false);
@@ -120,14 +128,14 @@ const AdminLayout = () => {
                 key={i}
                 className={` ${menu?.margin && "mt-5"
                   } group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
-              >
+                  >
                 <div>{React.createElement(menu?.icon, { size: "20" })}</div>
                 <h2
                   style={{
                     transitionDelay: `${i + 3}00ms`,
                   }}
                   className={`whitespace-pre duration-500 ${!open && "opacity-0 translate-x-28 overflow-hidden"
-                    }`}
+                }`}
                 >
                   {menu?.name}
                 </h2>
@@ -165,7 +173,7 @@ const AdminLayout = () => {
               <h2
                 className={`${open && "hidden"
                   } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
-              >
+                  >
                 Branches
               </h2>
             </Link>
@@ -190,7 +198,7 @@ const AdminLayout = () => {
                 }}
                 className={`whitespace-pre duration-500 ${!open && "opacity-0 translate-x-28 overflow-hidden"
                   }`}
-              >
+                  >
                 Modules
               </h2>
               <h2
@@ -210,7 +218,7 @@ const AdminLayout = () => {
                 setisOpenTDP(false);
               }}
               className={` group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
-            >
+              >
               <div>
                 {React.createElement(RiGroupLine, { size: "20" })}
               </div>
@@ -219,13 +227,13 @@ const AdminLayout = () => {
                   transitionDelay: `900ms`,
                 }}
                 className={`whitespace-pre duration-500 ${!open && "opacity-0 translate-x-28 overflow-hidden"
-                  }`}
+              }`}
               >
                 Groupes
               </h2>
               <h2
                 className={`${open && "hidden"
-                  } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
+              } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
               >
                 Groupes
               </h2>
@@ -245,13 +253,13 @@ const AdminLayout = () => {
                   transitionDelay: `900ms`,
                 }}
                 className={`whitespace-pre duration-500 ${!open && "opacity-0 translate-x-28 overflow-hidden"
-                  }`}
+              }`}
               >
                 Formateurs
               </h2>
               <h2
                 className={`${open && "hidden"
-                  } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
+              } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
               >
                 Formateurs
               </h2>
@@ -266,7 +274,7 @@ const AdminLayout = () => {
                     }}
                     to={"/admin/formateur/add"}
                     className="group flex items-center text-sm gap-3.5 font-medium p-2 text-gray-300  hover:text-gray-100"
-                  >
+                    >
                     <div>
                       {React.createElement(AiOutlineUserAdd, { size: "15" })}
                     </div>
@@ -321,13 +329,13 @@ const AdminLayout = () => {
                   transitionDelay: `900ms`,
                 }}
                 className={`whitespace-pre duration-500 ${!open && "opacity-0 translate-x-28 overflow-hidden"
-                  }`}
+              }`}
               >
                 Stagiaires
               </h2>
               <h2
                 className={`${open && "hidden"
-                  } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
+              } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
               >
                 Stagiaires
               </h2>
@@ -372,7 +380,7 @@ const AdminLayout = () => {
                       setisOpenSDP(false);
                     }}
                     className="group flex items-center text-sm gap-3.5 font-medium p-2 text-gray-300  hover:text-gray-100"
-                  >
+                    >
                     <div>
                       {React.createElement(AiOutlineSearch, { size: "15" })}
                     </div>
@@ -398,7 +406,7 @@ const AdminLayout = () => {
               </h2>
               <h2
                 className={`${open && "hidden"
-                  } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
+              } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
               >
                 logout
               </h2>
@@ -407,7 +415,7 @@ const AdminLayout = () => {
         </div>
         <div
           className={` my-5 overflow-x-hidden ml-5 w-full text-xl text-gray-900 font-semibold z-100`}
-        >
+          >
           <Outlet />
         </div>
       </section>
@@ -415,6 +423,10 @@ const AdminLayout = () => {
 
     </>
   );
+}
+else{
+  return <Loading />;
+}
 };
 
 export default AdminLayout;

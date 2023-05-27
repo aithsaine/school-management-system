@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import api from "../tools/api";
 import router from "../tools/router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Loading from "../tools/loader";
 import {
   set_assignement,
@@ -27,6 +27,7 @@ export default function TeacherLayout() {
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
+  const {user} = useSelector(state=>state)
   const menus = [
     { name: "dashboard", link: "/formateur", icon: MdOutlineDashboard },
     { name: "my profile", link: "/formateur/profile", icon: AiOutlineUser },
@@ -65,7 +66,7 @@ export default function TeacherLayout() {
                   })
                   .catch((error) => {
                     if (error.response.status !== 422)
-                      return router.navigate("/login");
+                      return router.navigate("/");
                   });
               })();
 
@@ -80,7 +81,7 @@ export default function TeacherLayout() {
             if (error.response.status !== 422) {
               api.post("/api/logout").then((res) => {
                 localStorage.removeItem("isLogged");
-                router.navigate("/login");
+                router.navigate("/");
               });
             }
           });
@@ -95,7 +96,7 @@ export default function TeacherLayout() {
     await api
       .post("/api/logout")
       .then((res) => {
-        router.navigate("/login");
+        router.navigate("/");
       })
       .catch((er) => console.log(er));
   };*/
@@ -109,7 +110,7 @@ export default function TeacherLayout() {
   if (isLoading) {
     return <Loading />;
   }
-
+if(user&&user.role=="teacher")
   return (
     <>
       {navbar}
