@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -61,3 +62,10 @@ Route::controller(App\Http\Controllers\Api\Teacher\TeacherModulesController::cla
     Route::patch("teacher/module/start","start_module");
     Route::patch("teacher/module/end","end_module");
 });
+
+
+Route::controller(App\Http\Controllers\Api\Teacher\TeacherNoteController::class)->group(function()
+{
+    Route::get("/teacher/note/grille/download/{id}/{nbr}","grille");
+});
+

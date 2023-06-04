@@ -27,6 +27,10 @@ class Student extends Model
     {
         return $this->belongsTo(Branch::class);
     }
+    public function notes()
+    {
+        return $this->hasMany(Note::class);
+    }
 
     public static function validate(Request $request)
     {

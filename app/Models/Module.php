@@ -13,4 +13,8 @@ class Module extends Model
     {
         return $this->belongsTo(Option::class) ;
     }
+    public function affectations()
+    {
+        return $this->hasMany(Affectation::class);
+    }
 }

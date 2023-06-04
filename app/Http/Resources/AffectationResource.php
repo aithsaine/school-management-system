@@ -19,7 +19,8 @@ class AffectationResource extends JsonResource
             "teacher"=>$this->teacher_id,
             "group"=>$this->group_id,
             "module"=>$this->module_id, 
-            "status"=>$this->status
+            "status"=>$this->status,
+            "notes"=>$this->notes->count()
         ];
     }
 }

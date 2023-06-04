@@ -1,5 +1,8 @@
 <?php
 
+use App\Exports\NoteGridExport;
+use App\Exports\StudentGridExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,5 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return ['Laravel' => app()->version()];
 });
+
+
 
 require __DIR__.'/auth.php';
