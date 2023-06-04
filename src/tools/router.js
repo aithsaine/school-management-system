@@ -17,10 +17,10 @@ import Groups from "../components/admin/groups/list";
 import Modules from "../components/admin/modules/list";
 import Assigns from "../components/admin/teachers/assigns";
 import TeacherLayout from "../layouts/teacherLayout";
-import { element } from "prop-types";
 import TeacherDashboard from "../components/teacher/teacherDashboard";
 import TeacherProfile from "../components/teacher/profile";
 import TeacherModules from "../components/teacher/modules";
+import ExportGridNote from "../components/teacher/notes/exports";
 
 const router = createBrowserRouter([
   {
@@ -108,6 +108,10 @@ const router = createBrowserRouter([
       {
         path:"/formateur/modules",
         element:<TeacherModules/>
+      },
+      {
+        path:"/formateur/notes/grille",
+        element:<ExportGridNote/>
       }
     ]
   },

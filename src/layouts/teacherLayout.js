@@ -5,12 +5,7 @@ import router from "../tools/router";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../tools/loader";
 import {
-  set_assignement,
-  set_groups,
   set_info,
-  set_levels,
-  set_modules,
-  set_students,
   set_teacher,
   set_user,
 } from "../redux/actions/actionCreators";
@@ -20,6 +15,7 @@ import { HiMenuAlt1, HiOutlineLogout } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
 import { AiFillBook, AiOutlineUser } from "react-icons/ai";
 import { RiSettings4Line } from "react-icons/ri";
+import {BiBookmark} from "react-icons/bi"
 import Footer from "../components/footer";
 
 export default function TeacherLayout() {
@@ -28,6 +24,7 @@ export default function TeacherLayout() {
   const [isLoading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const {user} = useSelector(state=>state)
+  const [isOpenNDP,setisOpenNDP] = useState(false)
   const menus = [
     { name: "dashboard", link: "/formateur", icon: MdOutlineDashboard },
     { name: "my profile", link: "/formateur/profile", icon: AiOutlineUser },
@@ -110,7 +107,7 @@ export default function TeacherLayout() {
   if (isLoading) {
     return <Loading />;
   }
-if(user&&user.role=="teacher")
+if(user&&user.role==="teacher")
   return (
     <>
       {navbar}
@@ -127,6 +124,8 @@ if(user&&user.role=="teacher")
               className="cursor-pointer"
               onClick={() => {
                 setOpen(!open);
+                setisOpenNDP(false)
+                
               }}
             />
           </div>
@@ -136,6 +135,7 @@ if(user&&user.role=="teacher")
                 to={menu.link}
                 onClick={(e) => {
                   setOpen(false);
+                  setisOpenNDP(false)
                 }}
                 key={i}
                 className={` ${
@@ -162,11 +162,90 @@ if(user&&user.role=="teacher")
                 </h2>
               </Link>
             ))}
+
+   {/* Notes Item in Menu */}
+   <button
+              onClick={(e) => {
+                setOpen(true);
+                setisOpenNDP(!isOpenNDP);
+              }}
+              className={` group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
+            >
+              <div>{React.createElement(BiBookmark, { size: "20" })}</div>
+              <h2
+                style={{
+                  transitionDelay: `900ms`,
+                }}
+                className={`whitespace-pre duration-500 ${!open && "opacity-0 translate-x-28 overflow-hidden"
+              }`}
+              >
+                Les Note
+              </h2>
+              <h2
+                className={`${open && "hidden"
+              } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
+              >
+                Les Note
+              </h2>
+            </button>
+            {isOpenNDP && (
+              <ul className="left-0 ml-3 bg-[#0e0e0e]  rounded-md shadow-lg text-gray-100 ring-1 ring-black ring-opacity-5  z-10">
+                <li className="flex align-center">
+                  <Link
+                    onClick={(e) => {
+                      setOpen(false);
+                      setisOpenNDP(false);
+                    }}
+                    to={"/formateur/notes/grille"}
+                    className="group flex items-center text-sm gap-3.5 font-medium p-2 text-gray-300  hover:text-gray-100"
+                  >
+                    <div>
+                      {/* {React.createElement(AiOutlineUserAdd, { size: "15" })} */}
+                    </div>
+                    <h2>Exporter les grille</h2>{" "}
+                  </Link>
+                </li>
+
+                <li className="flex align-center">
+                  <Link
+                    onClick={(e) => {
+                      setOpen(false);
+                      setisOpenNDP(false);
+                    }}
+                    to={"/admin/students"}
+                    className="group flex items-center text-sm gap-3.5 font-medium p-2 text-gray-300  hover:text-gray-100"
+                  >
+                    <div>
+                      {/* {React.createElement(AiOutlineUserSwitch, { size: "15" })} */}
+                    </div>
+                    <h2>Importer les notes</h2>{" "}
+                  </Link>
+                </li>
+                <li className="flex align-center">
+                  <Link
+                    onClick={(e) => {
+                      setOpen(false);
+                      setisOpenNDP(false);
+                    }}
+                    className="group flex items-center text-sm gap-3.5 font-medium p-2 text-gray-300  hover:text-gray-100"
+                    >
+                    <div>
+                      {/* {React.createElement(AiOutlineSearch, { size: "15" })} */}
+                    </div>
+                    <h2>Suiver les note</h2>{" "}
+                  </Link>
+                </li>
+              </ul>
+            )}
+
+
             {/* Modules Item in Menu */}
             <Link
               to={"/formateur/modules"}
               onClick={(e) => {
                 setOpen(false);
+                setisOpenNDP(false)
+
               }}
               className={` group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
             >
