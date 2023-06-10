@@ -14,13 +14,6 @@ class TeacherNoteController extends Controller
 
     function grille($id,$nbr){
         $aff = Affectation::find($id);
-        $filename = $aff->module->title . ' ' . "controle $nbr" . ".xlsx";
-        return Excel::download(
-            new NoteGridExport($id, $nbr),
-            $filename,
-            \Maatwebsite\Excel\Excel::XLSX,
-            [
-                'Content-Disposition' => 'attachment; filename="' . $filename . '"',
-            ]
-        );    }
+        return Excel::download(new NoteGridExport($id,$nbr), "module ".$aff->module->title.' '."controle numero $nbr "."group {$aff->group->option->branch->key}-{$aff->group->name}".".xlsx",ExcelExcel::XLSX);
+    }
 }

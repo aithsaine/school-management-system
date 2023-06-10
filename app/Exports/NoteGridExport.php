@@ -46,7 +46,7 @@ class NoteGridExport implements FromArray, WithHeadings, WithColumnWidths,  With
             ],
             [
                 'Module :',
-                "Projet De Stage"
+                $this->affectation->module->title
             ],
             [
                 "controle numero",

@@ -25,6 +25,8 @@ Route::controller(App\Http\Controllers\Api\Admin\AdminStudentController::class)-
     Route::get("/admin/students/filter", "filtreStudents");
     Route::patch("/admin/student/update", "update");
     Route::delete("/admin/student/{cin}/delete", "delete");
+    Route::get("admin/group/grid/{id}/download","grille");
+    Route::post("admin/students/import","import");
 });
 Route::controller(App\Http\Controllers\Api\AuthenticationController::class)->group(function () {
     Route::post("login", "login");

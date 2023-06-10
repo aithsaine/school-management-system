@@ -36,12 +36,8 @@ class StudentGridExport implements WithHeadings, WithColumnWidths,  WithStyles
 
             ],
             [
-                'Module :',
-                "Projet De Stage"
-            ],
-            [
                 "Group :",
-                $this->group->id
+                $this->group->name
 
             ],
             [
@@ -54,8 +50,8 @@ class StudentGridExport implements WithHeadings, WithColumnWidths,  WithStyles
             ],
             [
                 "cin",
-                "first_name",
-                "last_name",
+                "nom",
+                "prenom",
                 "gender",
                 "tele",
                 "adress",
@@ -97,35 +93,35 @@ class StudentGridExport implements WithHeadings, WithColumnWidths,  WithStyles
 
             // Styling a specific cell by coordinate.
 
-            "A7" => ['font' => ['italic' => true, "bold" => true], 'borders' => [
+            "A6" => ['font' => ['italic' => true, "bold" => true], 'borders' => [
                 'outline' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM],
                 'inside' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM],
             ]],
-            "B7" => ['font' => ['italic' => true, "bold" => true], 'borders' => [
+            "B6" => ['font' => ['italic' => true, "bold" => true], 'borders' => [
                 'outline' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM],
                 'inside' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM],
             ]],
-            "C7" => ['font' => ['italic' => true, "bold" => true], 'borders' => [
+            "C6" => ['font' => ['italic' => true, "bold" => true], 'borders' => [
                 'outline' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM],
                 'inside' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM],
             ]],
-            "D7" => ['font' => ['italic' => true, "bold" => true], 'borders' => [
+            "D6" => ['font' => ['italic' => true, "bold" => true], 'borders' => [
                 'outline' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM],
                 'inside' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM],
             ]],
-            "E7" => ['font' => ['italic' => true, "bold" => true], 'borders' => [
+            "E6" => ['font' => ['italic' => true, "bold" => true], 'borders' => [
                 'outline' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM],
                 'inside' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM],
             ]],
-            "F7" => ['font' => ['italic' => true, "bold" => true], 'borders' => [
+            "F6" => ['font' => ['italic' => true, "bold" => true], 'borders' => [
                 'outline' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM],
                 'inside' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM],
             ]],
-            "G7" => ['font' => ['italic' => true, "bold" => true], 'borders' => [
+            "G6" => ['font' => ['italic' => true, "bold" => true], 'borders' => [
                 'outline' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM],
                 'inside' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM],
             ]],
-            "A8:G33" => [
+            "A7:G31" => [
                 'borders' => [
                     'outline' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
                     'inside' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],

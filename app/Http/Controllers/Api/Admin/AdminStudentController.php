@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Group;
-use App\Models\Level;
 use App\Models\Branch;
 use App\Models\Student;
-use App\Models\Teacher;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\GroupResource;
-use App\Http\Resources\LevelResource;
-use App\Http\Resources\BranchResource;
-use App\Http\Resources\StudentResource;
-use App\Http\Resources\TeacherResource;
-use Carbon\Carbon;
+use App\Imports\StudentImport;
+use App\Exports\StudentGridExport;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
+
+use App\Http\Resources\StudentResource;
+
 use Illuminate\Validation\ValidationException;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx as ReaderXlsx;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class AdminStudentController extends Controller
 {
@@ -72,7 +73,7 @@ class AdminStudentController extends Controller
     public function filtreStudents(Request $request)
 
     {
-        
+
         $name = $request->query("name");
         $level = $request->query("level");
         $branch = $request->query("branch");
@@ -80,7 +81,7 @@ class AdminStudentController extends Controller
         $students = DB::table('students')
             ->leftJoin('groups', "students.group_id", '=', "groups.id")
             ->leftJoin('users', "students.user_id", "=", "users.id")
-            ->leftJoin("options","groups.option_id","=","options.id")
+            ->leftJoin("options", "groups.option_id", "=", "options.id")
             ->leftJoin("branches", "options.branch_id", "=", "branches.id")
             ->leftJoin("levels", "branches.level_id", "=", "levels.id")
             ->select("students.student_number as std_nbr");
@@ -128,7 +129,7 @@ class AdminStudentController extends Controller
             $user->save();
             $student->group_id = $request->group;
             $student->save();
-            return response()->json(['status' => 200,"students"=>StudentResource::collection(Student::orderBy("group_id")->get()), "message" => "le stagiaire est ajour avec success"]);
+            return response()->json(['status' => 200, "students" => StudentResource::collection(Student::orderBy("group_id")->get()), "message" => "le stagiaire est ajour avec success"]);
         }
     }
     public function delete($cin)
@@ -136,5 +137,21 @@ class AdminStudentController extends Controller
         $user = User::where("cin", $cin);
         $user->delete();
         return response()->json(['status' => 200, "students" => StudentResource::collection(Student::all()), "message" => "le stagiaire ete suprimé avec success"]);
+    }
+
+
+    public function grille($id)
+    {
+        $group = Group::find($id);
+    return Excel::download(new StudentGridExport($id), "Ajouter les Stagiaire au group " . $group->option->branch->name . " " . $group->name . ".xlsx");
+    }
+
+    public function import(Request $request)
+    {
+        $files = $request->excels;
+        foreach ($files as $file) {
+            Excel::import(new StudentImport, $file["path"]);
+        }
+        return response()->json(["message" => $file]);
     }
 }
