@@ -3,6 +3,7 @@ import { HiMenuAlt1, HiOutlineLogout } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
 import { RiSettings4Line, RiGroupLine } from "react-icons/ri";
 import { TbSchool } from "react-icons/tb";
+import { BiExport, BiImport } from "react-icons/bi";
 import {
   AiOutlineUser,
   AiOutlineTeam,
@@ -375,6 +376,7 @@ if(user&&user.role=="admin"){
                 </li>
                 <li className="flex align-center">
                   <Link
+                  to={"/admin/student/grilles"}
                     onClick={(e) => {
                       setOpen(false);
                       setisOpenSDP(false);
@@ -382,9 +384,23 @@ if(user&&user.role=="admin"){
                     className="group flex items-center text-sm gap-3.5 font-medium p-2 text-gray-300  hover:text-gray-100"
                     >
                     <div>
-                      {React.createElement(AiOutlineSearch, { size: "15" })}
+                      {React.createElement(BiExport, { size: "15" })}
                     </div>
-                    <h2>chercher Stagiaires</h2>{" "}
+                    <h2>Exporter grille</h2>{" "}
+                  </Link>
+                </li>
+                <li className="flex align-center">
+                  <Link
+                    onClick={(e) => {
+                      setOpen(false);
+                      setisOpenSDP(false);
+                    }}
+                    className="group flex items-center text-sm gap-3.5 font-medium p-2 text-gray-300  hover:text-gray-100"
+                    >
+                    <div>
+                      {React.createElement(BiImport, { size: "15" })}
+                    </div>
+                    <h2>Import Stagiaires</h2>{" "}
                   </Link>
                 </li>
               </ul>

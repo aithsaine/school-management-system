@@ -4,8 +4,13 @@ import {  PencilIcon, StopIcon } from '@heroicons/react/solid';
 import { MdOutlineDashboard } from "react-icons/md";
 import StatisticsCard from "../../tools/statistiqueCard";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 function AdminDashboard() {
   const {teachers,students,branches} = useSelector(state=>state)
+
+  useEffect(()=>{
+    document.title = "Admin - Dashboard"
+  })
   const statisticsCardsData = [
     {
       color:"bg-sky-400",

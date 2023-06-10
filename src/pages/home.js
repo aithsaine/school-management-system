@@ -1,8 +1,12 @@
 import React from "react";
 import "../assets/styles/landing.css";
 import hero from "../assets/pictures/ofppt1.jpg";
+import { useEffect } from "react";
 
 function Home() {
+  useEffect(()=>{
+    document.title = "Bienvenu a notre site web"
+  })
   return (
     <section className="">
       <div className="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">

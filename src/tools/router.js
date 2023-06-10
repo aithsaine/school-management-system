@@ -21,6 +21,7 @@ import TeacherDashboard from "../components/teacher/teacherDashboard";
 import TeacherProfile from "../components/teacher/profile";
 import TeacherModules from "../components/teacher/modules";
 import ExportGridNote from "../components/teacher/notes/exports";
+import ExportStudentGrille from "../components/admin/students/ExportGrille";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
       {
         path: "/admin/student/add",
         element: <AddStudent />,
+      },
+      {
+        path:"/admin/student/grilles",
+        element:<ExportStudentGrille/>,
       },
       {
         path: "/admin/branches",

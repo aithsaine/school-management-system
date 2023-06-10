@@ -13,6 +13,9 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   const [email, setEmail] = useState("");
+  useEffect(()=>{
+    document.title = "Acceder à votre compte"
+  })
   useEffect(() => {
     if (localStorage.getItem("isLogged")) {
       (async () => {

@@ -43,6 +43,9 @@ const [currentPage, setCurrentPage] = useState(1);
         Module
       </th>
       <th scope="col" className="p-1  ">
+        Controles
+      </th>
+      <th scope="col" className="p-1  ">
         Grille
       </th>
    
@@ -61,6 +64,9 @@ const [currentPage, setCurrentPage] = useState(1);
           </td>
           <td data-label="Module" className="p-1 ">
             {modules.find(elem=>elem.id==item.module).title}
+          </td>
+          <td data-label="nom complet" className="p-1 ">
+           <span className="bg-red-100 text-red-800">no control</span>
           </td>
           <td data-label="Telechager" className="p-1 ">
             <button
