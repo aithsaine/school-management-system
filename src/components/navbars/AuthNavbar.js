@@ -65,7 +65,7 @@ export default function AuthNavbar(props) {
               <li className="flex items-center">
                 <button onClick={LogoutHandel}>
                   <i className="fa fa-sign-out text-lg leading-lg " />
-                  <span className="lg:hidden inline-block ml-2">LogOut</span>
+                  <span className="lg:hidden inline-block ml-2">Logout</span>
                 </button>
               </li>
             </ul>
