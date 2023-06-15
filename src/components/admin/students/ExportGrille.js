@@ -25,13 +25,23 @@ const ExportStudentGrille = () => {
 
         window.location.href = `http://localhost:8000/api/admin/group/grid/${id}/download`
     }
-    const ImportHandel = ()=>{
+    const ImportHandel =async ()=>{
+      
+      
+        try {
+          const response = await api.post("api/admin/students/import", {data:files},{
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
+      
+          // Handle the response from the API
+          success_toast(response.data.message);
+        } catch (error) {
+          // Handle any errors
+          error_toast(error.response.data.message);
+        }
 
-        api.post("api/admin/students/import",{excels:files}).then(res=>{
-            success_toast(res.data.message);
-        }).catch(error=>{
-            error_toast("erreur")
-        })
 
     }
 
