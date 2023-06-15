@@ -26,7 +26,7 @@ class User extends Authenticatable
         "gender",
         "tele",
         "adress",
-        "bithday",
+        "birthday",
         "email",
         "password",
     ];

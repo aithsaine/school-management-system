@@ -1,37 +1,31 @@
 <?php
 namespace App\Imports;
 
-use App\Models\Group;
+use Carbon\Carbon;
 use App\Models\User;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Maatwebsite\Excel\Concerns\WithStartRow;
-use Maatwebsite\Excel\Concerns\OnEachRow;
-use Maatwebsite\Excel\Row;
+use Maatwebsite\Excel\Concerns\WithMappedCells;
+use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithValidation;
+use Maatwebsite\Excel\HeadingRowImport;
 
-class StudentImport implements ToModel, WithCalculatedFormulas, WithHeadingRow
+class StudentImport  implements ToModel,WithHeadingRow
 {
-
+   
+    public function headingRow(): int
+    {
+        return 5;
+    }
+  
     public function model(array $row)
     {
-
-            return new User([
-                "first_name"=>$row["nom"],
-                "last_name"=>$row["prenom"],
-                'gender' => $row['gender'],
-                'tele' => $row['tele'],
-                "email"=>$row["nom"]."@test.mail",
-                "password"=>"test",
-                'address' => $row['address'],
-                'birthday' => $row['birthday'],
-                
-            ]);
+        //   return User::create([
+        //     "cin"=>""
+        //   ]);
+        print_r($row);
         
-
-        // Group not found, you can handle this case accordingly
-        // For example, skip the row or throw an exception
-        return null;
     }
 
     

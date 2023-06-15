@@ -148,10 +148,14 @@ class AdminStudentController extends Controller
 
     public function import(Request $request)
     {
-        $files = $request->excels;
-        foreach ($files as $file) {
-            Excel::import(new StudentImport, $file["path"]);
+        $files = $request->data;
+        if(count($files)==0){
+        return response()->json(["message" => "no file selected"],401);
+
         }
-        return response()->json(["message" => $file]);
+        foreach ($files as $file) {
+            Excel::import(new StudentImport, $file);
+        }
+        return response()->json(["message" => "success"]);
     }
 }

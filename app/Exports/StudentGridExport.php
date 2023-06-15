@@ -5,7 +5,6 @@ namespace App\Exports;
 use App\Models\Group;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
@@ -55,7 +54,7 @@ class StudentGridExport implements WithHeadings, WithColumnWidths,  WithStyles
                 "gender",
                 "tele",
                 "adress",
-                "bithday"
+                "birthday"
             ],
 
         ];
