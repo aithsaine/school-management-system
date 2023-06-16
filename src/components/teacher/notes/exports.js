@@ -2,21 +2,51 @@ import React,{useState  } from "react";
 import Card from "../../card";
 import { AiOutlineUser } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import { FcDownload } from "react-icons/fc";
+import { FcBookmark, FcDownload, FcTrademark } from "react-icons/fc";
 import api from "../../../tools/api"
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 const PER_PAGE = 10;
 
 export default function ExportGridNote() {
-    const {user,assignements,groups,options,branches,levels,modules} = useSelector(state=>state);
-   
-
+  const {user,assignements,groups,options,branches,levels,modules} = useSelector(state=>state);
+  
+  const navigate = useNavigate()
+  
 const downloadHandel = (id,nbr)=>{
   
        window.location.href = `http://localhost:8000/api/teacher/note/grille/download/${id}/${nbr}`
 }
 const [currentPage, setCurrentPage] = useState(1);
 
+const goHandel = (item) => {
+  swal({
+    title: "Are you sure?",
+    text: "Once deleted, you will not be able to recover this imaginary file!",
+    icon: "warning",
+    buttons: true,
+    warningmode: true,
+  }).then((willDelete) => {
+    if (willDelete) {
+      if(item.status=="not started")
+      {
+        swal("ce module pas en cours commances", {
+          icon: "error",
+        })
+      }
+      else if(item.status=="finished")
+      {
+        swal("ce module est terminer", {
+          icon: "error",
+        })
+      }
+      else{
 
+        navigate(`/formateur/note/add/${item.id}`)
+      }
+    }
+  });
+};
 
   const pages = Math.ceil(assignements.length / PER_PAGE);
   const startIndex = (currentPage - 1) * PER_PAGE;
@@ -66,13 +96,25 @@ const [currentPage, setCurrentPage] = useState(1);
             {modules.find(elem=>elem.id==item.module).title}
           </td>
           <td data-label="nom complet" className="p-1 ">
-           <span className="bg-red-100 text-red-800">no control</span>
+          {item.notes.length==0? <span className="bg-red-100 text-red-800">no control</span>:(
+            item.notes.map(elem=>{
+              return<button className="bg-green-100 m-1 text-green-800">C {elem}</button>
+            })
+          )}
           </td>
           <td data-label="Telechager" className="p-1 ">
+            <div className="flex">
+
             <button
             onClick={e=>downloadHandel(item.id,item.notes+1)}>
                 {React.createElement(FcDownload,{size:"20"})}
             </button>
+            <button
+            onClick={e=>goHandel(item)}
+            >
+                {React.createElement(FcBookmark,{size:"20"})}
+            </button>
+              </div>
           </td>
         
       

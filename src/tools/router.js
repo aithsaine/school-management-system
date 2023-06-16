@@ -22,6 +22,7 @@ import TeacherProfile from "../components/teacher/profile";
 import TeacherModules from "../components/teacher/modules";
 import ExportGridNote from "../components/teacher/notes/exports";
 import ExportStudentGrille from "../components/admin/students/ExportGrille";
+import AddNote from "../components/teacher/notes/Add";
 
 const router = createBrowserRouter([
   {
@@ -117,6 +118,9 @@ const router = createBrowserRouter([
       {
         path:"/formateur/notes/grille",
         element:<ExportGridNote/>
+      },{
+        path:"/formateur/note/add/:id",
+        element:<AddNote/>
       }
     ]
   },
