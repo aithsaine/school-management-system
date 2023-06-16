@@ -8,6 +8,7 @@ use App\Http\Resources\BranchResource;
 use App\Http\Resources\GroupResource;
 use App\Http\Resources\LevelResource;
 use App\Http\Resources\ModuleResource;
+use App\Http\Resources\NoteResource;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\StudentResource;
 use App\Models\Affectation;
@@ -18,7 +19,7 @@ use App\Models\Module;
 use App\Models\Option;
 use App\Models\Student;
 use App\Models\Teacher;
-
+use Illuminate\Support\Facades\DB;
 
 class TeacherController extends Controller
 {
@@ -37,6 +38,7 @@ class TeacherController extends Controller
         $levels = LevelResource::collection(Level::all());
         $teacher = Teacher::where("user_id",$id)->first();
         $assignements = AffectationResource::collection(Affectation::where("teacher_id",$teacher->id)->get());
+       $notes = NoteResource::collection( DB::table("notes")->leftJoin("affectations","notes.affectation_id","=","affectations.id")->leftJoin("teachers","affectations.teacher_id","=","teachers.id")->where("affectations.teacher_id",$teacher->id)->select("notes.affectation_id","notes.student_id","notes.note","notes.control_number")->get());
         return response()->json([
             "students" => $students,
             "branches" => $branches,
@@ -45,7 +47,8 @@ class TeacherController extends Controller
             "groups" => $groups,
             "options"=>$options,
             "modules"=>$modules,
-            "assignements"=>$assignements
+            "assignements"=>$assignements,
+            "notes"=>$notes
         ]);
     }
 }
