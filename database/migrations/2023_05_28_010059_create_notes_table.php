@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger("student_id");
             $table->unsignedBigInteger("affectation_id");
             $table->float("note");
+            $table->integer("control_number");
             $table->foreign("student_id")->references("id")->on("students");
             $table->foreign("affectation_id")->references("id")->on("affectations");
             $table->timestamps();

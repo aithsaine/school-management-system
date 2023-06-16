@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Note extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        "student_id",
+        "affectation_id",
+        "note",
+        "control_number"
+    ];
     public function affectation()
     {
         return $this->belongsTo(Affectation::class);

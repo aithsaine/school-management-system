@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Note;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -20,7 +21,7 @@ class AffectationResource extends JsonResource
             "group"=>$this->group_id,
             "module"=>$this->module_id, 
             "status"=>$this->status,
-            "notes"=>$this->notes->count()
+            "notes"=>array_map(fn($item)=>$item->control_number,Note::where("affectation_id",$this->id)->get(["control_number"])->unique('control_number')->values()->all())
         ];
     }
 }

@@ -64,10 +64,9 @@ Route::controller(App\Http\Controllers\Api\Teacher\TeacherModulesController::cla
     Route::patch("teacher/module/start","start_module");
     Route::patch("teacher/module/end","end_module");
 });
-
-
 Route::controller(App\Http\Controllers\Api\Teacher\TeacherNoteController::class)->group(function()
 {
     Route::get("/teacher/note/grille/download/{id}/{nbr}","grille");
+    Route::post("/teacher/note/store","store");
 });
 
