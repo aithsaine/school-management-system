@@ -4,6 +4,7 @@ import api from "../tools/api";
 import router from "../tools/router";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../tools/loader";
+import "../assets/styles/main.css"
 import {
   set_info,
   set_teacher,

@@ -2,14 +2,13 @@ import React,{useState  } from "react";
 import Card from "../../card";
 import { AiOutlineUser } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import { FcBookmark, FcDownload, FcTrademark } from "react-icons/fc";
-import api from "../../../tools/api"
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { FcBookmark, FcDownload, } from "react-icons/fc";
+import {  Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 const PER_PAGE = 10;
 
 export default function ExportGridNote() {
-  const {user,assignements,groups,options,branches,levels,modules} = useSelector(state=>state);
+  const {assignements,groups,options,branches,levels,modules} = useSelector(state=>state);
   
   const navigate = useNavigate()
   
@@ -98,7 +97,7 @@ const goHandel = (item) => {
           <td data-label="nom complet" className="p-1 ">
           {item.notes.length==0? <span className="bg-red-100 text-red-800">no control</span>:(
             item.notes.map(elem=>{
-              return<button className="bg-green-100 m-1 text-green-800">C {elem}</button>
+              return<Link to={`/formateur/note/ByGroup/${item.id}/${elem}`} className="bg-green-100 m-1 text-green-800">C {elem}</Link>
             })
           )}
           </td>
@@ -115,9 +114,7 @@ const goHandel = (item) => {
                 {React.createElement(FcBookmark,{size:"20"})}
             </button>
               </div>
-          </td>
-        
-      
+          </td>      
         </tr>
       );
     })}

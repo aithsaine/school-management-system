@@ -180,12 +180,14 @@ export default function TeacherModules() {
                           <div className="w-full lg:text-center">
                             {element.status=="not started"?
                              <button 
-                             className="icon-start bg-green-800"
+                             style={{width:"90px"}}
+                             className="icon-start"
                              onClick={e=>start_module(element.id,element.group)}
                              >
-                              <i className="fas fa-star"></i> Lancer
+                              {/* <i className="fas fa-star"></i>*/  }Commancer
                             </button> : (element.status=="started"?
                             <button 
+                            style={{width:"90px"}}
                             className="icon-end bg-red-800"
                             onClick={e=>end_module(element.id)}
                             >

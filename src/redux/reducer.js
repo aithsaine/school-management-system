@@ -6,6 +6,7 @@ import {
   SET_INFO,
   SET_LEVELS,
   SET_MODULES,
+  SET_NOTE,
   SET_STUDENTS,
   SET_TEACHER,
   SET_TEACHERS,
@@ -22,6 +23,7 @@ const reducer = (
     modules: [],
     assignements: [],
     teacher: {},
+    notes: [],
   },
   action
 ) => {
@@ -33,12 +35,13 @@ const reducer = (
         ...state,
         branches: action.payload.branches,
         levels: action.payload.levels,
-        teachers: action.payload.teachers??[],
+        teachers: action.payload.teachers ?? [],
         groups: action.payload.groups,
         students: action.payload.students,
         options: action.payload.options,
         modules: action.payload.modules,
         assignements: action.payload.assignements,
+        notes: action.payload.notes,
       };
     case SET_STUDENTS:
       return { ...state, students: action.payload };
@@ -54,10 +57,12 @@ const reducer = (
       return { ...state, modules: action.payload };
     case SET_ASSIGNEMENT:
       return { ...state, assignements: action.payload };
-      case SET_TEACHER:
-        return { ...state, teacher: action.payload };
+    case SET_TEACHER:
+      return { ...state, teacher: action.payload };
     case SET_LEVELS:
       return { ...state, levels: action.payload };
+    case SET_NOTE:
+      return { ...state, notes: action.payload };
     default:
       return { ...state };
   }

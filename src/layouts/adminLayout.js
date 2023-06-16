@@ -4,6 +4,8 @@ import { MdOutlineDashboard } from "react-icons/md";
 import { RiSettings4Line, RiGroupLine } from "react-icons/ri";
 import { TbSchool } from "react-icons/tb";
 import { BiExport, BiImport } from "react-icons/bi";
+import "../assets/styles/main.css"
+
 import {
   AiOutlineUser,
   AiOutlineTeam,

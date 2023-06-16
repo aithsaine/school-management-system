@@ -6,6 +6,7 @@ import {
   SET_INFO,
   SET_LEVELS,
   SET_MODULES,
+  SET_NOTE,
   SET_STUDENTS,
   SET_TEACHER,
   SET_TEACHERS,
@@ -78,6 +79,13 @@ export const set_teacher = (data)=>{
 export const set_levels = (data)=>{
   return {
     type:SET_LEVELS,
+    payload:data
+  }
+}
+
+export const set_notes = (data)=>{
+  return{
+    type:SET_NOTE,
     payload:data
   }
 }
