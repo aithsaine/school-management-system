@@ -6,7 +6,7 @@ import StatisticsCard from "../../tools/statistiqueCard";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 function AdminDashboard() {
-  const {teachers,students,branches} = useSelector(state=>state)
+  const {teachers,students,branches,options} = useSelector(state=>state)
 
   useEffect(()=>{
     document.title = "Admin - Dashboard"
@@ -39,15 +39,15 @@ function AdminDashboard() {
     {
       color:"bg-indigo-400",
       icon: <PencilIcon className="w-6 h-6 text-white" />,
-      title: 'New Clients',
-      value: 3462,
+      title: 'Branches',
+      value: branches.length,
      
     },
     {
       color:"bg-green-400",
       icon: <StopIcon className="w-6 h-6 text-white" />,
-      title: 'Sales',
-      value: '$103,430',
+      title: 'Options',
+      value: options.length,
    
     },
   ];
