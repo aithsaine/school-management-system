@@ -16,9 +16,7 @@ export default function ListNote() {
 
 
 
-
-    return (
-        assignement &&
+    return (assignement&&
         <Card
             title={`les note du controle numero ${control_nbr}`}
             icon={FcSurvey}
@@ -155,5 +153,4 @@ export default function ListNote() {
         </Card>)
 
 
-
-}
+                    }

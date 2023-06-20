@@ -224,6 +224,7 @@ if(user&&user.role==="teacher")
                 </li>
                 <li className="flex align-center">
                   <Link
+                  to={"/formateur/note/ByStudent"}
                     onClick={(e) => {
                       setOpen(false);
                       setisOpenNDP(false);
@@ -233,7 +234,7 @@ if(user&&user.role==="teacher")
                     <div>
                       {/* {React.createElement(AiOutlineSearch, { size: "15" })} */}
                     </div>
-                    <h2>Suiver les note</h2>{" "}
+                    <h2>Suivre les Note par stagiaire</h2>{" "}
                   </Link>
                 </li>
               </ul>
@@ -304,4 +305,7 @@ if(user&&user.role==="teacher")
       <Footer />
     </>
   );
+  else{
+    return <Loading />;
+  }
 }

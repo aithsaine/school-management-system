@@ -95,11 +95,13 @@ const goHandel = (item) => {
             {modules.find(elem=>elem.id==item.module).title}
           </td>
           <td data-label="nom complet" className="p-1 ">
+            <div className="flex flex-wrap">
           {item.notes.length==0? <span className="bg-red-100 text-red-800">no control</span>:(
             item.notes.map(elem=>{
-              return<Link to={`/formateur/note/ByGroup/${item.id}/${elem}`} className="bg-green-100 m-1 text-green-800">C {elem}</Link>
+              return<Link  to={`/formateur/note/ByGroup/${item.id}/${elem}`} className="bg-green-100 m-1  text-green-800">{"C"+elem}</Link>
             })
-          )}
+            )}
+            </div>
           </td>
           <td data-label="Telechager" className="p-1 ">
             <div className="flex">
