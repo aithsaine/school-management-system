@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AbsenceResource;
 use App\Http\Resources\AffectationResource;
 use App\Http\Resources\BranchResource;
 use App\Http\Resources\GroupResource;
@@ -11,6 +12,7 @@ use App\Http\Resources\ModuleResource;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\StudentResource;
 use App\Http\Resources\TeacherResource;
+use App\Models\Absence;
 use App\Models\Affectation;
 use App\Models\Branch;
 use App\Models\Group;
@@ -19,7 +21,6 @@ use App\Models\Module;
 use App\Models\Option;
 use App\Models\Student;
 use App\Models\Teacher;
-use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -38,6 +39,7 @@ class AdminController extends Controller
         $teachers =  TeacherResource::collection(Teacher::all());
         $modules = ModuleResource::collection(Module::all());
         $assignements = AffectationResource::collection(Affectation::orderBy("group_id")->get());
+        $absences = AbsenceResource::collection(Absence::all());
         return response()->json([
             "students" => $students,
             "branches" => $branches,
@@ -46,7 +48,8 @@ class AdminController extends Controller
             "groups" => $groups,
             "options"=>$options,
             "modules"=>$modules,
-            "assignements"=>$assignements
+            "assignements"=>$assignements,
+            "absences"=>$absences
         ]);
     }
 }

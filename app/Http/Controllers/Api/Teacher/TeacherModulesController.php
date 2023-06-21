@@ -11,6 +11,10 @@ use Illuminate\Http\Request;
 class TeacherModulesController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware(["auth:sanctum","teacher"]);
+    }
 
     public function start_module(Request $request){
         $request->validate([

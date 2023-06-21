@@ -19,6 +19,10 @@ class Student extends Model
     {
         return $this->belongsTo(Level::class);
     }
+    public function absences()
+    {
+        return $this->hasMany(Absence::class);
+    }
     public function group()
     {
         return $this->belongsTo(Group::class);

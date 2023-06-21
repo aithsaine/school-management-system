@@ -15,7 +15,10 @@ use Maatwebsite\Excel\Facades\Excel;
 class TeacherNoteController extends Controller
 {
     //
-
+    public function __construct()
+    {
+        $this->middleware(["auth:sanctum","teacher"]);
+    }
     function grille($id, $nbr)
     {
         $aff = Affectation::find($id);
