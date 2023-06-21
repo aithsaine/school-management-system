@@ -19,7 +19,7 @@ import {
 const PER_PAGE = 10;
 
 export default function Branches() {
-  const { branches, levels, groups } = useSelector((state) => state);
+  const { branches, levels, groups,options } = useSelector((state) => state);
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const onClose = (item) => {
@@ -117,7 +117,7 @@ export default function Branches() {
                     </td>
 
                     <td data-label="nom complet" className="p-1 ">
-                      {groups.filter(elem => elem.branch == item.id).length}
+                      {groups.filter(elem => options.filter(elem1=>elem1.branch==item.id).map(element=>element.id).includes(elem.option)).length}
                     </td>
 
                     <td data-label="nom complet" className="p-1 ">

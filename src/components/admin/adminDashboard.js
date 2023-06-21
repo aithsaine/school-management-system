@@ -5,7 +5,12 @@ import { MdOutlineDashboard } from "react-icons/md";
 import StatisticsCard from "../../tools/statistiqueCard";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import GroupsChart from "./groupsChart";
+
+
 function AdminDashboard() {
+  
+
   const {teachers,students,branches,options} = useSelector(state=>state)
 
   useEffect(()=>{
@@ -65,7 +70,14 @@ function AdminDashboard() {
           footer={footer}
         />
       ))}
-    </div>      
+    </div>   
+    <br />
+    <hr className="m-2" />
+<br />
+    <div>
+    <GroupsChart/> 
+    </div>
+
     </Card>
     </>
   );

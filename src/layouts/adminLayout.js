@@ -3,7 +3,7 @@ import { HiMenuAlt1, HiOutlineLogout } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
 import { RiSettings4Line, RiGroupLine } from "react-icons/ri";
 import { TbSchool } from "react-icons/tb";
-import { BiExport, BiImport } from "react-icons/bi";
+import { BiExport, BiImport,BiDoorOpen } from "react-icons/bi";
 import "../assets/styles/main.css"
 
 import {
@@ -23,7 +23,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Loading from "../tools/loader";
 import AuthNavbar from "../components/navbars/AuthNavbar";
 import Footer from "../components/footer";
-
 const AdminLayout = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
@@ -150,6 +149,37 @@ if(user&&user.role=="admin"){
                 </h2>
               </Link>
             ))}
+
+
+              {/* Absence Item in Menu */}
+              <Link
+              to={"/admin/absences"}
+              onClick={(e) => {
+                setOpen(false);
+                setisOpenSDP(false);
+                setisOpenTDP(false);
+              }}
+              className={` group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
+            >
+              <div>
+                {React.createElement(BiDoorOpen, { size: "20" })}
+              </div>
+              <h2
+                style={{
+                  transitionDelay: `900ms`,
+                }}
+                className={`whitespace-pre duration-500 ${!open && "opacity-0 translate-x-28 overflow-hidden"
+                  }`}
+              >
+                Absences
+              </h2>
+              <h2
+                className={`${open && "hidden"
+                  } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
+                  >
+                Absences
+              </h2>
+            </Link>
 
             {/* Branches Item in Menu */}
             <Link

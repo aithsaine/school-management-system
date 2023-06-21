@@ -24,6 +24,7 @@ const reducer = (
     assignements: [],
     teacher: {},
     notes: [],
+    absences:[]
   },
   action
 ) => {
@@ -42,6 +43,7 @@ const reducer = (
         modules: action.payload.modules,
         assignements: action.payload.assignements,
         notes: action.payload.notes,
+        absences:action.payload.absences
       };
     case SET_STUDENTS:
       return { ...state, students: action.payload };
