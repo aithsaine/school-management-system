@@ -70,3 +70,7 @@ Route::controller(App\Http\Controllers\Api\Teacher\TeacherNoteController::class)
     Route::post("/teacher/note/store","store");
 });
 
+Route::controller(App\Http\Controllers\Api\Student\StudentController::class)->group(function()
+{
+  Route::get("student/{id}/info","info");
+});
