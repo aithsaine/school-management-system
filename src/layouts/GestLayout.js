@@ -9,12 +9,11 @@ import AuthNavbar from "../components/navbars/AuthNavbar";
 import GestNavbar from "../components/navbars/GestNavbar";
 
 function GestLayout() {
-  const [navbar, setNavbar] = useState(<GestNavbar />);
+  const [navbar, setNavbar] = useState();
   const [isLoading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (localStorage.getItem("isLogged")) {
       (async() => {
        await api
           .get("/api/user")
@@ -23,28 +22,34 @@ function GestLayout() {
               dispatch(set_user(res.data.data));
               setNavbar(<AuthNavbar role={res.data.data.role} />);
             }
+            else{
+              setNavbar(<GestNavbar/>)
+            }
           })
-          .catch((error) => {});
+          .catch((error) => {
+            setNavbar(<GestNavbar/>)
+          });
       })();
-    }
+    
   }, []);
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, []);
-  if (isLoading) {
-    return <Loading />;
-  }
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setLoading(false);
+  //   }, 1000);
+  //   return () => clearTimeout(timer);
+  // }, []);
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
   return (
+    navbar?
     <div className="h-screen flex flex-col justify-between  ">
       {navbar}
       <div className=" ">
         <Outlet />;
       </div>
       <Footer />
-    </div>
+    </div>:<Loading />
   );
 }
 export default GestLayout;

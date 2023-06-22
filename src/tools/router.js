@@ -26,6 +26,7 @@ import AddNote from "../components/teacher/notes/Add";
 import ListNote from "../components/teacher/notes/list";
 import ShowNotesByStagiaire from "../components/teacher/notes/showByStagiaire";
 import StudentNotes from "../components/student/notes";
+import StudentProfile from "../components/student/profile";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path:"/student/notes",
         element:<StudentNotes/>
+      },
+      {
+        path:"/student/profile",
+        element:<StudentProfile/>
       }
     ],
   },

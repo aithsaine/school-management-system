@@ -4,11 +4,11 @@ import "react-spinner-animated/dist/index.css";
 
 const Loading = () => {
   return (
-    <DoubleBubble
+    <HalfMalf
       text={"Loading..."}
       bgColor={"#ffffff"}
       center={true}
-      width={"150px"}
+      width={"100px"}
       height={"150px"}
     />
   );

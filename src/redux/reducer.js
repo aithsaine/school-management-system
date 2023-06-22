@@ -26,7 +26,6 @@ const reducer = (
     teacher: {},
     notes: [],
     absences:[],
-    student:{}
   },
   action
 ) => {

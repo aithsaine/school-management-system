@@ -96,9 +96,9 @@ const AdminLayout = () => {
 
 
 
-if(user&&user.role=="admin"){
 
   return (
+    user&&user.role=="admin"?
     <>
       <AuthNavbar role={localStorage.getItem("role")} />
 
@@ -469,12 +469,10 @@ if(user&&user.role=="admin"){
       </section>
       <Footer/>
 
-    </>
+    </>:<Loading />
   );
-}
-else{
-  return <Loading />;
-}
+
+
 };
 
 export default AdminLayout;

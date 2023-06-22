@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 export default function TeacherProfile() {
-    const {user,assignements,groups,options,teacher,branches} = useSelector(state=>state);
+    const {user,assignements,groups,options,branches} = useSelector(state=>state);
    
 
     const UniqueGroups = [...new Map(assignements.map(v => [v.group, v])).values()]

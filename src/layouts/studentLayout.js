@@ -18,11 +18,11 @@ export default function StudentLayout() {
   const [navbar, setNavbar] = useState(<GestNavbar />);
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(true);
-  const { user } = useSelector(state => state)
+  const { user,student } = useSelector(state => state)
   const [open, setOpen] = useState(false);
   const menus = [
-    { name: "dashboard", link: "/student", icon: MdOutlineDashboard },
-    { name: "my profile", link: "/student/profile", icon: AiOutlineUser },
+    { name: "Tableau de bord", link: "/student", icon: MdOutlineDashboard },
+    { name: "Mon profile", link: "/student/profile", icon: AiOutlineUser },
   ];
 
   const LogoutHandel = async (e) => {
@@ -80,8 +80,9 @@ export default function StudentLayout() {
     return <Loading />;
   }
 
-  if (user && user.role === "student")
+  // if (user && user.role === "student")
     return (
+      student?
       <>
         {navbar}
 
@@ -189,9 +190,9 @@ export default function StudentLayout() {
           </div>
         </section>
         <Footer />
-      </>
+      </>:<Loading />
     );
-  else {
-    return <Loading />;
-  }
+  // else {
+  //   return <Loading />;
+  // }
 }
