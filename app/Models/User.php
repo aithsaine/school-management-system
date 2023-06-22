@@ -51,15 +51,15 @@ class User extends Authenticatable
     ];
     public function admin()
     {
-        return $this->belongsTo(Admin::class);
+        return $this->hasOne(Admin::class);
     }
     public function student()
     {
-        return $this->belongsTo(Student::class);
+        return $this->hasOne(Student::class);
     }
     public function teacher ()
     {
-        return $this->belongsTo(Teacher::class);
+        return $this->hasOne(Teacher::class);
     }
     public static function validate(Request $request)
     {
