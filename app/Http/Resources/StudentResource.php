@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Admin;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -25,6 +26,7 @@ class StudentResource extends JsonResource
             "adress" => $this->user->adress,
             "gender" => $this->user->gender,
             "birthday" => $this->user->birthday,
+            "hiring_date"=>Carbon::parse($this->user->created_at)->format("F Y"),
             "tele" => $this->user->tele,
             "email" => $this->user->email,
             "role" => "student",
