@@ -7,6 +7,7 @@ import {
   SET_LEVELS,
   SET_MODULES,
   SET_NOTE,
+  SET_STUDENT,
   SET_STUDENTS,
   SET_TEACHER,
   SET_TEACHERS,
@@ -86,6 +87,13 @@ export const set_levels = (data)=>{
 export const set_notes = (data)=>{
   return{
     type:SET_NOTE,
+    payload:data
+  }
+}
+
+export const set_student = (data)=>{
+  return{
+    type:SET_STUDENT,
     payload:data
   }
 }

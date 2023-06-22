@@ -25,6 +25,7 @@ import ExportStudentGrille from "../components/admin/students/ExportGrille";
 import AddNote from "../components/teacher/notes/Add";
 import ListNote from "../components/teacher/notes/list";
 import ShowNotesByStagiaire from "../components/teacher/notes/showByStagiaire";
+import StudentNotes from "../components/student/notes";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
         path: "/student/",
         element: <StudentDahsboard />,
       },
+      {
+        path:"/student/notes",
+        element:<StudentNotes/>
+      }
     ],
   },
   {

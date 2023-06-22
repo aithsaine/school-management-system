@@ -53,11 +53,6 @@ export default function TeacherLayout() {
                   .get(`api/teacher/${res.data.data.id}/info`)
                   .then((result) => {
                     if (result) {
-                      // dispatch(set_students(result.data.students))
-                      // dispatch(set_assignement(result.data.assignements))
-                      // dispatch(set_modules(result.data.modules))
-                      // dispatch(set_groups(result.data.groups))
-                      // dispatch(set_levels(result.data.levels))
                       dispatch(set_info(result.data));
                       dispatch(set_teacher(result.data.teacher));
                     }

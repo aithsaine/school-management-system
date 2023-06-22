@@ -7,6 +7,7 @@ import {
   SET_LEVELS,
   SET_MODULES,
   SET_NOTE,
+  SET_STUDENT,
   SET_STUDENTS,
   SET_TEACHER,
   SET_TEACHERS,
@@ -24,7 +25,8 @@ const reducer = (
     assignements: [],
     teacher: {},
     notes: [],
-    absences:[]
+    absences:[],
+    student:{}
   },
   action
 ) => {
@@ -65,6 +67,8 @@ const reducer = (
       return { ...state, levels: action.payload };
     case SET_NOTE:
       return { ...state, notes: action.payload };
+    case SET_STUDENT:
+      return {...state, student:action.payload}
     default:
       return { ...state };
   }

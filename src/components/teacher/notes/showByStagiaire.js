@@ -16,9 +16,6 @@ export default function ShowNotesByStagiaire() {
     const [option, setOption] = useState("")
     const [group, setGroup] = useState("")
     const [maxControl, setMaxControl] = useState(1)
-
-    const [uniqueAssignements, setUniqueAssignements] = useState([])
-
     useEffect(() => {
         setUniqueGroups([...new Map(assignements.map(item => [item['group'], item])).values()])
         setAvailableBranches(uniqueGroups)
