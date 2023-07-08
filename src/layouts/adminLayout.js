@@ -438,7 +438,8 @@ const AdminLayout = () => {
               </ul>
             )}
             {/* LogOut Item in Menu */}
-            <button
+            <a
+            href="/"
               onClick={LogoutHandel}
               className={` group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
             >
@@ -458,7 +459,7 @@ const AdminLayout = () => {
               >
                 logout
               </h2>
-            </button>
+            </a>
           </div>
         </div>
         <div
