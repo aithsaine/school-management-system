@@ -1,0 +1,7 @@
+packages : 
+    ->tailwindcss
+    ->react-router-dom
+    ->axios
+    ->redux
+    ->react-redux
+    ->react-toastify

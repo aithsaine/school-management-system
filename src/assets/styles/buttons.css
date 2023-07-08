@@ -1,0 +1,23 @@
+.icon-start {
+  padding: 10px;
+  border: none;
+  color: #ffffff;
+  font-size: 11px;
+  background-color: rgb(42, 129, 42);
+  border-radius: 10px;
+
+}
+
+.icon-button i {
+  margin-right: 4px;
+  border-radius: 10px;
+}
+
+.icon-end {
+  padding: 10px;
+  border: none;
+  color: #ffffff;
+  border-radius: 10px;
+
+  font-size: 11px;
+}
